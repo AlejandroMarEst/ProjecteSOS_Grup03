@@ -20,6 +20,7 @@ namespace ProjecteSOS_Grup03WebPage.Pages
         {
             if (!ModelState.IsValid)
                 return Page();
+
             try
             {
                 var client = _httpClient.CreateClient("SosApi");

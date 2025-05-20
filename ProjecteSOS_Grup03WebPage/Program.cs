@@ -8,11 +8,15 @@ await Task.Delay(3000);
 builder.Services.AddRazorPages();
 
 string apiBaseUrl = builder.Configuration["ApiSettings:BaseUrl"] ?? throw new InvalidOperationException("API not found");
+int apiTimeout = int.Parse(builder.Configuration["ApiSettings:TimeoutSeconds"]);
 
-builder.Services.AddHttpClient("GameApi", client =>
+builder.Services.AddHttpClient("SosApi", client =>
 {
     client.BaseAddress = new Uri(apiBaseUrl);
+    client.Timeout = TimeSpan.FromSeconds(apiTimeout);
 });
+
+builder.Services.AddSession();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(options =>
@@ -20,7 +24,9 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
                 options.LoginPath = "/Login";
                 options.AccessDeniedPath = "/AccessDenied";
             });
-builder.Services.AddSession();
+
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -40,6 +46,7 @@ app.UseSession();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
