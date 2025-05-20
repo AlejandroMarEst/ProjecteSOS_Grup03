@@ -101,7 +101,7 @@ namespace ProjecteSOS_Grup03API.Controllers
             return Ok(token);
         }
         [Authorize]
-        [HttpPost("updatePhone")]
+        [HttpPatch("updatePhone")]
         public async Task<IActionResult> Update(string phone) //Cambiar a usar BBDD
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
@@ -115,7 +115,7 @@ namespace ProjecteSOS_Grup03API.Controllers
             return BadRequest();
         }
         [Authorize]
-        [HttpPost("updatePassword")]
+        [HttpPatch("updatePassword")]
         public async Task<IActionResult> UpdatePassword(string oldPasswd, string newPasswd)
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
