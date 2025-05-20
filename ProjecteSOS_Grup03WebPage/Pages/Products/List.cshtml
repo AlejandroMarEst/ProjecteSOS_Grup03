@@ -1,0 +1,41 @@
+﻿@page
+@model ProjecteSOS_Grup03WebPage.Pages.Products.ProductsListModel
+@{
+    ViewData["Title"] = "Productes";
+}
+
+<h2>Productes</h2>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+
+@if (Model.Products.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Descripció</th>
+                <th>Imatge</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var prod in Model.Products)
+            {
+                <tr>
+                    <td>@prod.Name</td>
+                    <td>@prod.Description</td>
+                    <td>@prod.Image</td>
+                    <td>@prod.Price</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-danger">No hi ha productes</div>
+}
