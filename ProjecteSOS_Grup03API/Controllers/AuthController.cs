@@ -51,7 +51,7 @@ namespace ProjecteSOS_Grup03API.Controllers
             var roleResult = new IdentityResult();
             if (result.Succeeded)
             {
-                roleResult = await _userManager.AddToRoleAsync(user, "Worker");
+                roleResult = await _userManager.AddToRoleAsync(user, "Employee");
             }
             if (result.Succeeded && roleResult.Succeeded)
             {
