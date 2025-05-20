@@ -1,0 +1,27 @@
+﻿@page
+@model ProjecteSOS_Grup03WebPage.Pages.LoginModel
+@{
+	ViewData["Title"] = "Login";
+}
+
+<h2>Inici de sessió</h2>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger mt-2">@Model.ErrorMessage</div>
+}
+
+<form method="post">
+    <div asp-validation-summary="All"></div>
+    <div class="mb-3">
+        <label asp-for="Login.Email"></label>
+        <input asp-for="Login.Email" class="form-control" />
+        <span asp-validation-for="Login.Email" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Login.Password">Contrasenya</label>
+        <input asp-for="Login.Password" class="form-control" type="password" />
+        <span asp-validation-for="Login.Password" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Entrar</button>
+</form>
