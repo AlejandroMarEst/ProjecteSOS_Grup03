@@ -13,6 +13,8 @@ namespace ProjecteSOS_Grup03API.Models
 
         public string Description { get; set; }
 
+        public string Image { get; set; }
+
         public int Stock { get; set; }
 
         public double Price { get; set; }
