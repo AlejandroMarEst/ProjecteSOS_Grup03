@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using ProjecteSOS_Grup03API.Data;
 using ProjecteSOS_Grup03API.Models;
 using Microsoft.OpenApi.Models;
+using ProjecteSOS_Grup03API.Tools;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -89,6 +90,12 @@ builder.Services.AddSwaggerGen(opt =>
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    await Seeder.CreateInitialRoles(services);
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
