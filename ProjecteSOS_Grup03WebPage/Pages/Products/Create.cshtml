@@ -1,0 +1,22 @@
+﻿@page
+@model ProjecteSOS_Grup03WebPage.Pages.Products.CreateModel
+@{
+	ViewData["Title"] = "Crear Producte";
+	var isEmployee = User.IsInRole("Employee") || User.IsInRole("Admin");
+}
+
+<h2>Afegir nou producte</h2>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+	<div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+
+@if (isEmployee)
+{
+	 
+}
+else
+{
+	<div class="alert alert-danger">Només els empleats poden afegir productes</div>
+}
