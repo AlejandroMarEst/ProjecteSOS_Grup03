@@ -3,7 +3,7 @@ namespace ProjecteSOS_Grup03WebPage.Tools
 {
     public class TokenHelper
     {
-        public static bool IsTokenSession(string token)
+        public static bool IsTokenSession(string? token)
         {
             return !string.IsNullOrEmpty(token) && !IsTokenExpired(token);
         }

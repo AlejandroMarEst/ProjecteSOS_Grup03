@@ -2,7 +2,7 @@
 @model ProjecteSOS_Grup03WebPage.Pages.Products.CreateModel
 @{
 	ViewData["Title"] = "Crear Producte";
-	var isEmployee = User.IsInRole("Employee") || User.IsInRole("Admin");
+	bool isEmployee = User.IsInRole("Employee") || User.IsInRole("Admin");
 }
 
 <h2>Afegir nou producte</h2>
@@ -14,7 +14,7 @@
 
 @if (isEmployee)
 {
-	 
+	
 }
 else
 {
