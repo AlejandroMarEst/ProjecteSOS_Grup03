@@ -1,0 +1,288 @@
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using ProjecteSOS_Grup03API.Data;
+using ProjecteSOS_Grup03API.DTOs;
+using ProjecteSOS_Grup03API.Models;
+using System.Security.Claims;
+
+namespace ProjecteSOS_Grup03API.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class OrdersController : ControllerBase
+    {
+        private readonly AppDbContext _context;
+
+        public OrdersController(AppDbContext context)
+        {
+            _context = context;
+        }
+
+        // GET: api/Orders
+        [Authorize(Roles = "Admin,Manager,Employee")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<OrderListDTO>>> GetAllOrders()
+        {
+            var orders = await _context.Orders.ToListAsync();
+
+            return GetOrderList(orders);
+        }
+
+        // GET: api/Orders/5
+        [Authorize(Roles = "Admin,Manager,Employee")]
+        [HttpGet("{id}")]
+        public async Task<ActionResult<OrderDTO>> GetOrder(int id)
+        {
+            var order = await _context.Orders.FindAsync(id);
+
+            if (order == null)
+            {
+                return NotFound("No s'ha trobat l'ordre");
+            }
+
+            return new OrderDTO
+            {
+                ClientId = order.ClientId,
+                SalesRepId = order.SalesRepId,
+                Price = order.Price
+            };
+        }
+
+        // GET: api/Orders/User
+        // Get User Orders
+        [Authorize]
+        [HttpGet("User")]
+        public async Task<ActionResult<IEnumerable<OrderListDTO>>> GetAllUserOrders()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var orders = await _context.Orders.Where(o => o.ClientId == userId).ToListAsync();
+
+            return GetOrderList(orders);
+        }
+
+        // GET: api/Orders/User/5
+        // Get Details of a User Order
+        [Authorize]
+        [HttpGet("User/{id}")]
+        public async Task<ActionResult<OrderDTO>> GetUserOrder(int id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userRole = User.FindFirstValue(ClaimTypes.Role);
+
+            var order = await _context.Orders.FindAsync(id);
+
+            if (order == null)
+            {
+                return NotFound("No s'ha trobat l'ordre");
+            }
+
+            if (userRole == "Client")
+            {
+                if (order.ClientId != userId)
+                {
+                    return Unauthorized("No tens permisos per veure aquesta ordre");
+                }
+            }            
+
+            return new OrderDTO
+            {
+                ClientId = order.ClientId,
+                SalesRepId = order.SalesRepId,
+                Price = order.Price
+            };
+        }
+
+        // PUT: api/Orders/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutOrder(int id, OrderDTO order)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userRole = User.FindFirstValue(ClaimTypes.Role);
+
+            // Validar si el client està intentant editar una order que no es seva
+            if (userRole == "Client")
+            {
+                var orderBeingEdited = await _context.Orders.AsNoTracking().FirstOrDefaultAsync(o => o.OrderId == id);
+
+                if (orderBeingEdited == null)
+                {
+                    return NotFound("No s'ha trobat la comanda.");
+                }
+
+                if (orderBeingEdited.ClientId != userId)
+                {
+                    return Forbid("No tens permisos per editar aquesta ordre.");
+                }
+            }
+
+            var existingOrder = await _context.Orders.FindAsync(id);
+            if (existingOrder == null)
+            {
+                return NotFound("No s'ha trobat l'ordre");
+            }
+
+            // Validar que el clientid enb el DTO només el pugui canviar un admin/worker o si el client és el mateix
+            if (order.ClientId != existingOrder.ClientId)
+            {
+                if (userRole == "Client") // un client no pot canviar el ClientId de la comanda
+                {
+                    return Forbid("No pots canviar el propietari de la comanda.");
+                }
+
+                var newClient = await _context.Clients.FindAsync(order.ClientId);
+
+                if (newClient == null)
+                {
+                    return BadRequest("El nou ClientId no és vàlid.");
+                }
+
+                existingOrder.ClientId = order.ClientId;
+            }
+
+            // Validar SalesRepId si es canvia
+            if (order.SalesRepId != existingOrder.SalesRepId)
+            {
+                if (order.SalesRepId != null)
+                {
+                    var salesRep = await _context.Employees.FindAsync(order.SalesRepId);
+
+                    if (salesRep == null)
+                    {
+                        return BadRequest("El SalesRepId no és vàlid.");
+                    }
+
+                    existingOrder.SalesRep = salesRep;
+                }
+                else
+                {
+                    existingOrder.SalesRep = null;
+                }
+                existingOrder.SalesRepId = order.SalesRepId;
+            }
+
+            existingOrder.Price = order.Price;
+
+            _context.Entry(existingOrder).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!OrderExists(id))
+                {
+                    return NotFound("No s'ha trobat l'ordre");
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            var orderToReturn = new OrderListDTO
+            {
+                OrderId = existingOrder.OrderId,
+                ClientId = existingOrder.ClientId,
+                SalesRepId = existingOrder.SalesRepId,
+                Price = existingOrder.Price
+            };
+
+            return Ok(orderToReturn);
+        }
+
+        // POST: api/Orders
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize]
+        [HttpPost]
+        public async Task<ActionResult<Order>> PostOrder(OrderDTO order)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var client = await _context.Clients.FirstOrDefaultAsync(u => u.Id == order.ClientId);
+
+            if (client == null)
+            {
+                return NotFound("El client no existeix");
+            }
+
+            // Crear el nou order
+            var newOrder = new Order
+            {
+                Client = client,
+                ClientId = order.ClientId,
+                SalesRep = order.SalesRepId != null ? await _context.Employees.FirstOrDefaultAsync(u => u.Id == order.SalesRepId) : null,
+                SalesRepId = order.SalesRepId,
+                Price = order.Price
+            };
+
+            _context.Orders.Add(newOrder);
+            await _context.SaveChangesAsync();
+
+            var orderToReturn = new OrderListDTO
+            {
+                OrderId = newOrder.OrderId,
+                ClientId = newOrder.ClientId,
+                SalesRepId = newOrder.SalesRepId,
+                Price = newOrder.Price
+            };
+
+            return CreatedAtAction(nameof(GetOrder), new { id = newOrder.OrderId }, orderToReturn);
+        }
+
+        // DELETE: api/Orders/5
+        [Authorize]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteOrder(int id)
+        {
+            var order = await _context.Orders.FindAsync(id);
+            if (order == null)
+            {
+                return NotFound("No s'ha trobat l'ordre");
+            }
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userRole = User.FindFirstValue(ClaimTypes.Role);
+
+            if (order.ClientId != userId && userRole == "Client")
+            {
+                return Forbid("No tens permisos per veure aquesta ordre");
+            }
+
+            _context.Orders.Remove(order);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = $"La comanda amb id {id} ha estat eliminada correctament." });
+        }
+
+        private bool OrderExists(int id)
+        {
+            return _context.Orders.Any(e => e.OrderId == id);
+        }
+
+        private List<OrderListDTO> GetOrderList(IEnumerable<Order> orders)
+        {
+            var listOrders = new List<OrderListDTO>();
+
+            foreach (var o in orders)
+            {
+                listOrders.Add(new OrderListDTO
+                {
+                    OrderId = o.OrderId,
+                    ClientId = o.ClientId,
+                    SalesRepId = o.SalesRepId,
+                    Price = o.Price
+                });
+            }
+
+            return listOrders;
+        }
+    }
+}
