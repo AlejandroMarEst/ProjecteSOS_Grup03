@@ -1,0 +1,52 @@
+﻿@page
+@model ProjecteSOS_Grup03WebPage.Pages.Products.CreateModel
+@{
+	ViewData["Title"] = "Crear Producte";
+	var token = HttpContext.Session.GetString("AuthToken");
+	var userRoles = Tools.TokenHelper.GetUserRoles(token).ToList();
+	bool isEmployee = userRoles.Contains("Employee") || userRoles.Contains("Admin");
+}
+
+<h2>Afegir nou producte</h2>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+	<div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+
+@if (isEmployee)
+{
+    <form method="post">
+        <div asp-validation-summary="All"></div>
+        <div class="mb-3">
+            <label asp-for="NewProduct.Name">Nom</label>
+            <input asp-for="NewProduct.Name" class="form-control" />
+            <span asp-validation-for="NewProduct.Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="NewProduct.Description">Descripció</label>
+            <input asp-for="NewProduct.Description" class="form-control" />
+            <span asp-validation-for="NewProduct.Description" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="NewProduct.Image">Imatge</label>
+            <input asp-for="NewProduct.Image" class="form-control" />
+            <span asp-validation-for="NewProduct.Image" class="text-danger"></span>
+        </div
+        <div class="mb-3">
+            <label asp-for="NewProduct.Stock">Estoc</label>
+            <input asp-for="NewProduct.Stock" class="form-control" />
+            <span asp-validation-for="NewProduct.Stock" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="NewProduct.Price">Preu</label>
+            <input asp-for="NewProduct.Price" class="form-control" />
+            <span asp-validation-for="NewProduct.Price" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Afegir</button>
+    </form>
+}
+else
+{
+	<div class="alert alert-danger">Només els empleats poden afegir productes</div>
+}

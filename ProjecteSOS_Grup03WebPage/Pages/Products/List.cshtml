@@ -1,0 +1,69 @@
+﻿@page
+@model ProjecteSOS_Grup03WebPage.Pages.Products.ProductsListModel
+@{
+    ViewData["Title"] = "Productes";
+    var token = HttpContext.Session.GetString("AuthToken");
+    var userRoles = Tools.TokenHelper.GetUserRoles(token).ToList();
+    bool isEmployee = userRoles.Contains("Employee") || userRoles.Contains("Admin");
+}
+
+<h2>Productes</h2>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+
+@if (isEmployee)
+{
+    <a class="btn btn-primary" asp-page=".\Create">Afegir Producte</a>
+}
+
+@if (Model.Products.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Descripció</th>
+                <th>Imatge</th>
+                <th>Price</th>
+                <th></th>
+                @if (isEmployee)
+                {
+                    <th></th>
+                    <th></th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var prod in Model.Products)
+            {
+                <tr>
+                    <td>@prod.Name</td>
+                    <td>@prod.Description</td>
+                    <td>@prod.Image</td>
+                    <td>@prod.Price</td>
+                    <td>
+                        <a asp-page="Details" asp-route-id="@prod.ProductId" class="btn btn-info">Detalls</a>
+                    </td>
+                    @if (isEmployee)
+                    {
+                        <td>
+                            <a asp-page="Edit" asp-route-id="@prod.ProductId" class="btn btn-primary">Editar</a>
+                        </td>
+                        <td>
+                            <form method="post" asp-page="Delete" asp-route-id="@prod.ProductId">
+                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                            </form>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-danger">No hi ha productes</div>
+}

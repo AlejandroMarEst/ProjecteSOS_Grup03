@@ -53,6 +53,7 @@ namespace ProjecteSOS_Grup03API.Controllers
             {
                 Name = productDTO.Name,
                 Description = productDTO.Description,
+                Image = productDTO.Image,
                 Price = productDTO.Price,
                 Stock = productDTO.Stock
             };
@@ -108,9 +109,9 @@ namespace ProjecteSOS_Grup03API.Controllers
 
         [Authorize(Roles = "Employee,Admin")]
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateProduct(int Id, [FromBody] ProductDTO productDTO)
+        public async Task<IActionResult> UpdateProduct(int id, [FromBody] ProductDTO productDTO)
         {
-            var product = await _context.Products.FirstOrDefaultAsync(x => x.ProductId == Id);
+            var product = await _context.Products.FirstOrDefaultAsync(x => x.ProductId == id);
 
             if (product == null)
             {
@@ -119,13 +120,14 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             product.Name = productDTO.Name;
             product.Description = productDTO.Description;
+            product.Image = productDTO.Image;
             product.Price = productDTO.Price;
             product.Stock = productDTO.Stock;
 
             _context.Products.Update(product);
             await _context.SaveChangesAsync();
 
-            return Ok($"Product {Id} updated");
+            return Ok($"Product {id} updated");
         }
     }
 }

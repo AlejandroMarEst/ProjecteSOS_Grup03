@@ -1,0 +1,59 @@
+﻿@page "{id:int}"
+@model ProjecteSOS_Grup03WebPage.Pages.Products.EditModel
+@{
+	ViewData["Title"] = "Editar Producte";
+	var token = HttpContext.Session.GetString("AuthToken");
+	var userRoles = Tools.TokenHelper.GetUserRoles(token).ToList();
+	bool isEmployee = userRoles.Contains("Employee") || userRoles.Contains("Admin");
+}
+
+<h2>Editar Producte</h2>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+
+@if (isEmployee)
+{
+	@if (Model.Product != null)
+    {
+		<form method="post">
+			<div class="mb-3">
+				<label asp-for="Product.Name">Nom</label>
+				<input asp-for="Product.Name" class="form-control" />
+				<span asp-validation-for="Product.Name" class="text-danger"></span>
+			</div
+			<div class="mb-3">
+				<label asp-for="Product.Description">Descripció</label>
+				<input asp-for="Product.Description" class="form-control" />
+				<span asp-validation-for="Product.Description" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="Product.Image">Imatge</label>
+				<input asp-for="Product.Image" class="form-control" />
+				<span asp-validation-for="Product.Image" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="Product.Stock">Estoc</label>
+				<input asp-for="Product.Stock" class="form-control" />
+				<span asp-validation-for="Product.Stock" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="Product.Price">Preu</label>
+				<input asp-for="Product.Price" class="form-control" />
+				<span asp-validation-for="Product.Price" class="text-danger"></span>
+			</div>
+			<button type="submit" class="btn btn-primary">Desar</button>
+			<a asp-page="List" class="btn btn-secondary">Cancel·lar</a>
+		</form>
+    }
+    else
+    {
+        <div class="alert alert-danger">El producte és null</div>
+    }
+}
+else
+{
+    <div class="alert alert-danger">Has de ser un empleat per a editar un producte</div>
+}
