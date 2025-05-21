@@ -31,6 +31,7 @@
                 @if (isEmployee)
                 {
                     <th></th>
+                    <th></th>
                 }
             </tr>
         </thead>
@@ -44,6 +45,9 @@
                     <td>@prod.Price</td>
                     @if (isEmployee)
                     {
+                        <td>
+                            <a asp-page="Edit" asp-route-id="@prod.ProductId" class="btn btn-primary">Editar</a>
+                        </td>
                         <td>
                             <form method="post" asp-page="Delete" asp-route-id="@prod.ProductId">
                                 <button type="submit" class="btn btn-danger">Eliminar</button>
