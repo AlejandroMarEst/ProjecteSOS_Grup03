@@ -1,0 +1,31 @@
+﻿@page
+@model ProjecteSOS_Grup03WebPage.Pages.Products.DetailsModel
+@{
+	ViewData["Title"] = "Detalls del Producte";
+	var product = Model.Product;
+}
+
+@if (product != null) { <h2>@product.Name</h2> }
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+	<div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+
+@if (product != null)
+{
+	<div>
+		<img src="@product.Image" alt="@product.Name" width="500" />
+	</div>
+	<div>
+		<p>@product.Description</p>
+	</div>
+	<div>
+		<p>@product.Stock</p>
+	</div>
+	<div>
+		<p>@product.Price</p>
+	</div>
+}
+
+<a asp-page="List" class="btn btn-secondary">Tornar</a>

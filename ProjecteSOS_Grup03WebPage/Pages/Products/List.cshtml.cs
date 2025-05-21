@@ -9,12 +9,12 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Products
     public class ProductsListModel : PageModel
     {
         private readonly IHttpClientFactory _httpClientFactory;
-        private readonly ILogger<IndexModel> _logger;
+        private readonly ILogger<ProductsListModel> _logger;
 
         public List<ProductListDTO> Products { get; set; } = [];
         public string? ErrorMessage { get; set; }
 
-        public ProductsListModel(IHttpClientFactory httpClientFactory, ILogger<IndexModel> logger)
+        public ProductsListModel(IHttpClientFactory httpClientFactory, ILogger<ProductsListModel> logger)
         {
             _httpClientFactory = httpClientFactory;
             _logger = logger;

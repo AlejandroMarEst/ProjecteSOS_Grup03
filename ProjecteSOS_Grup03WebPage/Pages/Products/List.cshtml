@@ -28,6 +28,7 @@
                 <th>Descripció</th>
                 <th>Imatge</th>
                 <th>Price</th>
+                <th></th>
                 @if (isEmployee)
                 {
                     <th></th>
@@ -43,6 +44,9 @@
                     <td>@prod.Description</td>
                     <td>@prod.Image</td>
                     <td>@prod.Price</td>
+                    <td>
+                        <a asp-page="Details" asp-route-id="@prod.ProductId" class="btn btn-info">Detalls</a>
+                    </td>
                     @if (isEmployee)
                     {
                         <td>
