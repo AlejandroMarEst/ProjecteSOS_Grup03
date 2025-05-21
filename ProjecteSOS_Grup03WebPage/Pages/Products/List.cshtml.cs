@@ -46,28 +46,5 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Products
                 ErrorMessage = "There was an unexpected error. Try again.";
             }
         }
-
-        public async Task<IActionResult> OnPostAsyncDelete(int id)
-        {
-            Console.WriteLine("vhbiiiiiiiiiiiiiiiiiiiiiiiiiii");
-            try
-            {
-                var client = _httpClientFactory.CreateClient("SosApi");
-                var token = HttpContext.Session.GetString("AuthToken");
-
-                if (!string.IsNullOrEmpty(token))
-                {
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                }
-
-                await client.DeleteAsync($"api/Products/{id}");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error Deleting Product");
-            }
-
-            return RedirectToPage("List");
-        }
     }
 }
