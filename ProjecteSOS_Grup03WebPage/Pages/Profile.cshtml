@@ -1,0 +1,23 @@
+﻿@page
+@model ProjecteSOS_Grup03WebPage.Pages.ProfileModel
+@{
+	ViewData["Title"] = "Perfil d'usuari";
+	var token = HttpContext.Session.GetString("AuthToken");
+	var loggedIn = Tools.TokenHelper.IsTokenSession(token);
+}
+
+<h2>Perfil</h2>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+	<div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+
+@if (loggedIn)
+{
+
+}
+else
+{
+	<div class="alert alert-danger">Inicia sessió per a veure el teu usuari</div>
+}
