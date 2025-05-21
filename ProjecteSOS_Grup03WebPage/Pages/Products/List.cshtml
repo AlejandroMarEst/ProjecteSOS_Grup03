@@ -2,6 +2,9 @@
 @model ProjecteSOS_Grup03WebPage.Pages.Products.ProductsListModel
 @{
     ViewData["Title"] = "Productes";
+    var token = HttpContext.Session.GetString("AuthToken");
+    var userRoles = Tools.TokenHelper.GetUserRoles(token).ToList();
+    bool isEmployee = userRoles.Contains("Employee") || userRoles.Contains("Admin");
 }
 
 <h2>Productes</h2>
@@ -9,6 +12,11 @@
 @if (!string.IsNullOrEmpty(Model.ErrorMessage))
 {
     <div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+
+@if (isEmployee)
+{
+    <a class="btn btn-primary" asp-page=".\Create">Afegir Producte</a>
 }
 
 @if (Model.Products.Any())
