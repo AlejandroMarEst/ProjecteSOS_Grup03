@@ -28,6 +28,10 @@
                 <th>Descripció</th>
                 <th>Imatge</th>
                 <th>Price</th>
+                @if (isEmployee)
+                {
+                    <th></th>
+                }
             </tr>
         </thead>
         <tbody>
@@ -38,6 +42,14 @@
                     <td>@prod.Description</td>
                     <td>@prod.Image</td>
                     <td>@prod.Price</td>
+                    @if (isEmployee)
+                    {
+                        <td>
+                            <form method="post" asp-page="Delete" asp-route-id="@prod.ProductId">
+                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                            </form>
+                        </td>
+                    }
                 </tr>
             }
         </tbody>

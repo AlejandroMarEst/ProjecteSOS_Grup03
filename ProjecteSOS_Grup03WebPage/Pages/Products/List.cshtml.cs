@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ProjecteSOS_Grup03WebPage.DTOs;
+using System.Net.Http.Headers;
 using System.Text.Json;
 
 namespace ProjecteSOS_Grup03WebPage.Pages.Products
@@ -10,7 +11,7 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Products
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILogger<IndexModel> _logger;
 
-        public List<ProductDTO> Products { get; set; } = [];
+        public List<ProductListDTO> Products { get; set; } = [];
         public string? ErrorMessage { get; set; }
 
         public ProductsListModel(IHttpClientFactory httpClientFactory, ILogger<IndexModel> logger)
@@ -29,9 +30,9 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Products
                 if (response.IsSuccessStatusCode)
                 {
                     var json = await response.Content.ReadAsStringAsync();
-                    var products = JsonSerializer.Deserialize<List<ProductDTO>>(json, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+                    var products = JsonSerializer.Deserialize<List<ProductListDTO>>(json, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
 
-                    Products = products ?? new List<ProductDTO>();
+                    Products = products ?? new List<ProductListDTO>();
                 }
                 else
                 {
@@ -44,6 +45,29 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Products
                 _logger.LogError(ex, "Error Loading Products");
                 ErrorMessage = "There was an unexpected error. Try again.";
             }
+        }
+
+        public async Task<IActionResult> OnPostAsyncDelete(int id)
+        {
+            Console.WriteLine("vhbiiiiiiiiiiiiiiiiiiiiiiiiiii");
+            try
+            {
+                var client = _httpClientFactory.CreateClient("SosApi");
+                var token = HttpContext.Session.GetString("AuthToken");
+
+                if (!string.IsNullOrEmpty(token))
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                }
+
+                await client.DeleteAsync($"api/Products/{id}");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error Deleting Product");
+            }
+
+            return RedirectToPage("List");
         }
     }
 }
