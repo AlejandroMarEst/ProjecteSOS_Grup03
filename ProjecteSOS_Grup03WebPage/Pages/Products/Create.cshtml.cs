@@ -43,17 +43,15 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Products
 
                 if (response.IsSuccessStatusCode)
                 {
-                    return RedirectToPage("/Index");
+                    return RedirectToPage("List");
                 }
                 else if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
                     ErrorMessage = "Has de ser administrador per a afegir productes";
-                    return Page();
                 }
                 else
                 {
                     ErrorMessage = "Error en crear el producte: " + response.StatusCode;
-                    return Page();
                 }
             }
             catch (Exception ex)
