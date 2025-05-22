@@ -15,7 +15,34 @@
 
 @if (loggedIn)
 {
-
+	@if (Model.Profile != null)
+	{
+		<div>
+			<h4>Nom</h4>
+			@if (!string.IsNullOrEmpty(Model.Profile.Name))
+			{
+				<p>@Model.Profile.Name</p>
+			}
+		</div>
+		<div>
+			<h4>Email</h4>
+			@if (!string.IsNullOrEmpty(Model.Profile.Email))
+			{
+				<p>@Model.Profile.Email</p>
+			}
+		</div>
+		<div>
+			<h4>Telèfon</h4>
+			@if (!string.IsNullOrEmpty(Model.Profile.Phone))
+			{
+				<p>@Model.Profile.Phone</p>
+			}
+		</div>
+	}
+	else
+	{
+		<div class="alert alert-danger">El perfil és null</div>
+	}
 }
 else
 {

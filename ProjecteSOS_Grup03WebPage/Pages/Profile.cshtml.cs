@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ProjecteSOS_Grup03WebPage.DTOs;
+using ProjecteSOS_Grup03WebPage.Tools;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text.Json;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -26,7 +28,13 @@ namespace ProjecteSOS_Grup03WebPage.Pages
             try
             {
                 var client = _httpClientFactory.CreateClient("SosApi");
-                var response = await client.GetAsync("api/");
+                var token = HttpContext.Session.GetString("AuthToken");
+                var response = await client.GetAsync("api/Auth/Profile");
+
+                if (TokenHelper.IsTokenSession(token))
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                }
 
                 if (response.IsSuccessStatusCode)
                 {
