@@ -44,6 +44,17 @@
                                     <button type="submit" class="nav-link text-dark btn btn-link">Tancar sessió</button>
                                 </form>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Orders/OrderList">Carret</a>
+                            </li>
+                            <div class="dropdown">
+                                <button class="dropbtn">Només treballadors</button>
+                                <div class="dropdown-content">
+                                    <a asp-area="" asp-page="/Restock">Restoc</a>
+                                    <a asp-area="" asp-page="/Stats">Estadistiques</a>
+                                    <a asp-area="" asp-page="/Orders/OrdersUsers">Comandes usuaris</a>
+                                </div>
+                            </div>
                         }
 
                         <li class="nav-item">
