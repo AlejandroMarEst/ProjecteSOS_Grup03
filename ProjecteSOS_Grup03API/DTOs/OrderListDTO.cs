@@ -8,6 +8,8 @@
 
         public string? SalesRepId { get; set; }
 
+        public DateOnly OrderDate { get; set; }
+
         public double Price { get; set; }
     }
 }
