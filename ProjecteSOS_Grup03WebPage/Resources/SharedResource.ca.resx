@@ -117,13 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Login" xml:space="preserve">
-    <value>Iniciar sessió</value>
+  <data name="EmailLabel" xml:space="preserve">
+    <value>Correu electrònic</value>
   </data>
   <data name="Products" xml:space="preserve">
     <value>Productes</value>
   </data>
-  <data name="WelcomeMessage" xml:space="preserve">
+  <data name="Welcome" xml:space="preserve">
     <value>Benvingut</value>
   </data>
   <data name="AppName" xml:space="preserve">
@@ -137,5 +137,68 @@
   </data>
   <data name="MyOrders" xml:space="preserve">
     <value>Les meves comandes</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Perfil</value>
+  </data>
+  <data name="EmployeeOnly" xml:space="preserve">
+    <value>Només empleats</value>
+  </data>
+  <data name="Restock" xml:space="preserve">
+    <value>Reposar estoc</value>
+  </data>
+  <data name="Statistics" xml:space="preserve">
+    <value>Estadístiques</value>
+  </data>
+  <data name="UserOrders" xml:space="preserve">
+    <value>Comandes d'usuaris</value>
+  </data>
+  <data name="Select Language" xml:space="preserve">
+    <value>Selecciona idioma</value>
+  </data>
+  <data name="Privacy" xml:space="preserve">
+    <value>Privacitat</value>
+  </data>
+  <data name="ErrorPageTitle" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ErrorOccured" xml:space="preserve">
+    <value>S'ha produït un error processant la teva sol·licitud.</value>
+  </data>
+  <data name="RequestId" xml:space="preserve">
+    <value>ID de sol·licitud:</value>
+  </data>
+  <data name="DevelopmentMode" xml:space="preserve">
+    <value>Mode de desenvolupament</value>
+  </data>
+  <data name="DevelopmentModeSwapping" xml:space="preserve">
+    <value>Canviar a l'entorn de &lt;strong&gt;Desenvolupament&lt;/strong&gt; mostra informació detallada sobre l'error ocorregut.</value>
+  </data>
+  <data name="DevelopmentModeWarningStrong" xml:space="preserve">
+    <value>L'entorn de desenvolupament no hauria d'estar habilitat per a aplicacions desplegades.
+</value>
+  </data>
+  <data name="DevelopmentModeWarningText" xml:space="preserve">
+    <value>Pot resultar en la visualització dinformació sensible dexcepcions als usuaris finals. Per depuració local, habilita l'entorn de &lt;strong&gt;Desenvolupament&lt;/strong&gt; establint la variable d'entorn &lt;strong&gt;ASPNETCORE_ENVIRONMENT&lt;/strong&gt; a &lt;strong&gt;Development&lt;/strong&gt; i reiniciant l'aplicació.
+</value>
+  </data>
+  <data name="HomePageTitle" xml:space="preserve">
+    <value>Pàgina d'inici
+</value>
+  </data>
+  <data name="LearnAbout" xml:space="preserve">
+    <value>Aprèn sobre</value>
+  </data>
+  <data name="LoginHeader" xml:space="preserve">
+    <value>Inici de sessió</value>
+  </data>
+  <data name="LoginTitle" xml:space="preserve">
+    <value>Iniciar sessió</value>
+  </data>
+  <data name="PasswordLabel" xml:space="preserve">
+    <value>Contrassenya</value>
+  </data>
+  <data name="LoginButton" xml:space="preserve">
+    <value>Entrar</value>
   </data>
 </root>

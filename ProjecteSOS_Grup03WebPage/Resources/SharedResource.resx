@@ -117,13 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Login" xml:space="preserve">
-    <value>Iniciar sesión</value>
+  <data name="EmailLabel" xml:space="preserve">
+    <value>Correo electrónico</value>
   </data>
   <data name="Products" xml:space="preserve">
     <value>Productos</value>
   </data>
-  <data name="WelcomeMessage" xml:space="preserve">
+  <data name="Welcome" xml:space="preserve">
     <value>Bienvenido</value>
   </data>
   <data name="AppName" xml:space="preserve">
@@ -137,5 +137,65 @@
   </data>
   <data name="MyOrders" xml:space="preserve">
     <value>Mis Pedidos</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Perfil</value>
+  </data>
+  <data name="EmployeeOnly" xml:space="preserve">
+    <value>Solo Empleados</value>
+  </data>
+  <data name="Restock" xml:space="preserve">
+    <value>Reponer Stock</value>
+  </data>
+  <data name="Statistics" xml:space="preserve">
+    <value>Estadísticas</value>
+  </data>
+  <data name="UserOrders" xml:space="preserve">
+    <value>Pedidos de Usuarios</value>
+  </data>
+  <data name="Select Language" xml:space="preserve">
+    <value>Selecciona idioma</value>
+  </data>
+  <data name="Privacy" xml:space="preserve">
+    <value>Privacidad</value>
+  </data>
+  <data name="ErrorPageTitle" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ErrorOccured" xml:space="preserve">
+    <value>Ha ocurrido un error procesando tu solicitud.</value>
+  </data>
+  <data name="RequestId" xml:space="preserve">
+    <value>ID de Solicitud:</value>
+  </data>
+  <data name="DevelopmentMode" xml:space="preserve">
+    <value>Modo de Desarrollo</value>
+  </data>
+  <data name="DevelopmentModeSwapping" xml:space="preserve">
+    <value>Cambiar al entorno de &lt;strong&gt;Desarrollo&lt;/strong&gt; muestra información detallada sobre el error ocurrido.</value>
+  </data>
+  <data name="DevelopmentModeWarningStrong" xml:space="preserve">
+    <value>El entorno de Desarrollo no debería estar habilitado para aplicaciones desplegadas.</value>
+  </data>
+  <data name="DevelopmentModeWarningText" xml:space="preserve">
+    <value>Puede resultar en la visualización de información sensible de excepciones a los usuarios finales. Para depuración local, habilita el entorno de &lt;strong&gt;Desarrollo&lt;/strong&gt; estableciendo la variable de entorno &lt;strong&gt;ASPNETCORE_ENVIRONMENT&lt;/strong&gt; a &lt;strong&gt;Development&lt;/strong&gt; y reiniciando la aplicación.</value>
+  </data>
+  <data name="HomePageTitle" xml:space="preserve">
+    <value>Página de Inicio</value>
+  </data>
+  <data name="LearnAbout" xml:space="preserve">
+    <value>Aprendre sobre</value>
+  </data>
+  <data name="LoginHeader" xml:space="preserve">
+    <value>Inicio de sesión</value>
+  </data>
+  <data name="LoginTitle" xml:space="preserve">
+    <value>Iniciar sesión</value>
+  </data>
+  <data name="PasswordLabel" xml:space="preserve">
+    <value>Contraseña</value>
+  </data>
+  <data name="LoginButton" xml:space="preserve">
+    <value>Entrar</value>
   </data>
 </root>
