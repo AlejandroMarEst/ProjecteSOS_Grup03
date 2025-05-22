@@ -1,0 +1,35 @@
+﻿@page
+@model ProjecteSOS_Grup03WebPage.Pages.Orders.OrderListModel
+@{
+    ViewData["Title"] = "Productes";
+    var token = HttpContext.Session.GetString("AuthToken");
+}
+@if (Model.Orders.Count > 0)
+{
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Nom Producte</th>
+				<th>Quantitat</th>
+				<th>Data de la comanda</th>
+				<th>Preu total</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var order in Model.Orders)
+			{
+				<tr>
+					<td>@order.ProductName</td>
+					<td>@order.Quantity</td>
+					<td>@order.OrderDate</td>
+					<td>@order.TotalPrice</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
+else
+{
+	<p>No hi ha comandes disponibles.</p>
+}
