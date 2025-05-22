@@ -1,4 +1,4 @@
-﻿@using Microsoft.AspNetCore.Builder
+@using Microsoft.AspNetCore.Builder
 @using Microsoft.Extensions.Options
 @using Microsoft.AspNetCore.Localization
 @using ProjecteSOS_Grup03WebPage
@@ -8,7 +8,10 @@
 @inject IHtmlLocalizer<SharedResource> SharedLocalizer
 
 @{
-    var loggedIn = Tools.TokenHelper.IsTokenSession(Context.Session.GetString("AuthToken"));
+  var token = Context.Session.GetString("AuthToken");
+  var loggedIn = Tools.TokenHelper.IsTokenSession(token);
+    var userRoles = Tools.TokenHelper.GetUserRoles(token).ToList();
+    bool isEmployee = userRoles.Contains("Employee") || userRoles.Contains("Admin");
 
     var requestCultureFeature = Context.Features.Get<IRequestCultureFeature>(); // Obtenir la cultura actual
     var cultureItems = LocOptions.Value.SupportedUICultures
@@ -62,14 +65,17 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Orders/OrderList">@SharedLocalizer["Cart", "Carret"]</a>
                             </li>
-                            <div class="dropdown">
-                                <button class="dropbtn">@SharedLocalizer["EmployeeOnly", "Només treballadors"]</button>
-                                <div class="dropdown-content">
-                                    <a asp-area="" asp-page="/Restock">@SharedLocalizer["Restock", "Restoc"]</a>
-                                    <a asp-area="" asp-page="/Stats">@SharedLocalizer["Statistics", "Estadístiques"]</a>
-                                    <a asp-area="" asp-page="/Orders/OrdersUsers">@SharedLocalizer["UserOrders", "Comandes usuaris"]</a>
+                            @if (isEmployee)
+                            {
+                                <div class="dropdown">
+                                    <button class="dropbtn">Només treballadors</button>
+                                    <div class="dropdown-content">
+                                        <a asp-area="" asp-page="/Restock">Restoc</a>
+                                        <a asp-area="" asp-page="/Stats">Estadistiques</a>
+                                        <a asp-area="" asp-page="/Orders/OrdersUsers">Comandes usuaris</a>
+                                    </div>
                                 </div>
-                            </div>
+                            }
                         }
 
                         <li class="nav-item">
