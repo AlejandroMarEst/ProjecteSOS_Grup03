@@ -1,4 +1,4 @@
-﻿namespace ProjecteSOS_Grup03API.DTOs
+﻿namespace ProjecteSOS_Grup03WebPage.DTOs
 {
     public class OrderListDTO
     {

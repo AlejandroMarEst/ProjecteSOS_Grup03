@@ -15,6 +15,8 @@ namespace ProjecteSOS_Grup03API.Models
         public Employee? SalesRep { get; set; }
         public string? SalesRepId { get; set; }
 
+        public DateOnly OrderDate { get; set; }
+
         public double Price { get; set; }
 
         public ICollection<ProductOrder> OrdersProducts { get; set; }

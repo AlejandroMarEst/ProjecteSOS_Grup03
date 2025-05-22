@@ -1,0 +1,46 @@
+﻿@page
+@model ProjecteSOS_Grup03WebPage.Pages.Profile.UserOrdersModel
+@{
+	ViewData["Title"] = "Canviar Contrasenya";
+	var token = HttpContext.Session.GetString("AuthToken");
+	var loggedIn = Tools.TokenHelper.IsTokenSession(token);
+}
+
+<h2>Comandes Realitzades</h2>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+	<div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+
+@if (loggedIn)
+{
+	@if (Model.Orders.Count > 0)
+	{
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Data de la Ordre</th>
+					<th>Preu Total</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var order in Model.Orders)
+				{
+					<tr>
+						<td>@order.OrderDate</td>
+						<td>@order.Price</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	}
+	else
+	{
+		<p>No hi ha comandes disponibles.</p>
+	}
+}
+else
+{
+	<div class="alert alert-danger">Inicia sessió per a poder canviar la contrasenya del teu usuari</div>
+}

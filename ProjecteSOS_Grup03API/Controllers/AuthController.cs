@@ -247,8 +247,8 @@ namespace ProjecteSOS_Grup03API.Controllers
             {
                 return Ok("Password was updated");
             }
-
-            return BadRequest();
+            
+            return BadRequest("La contrasenya no és correcte");
         }
 
         [Authorize]
