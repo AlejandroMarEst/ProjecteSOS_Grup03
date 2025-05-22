@@ -15,7 +15,30 @@
 
 @if (loggedIn)
 {
-	
+	@if (Model.Orders.Count > 0)
+	{
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Data de la Ordre</th>
+					<th>Preu Total</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var order in Model.Orders)
+				{
+					<tr>
+						<td>@order.OrderDate</td>
+						<td>@order.Price</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	}
+	else
+	{
+		<p>No hi ha comandes disponibles.</p>
+	}
 }
 else
 {
