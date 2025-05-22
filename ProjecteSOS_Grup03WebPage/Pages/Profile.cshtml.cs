@@ -29,13 +29,13 @@ namespace ProjecteSOS_Grup03WebPage.Pages
             {
                 var client = _httpClientFactory.CreateClient("SosApi");
                 var token = HttpContext.Session.GetString("AuthToken");
-                var response = await client.GetAsync("api/Auth/Profile");
 
                 if (TokenHelper.IsTokenSession(token))
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                 }
 
+                var response = await client.GetAsync("api/Auth/Profile");
                 if (response.IsSuccessStatusCode)
                 {
                     var json = await response.Content.ReadAsStringAsync();
