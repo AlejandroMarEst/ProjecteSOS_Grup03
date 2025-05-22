@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using ProjecteSOS_Grup03API.Data;
 using ProjecteSOS_Grup03API.DTOs;
@@ -32,6 +33,7 @@ namespace ProjecteSOS_Grup03API.Controllers
             var user = new Client { UserName = userDTO.Email, Email = userDTO.Email, Name = userDTO.Name, PhoneNumber = userDTO.Phone };
             var result = await _userManager.CreateAsync(user, userDTO.Password);
             var roleResult = new IdentityResult();
+
             if (result.Succeeded)
             {
                 roleResult = await _userManager.AddToRoleAsync(user, "Client");
@@ -40,25 +42,30 @@ namespace ProjecteSOS_Grup03API.Controllers
             {
                 return Ok("Client was registered");
             }
+
             return BadRequest(result.Errors);
         }
+
         [Authorize(Roles = "Admin")]
-        [HttpPost("worker/register")]
-        public async Task<IActionResult> RegisterWorker([FromBody] RegisterDTO userDTO) // Register a new admin
+        [HttpPost("Employee/register")]
+        public async Task<IActionResult> RegisterEmployee([FromBody] RegisterDTO userDTO) // Register a new admin
         {
             var user = new Employee { UserName = userDTO.Email, Email = userDTO.Email, Name = userDTO.Name, PhoneNumber = userDTO.Phone, StartDate = DateOnly.FromDateTime(DateTime.Now) };
             var result = await _userManager.CreateAsync(user, userDTO.Password);
             var roleResult = new IdentityResult();
+
             if (result.Succeeded)
             {
                 roleResult = await _userManager.AddToRoleAsync(user, "Employee");
             }
             if (result.Succeeded && roleResult.Succeeded)
             {
-                return Ok("Worker was registered");
+                return Ok("Employee was registered");
             }
+
             return BadRequest(result.Errors);
         }
+
         [Authorize(Roles = "Admin")]
         [HttpPost("admin/register")]
         public async Task<IActionResult> RegisterAdmin([FromBody] RegisterDTO userDTO) // Register a new admin
@@ -66,6 +73,7 @@ namespace ProjecteSOS_Grup03API.Controllers
             var user = new Employee { UserName = userDTO.Email, Email = userDTO.Email, Name = userDTO.Name, PhoneNumber = userDTO.Phone, StartDate = DateOnly.FromDateTime(DateTime.Now) };
             var result = await _userManager.CreateAsync(user, userDTO.Password);
             var roleResult = new IdentityResult();
+
             if (result.Succeeded)
             {
                 roleResult = await _userManager.AddToRoleAsync(user, "Admin");
@@ -74,22 +82,34 @@ namespace ProjecteSOS_Grup03API.Controllers
             {
                 return Ok("Admin was registered");
             }
+
             return BadRequest(result.Errors);
         }
+
         [HttpPost("login")] // Login as an user or admin
         public async Task<IActionResult> Login([FromBody] LoginDTO userDTO)
         {
             var user = await _userManager.FindByEmailAsync(userDTO.Email);
+
             if (user == null || !await _userManager.CheckPasswordAsync(user, userDTO.Password))
             {
                 return Unauthorized("Invalid email or password");
             }
-            var claims = new List<Claim>
+
+            var claims = new List<Claim>();
+
+            if (!string.IsNullOrEmpty(user.UserName))
             {
-                new Claim(ClaimTypes.Name, user.UserName),
-                new Claim(ClaimTypes.NameIdentifier, user.Id)
-            };
+                claims.Add(new Claim(ClaimTypes.Name, user.UserName));
+            }
+
+            if (!string.IsNullOrEmpty(user.Id))
+            {
+                claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id));
+            }
+
             var roles = await _userManager.GetRolesAsync(user);
+
             if (roles != null && roles.Count > 0)
             {
                 foreach (var rol in roles)
@@ -97,49 +117,165 @@ namespace ProjecteSOS_Grup03API.Controllers
                     claims.Add(new Claim(ClaimTypes.Role, rol));
                 }
             }
+
             var token = CreateToken(claims.ToArray());
+
             return Ok(token);
         }
+
         [Authorize]
-        [HttpPatch("updatePhone")]
-        public async Task<IActionResult> Update(string phone) //Cambiar a usar BBDD
+        [HttpGet("Profile")]
+        public async Task<ActionResult<UserProfileDTO>> GetUserProfile()
         {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var user = _context.Users.FirstOrDefault(u => u.Id == userId);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                return NotFound("L'usuari no s'ha trobat");
+            }
+
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            if (user == null)
+            {
+                return NotFound("L'usuari no està registrat");
+            }
+
+            var profile = new UserProfileDTO
+            {
+                Email = user.Email ?? string.Empty,
+                Password = user.PasswordHash ?? string.Empty,
+                Name = user.Name ?? string.Empty,
+                Phone = user.PhoneNumber ?? string.Empty
+            };
+
+            return Ok(profile);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("Profile/{id}")]
+        public async Task<ActionResult<UserProfileDTO>> GetUserProfile(string id)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+
+            if (user == null)
+            {
+                return NotFound("L'usuari no està registrat");
+            }
+
+            var profile = new UserProfileDTO
+            {
+                Email = user.Email ?? string.Empty,
+                Password = user.PasswordHash ?? string.Empty,
+                Name = user.Name,
+                Phone = user.PhoneNumber ?? string.Empty
+            };
+
+            return Ok(profile);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("Profiles")]
+        public async Task<ActionResult<IEnumerable<UserProfileDTO>>> GetUsersProfiles()
+        {
+            var users = await _context.Users.ToListAsync();
+
+            if (users == null || !users.Any())
+            {
+                return NotFound("No hi ha usuaris registrats");
+            }
+
+            var profiles = new List<UserProfileListDTO>();
+
+            users.ForEach(u => profiles.Add(new UserProfileListDTO
+            {
+                Id = u.Id,
+                Email = u.Email ?? string.Empty,
+                Password = u.PasswordHash ?? string.Empty,
+                Name = u.Name,
+                Phone = u.PhoneNumber ?? string.Empty
+            }));
+
+            return Ok(profiles);
+        }
+
+        [Authorize]
+        [HttpPut("Profile")]
+        public async Task<IActionResult> Update(string name, string phone) //Cambiar a usar BBDD
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userId))
+            {
+                return NotFound("L'usuari no s'ha trobat");
+            }
+
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            if (user == null)
+            {
+                return NotFound("L'usuari no està registrat");
+            }
+
             user.PhoneNumber = phone;
+            user.Name = name;
+
             var result = await _userManager.UpdateAsync(user);
             if (result.Succeeded)
             {
                 return Ok("User was updated");
             }
+
             return BadRequest();
         }
+
         [Authorize]
-        [HttpPatch("updatePassword")]
+        [HttpPatch("Profile/UpdatePassword")]
         public async Task<IActionResult> UpdatePassword(string oldPasswd, string newPasswd)
         {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var user = _context.Users.FirstOrDefault(u => u.Id == userId);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userId))
+            {
+                return NotFound("L'usuari no s'ha trobat");
+            }
+
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            if (user == null)
+            {
+                return NotFound("L'usuari no està registrat");
+            }
+
             var result = await _userManager.ChangePasswordAsync(user, oldPasswd, newPasswd);
             if (result.Succeeded)
             {
                 return Ok("Password was updated");
             }
+
             return BadRequest();
         }
+
         [Authorize]
-        [HttpDelete("DeleteAccount")]
+        [HttpDelete("Profile/DeleteAccount")]
         public async Task<IActionResult> DeleteAccount()
         {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var user = _context.Users.FirstOrDefault(u => u.Id == userId);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userId))
+            {
+                return NotFound("L'usuari no s'ha trobat");
+            }
+
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            if (user == null)
+            {
+                return NotFound("L'usuari no està registrat");
+            }
+
             var result = await _userManager.DeleteAsync(user);
             if (result.Succeeded)
             {
                 return Ok("Your account was deleted");
             }
+
             return BadRequest();
         }
+
         private string CreateToken(Claim[] claims) // Creates the token for the current user
         {
             var jwtConfig = _configuration.GetSection("JwtSettings");
