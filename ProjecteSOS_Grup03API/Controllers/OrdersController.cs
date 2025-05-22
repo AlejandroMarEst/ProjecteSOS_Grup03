@@ -45,6 +45,7 @@ namespace ProjecteSOS_Grup03API.Controllers
             {
                 ClientId = order.ClientId,
                 SalesRepId = order.SalesRepId,
+                OrderDate = order.OrderDate,
                 Price = order.Price
             };
         }
@@ -90,6 +91,7 @@ namespace ProjecteSOS_Grup03API.Controllers
             {
                 ClientId = order.ClientId,
                 SalesRepId = order.SalesRepId,
+                OrderDate = order.OrderDate,
                 Price = order.Price
             };
         }
@@ -165,6 +167,7 @@ namespace ProjecteSOS_Grup03API.Controllers
             }
 
             existingOrder.Price = order.Price;
+            existingOrder.OrderDate = order.OrderDate;
 
             _context.Entry(existingOrder).State = EntityState.Modified;
 
@@ -189,6 +192,7 @@ namespace ProjecteSOS_Grup03API.Controllers
                 OrderId = existingOrder.OrderId,
                 ClientId = existingOrder.ClientId,
                 SalesRepId = existingOrder.SalesRepId,
+                OrderDate = existingOrder.OrderDate,
                 Price = existingOrder.Price
             };
 
@@ -220,6 +224,7 @@ namespace ProjecteSOS_Grup03API.Controllers
                 ClientId = order.ClientId,
                 SalesRep = order.SalesRepId != null ? await _context.Employees.FirstOrDefaultAsync(u => u.Id == order.SalesRepId) : null,
                 SalesRepId = order.SalesRepId,
+                OrderDate = DateOnly.FromDateTime(DateTime.Now),
                 Price = order.Price
             };
 
@@ -231,6 +236,7 @@ namespace ProjecteSOS_Grup03API.Controllers
                 OrderId = newOrder.OrderId,
                 ClientId = newOrder.ClientId,
                 SalesRepId = newOrder.SalesRepId,
+                OrderDate = newOrder.OrderDate,
                 Price = newOrder.Price
             };
 
@@ -278,6 +284,7 @@ namespace ProjecteSOS_Grup03API.Controllers
                     OrderId = o.OrderId,
                     ClientId = o.ClientId,
                     SalesRepId = o.SalesRepId,
+                    OrderDate = o.OrderDate,
                     Price = o.Price
                 });
             }
