@@ -1,0 +1,23 @@
+﻿@page
+@model ProjecteSOS_Grup03WebPage.Pages.Profile.UserOrdersModel
+@{
+	ViewData["Title"] = "Canviar Contrasenya";
+	var token = HttpContext.Session.GetString("AuthToken");
+	var loggedIn = Tools.TokenHelper.IsTokenSession(token);
+}
+
+<h2>Comandes Realitzades</h2>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+	<div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+
+@if (loggedIn)
+{
+	
+}
+else
+{
+	<div class="alert alert-danger">Inicia sessió per a poder canviar la contrasenya del teu usuari</div>
+}
