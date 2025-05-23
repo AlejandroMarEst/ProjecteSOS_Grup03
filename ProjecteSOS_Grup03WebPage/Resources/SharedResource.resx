@@ -261,4 +261,10 @@
   <data name="UnexpectedErrorTryAgain" xml:space="preserve">
     <value>Ocurrió un error inesperado. Inténtalo de nuevo.</value>
   </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Cambiar contraseña</value>
+  </data>
+  <data name="DeleteAccount" xml:space="preserve">
+    <value>Eliminar cuenta</value>
+  </data>
 </root>

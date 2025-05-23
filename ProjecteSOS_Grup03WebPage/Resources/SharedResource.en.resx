@@ -264,4 +264,10 @@
   <data name="UnexpectedErrorTryAgain" xml:space="preserve">
     <value>An unexpected error occurred. Please try again.</value>
   </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Change password</value>
+  </data>
+  <data name="DeleteAccount" xml:space="preserve">
+    <value>Delete account</value>
+  </data>
 </root>

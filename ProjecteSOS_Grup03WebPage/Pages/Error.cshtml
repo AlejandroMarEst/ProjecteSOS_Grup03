@@ -5,24 +5,24 @@
 
 @inject IHtmlLocalizer<SharedResource> SharedLocalizer
 @{
-    ViewData["Title"] = SharedLocalizer["ErrorPageTitle", "Error"];
+    ViewData["Title"] = SharedLocalizer["ErrorPageTitle"];
 }
 
-<h1 class="text-danger">@SharedLocalizer["ErrorPageTitle", "Error"]</h1>
-<h2 class="text-danger">@SharedLocalizer["ErrorOccurred", "An error occurred while processing your request."]</h2>
+<h1 class="text-danger">@SharedLocalizer["ErrorPageTitle"]</h1>
+<h2 class="text-danger">@SharedLocalizer["ErrorOccurred"]</h2>
 
 @if (Model.ShowRequestId)
 {
     <p>
-        <strong>@SharedLocalizer["RequestId", "Request ID:"]</strong> <code>@Model.RequestId</code>
+        <strong>@SharedLocalizer["RequestId"]</strong> <code>@Model.RequestId</code>
     </p>
 }
 
-<h3>@SharedLocalizer["DevelopmentMode", "Development Mode"]</h3>
+<h3>@SharedLocalizer["DevelopmentMode"]</h3>
 <p>
-    @SharedLocalizer["DevelopmentModeSwapping", "Swapping to the <strong>Development</strong> environment displays detailed information about the error that occurred."]
+    @Html.Raw(SharedLocalizer["DevelopmentModeSwapping"])
 </p>
 <p>
-    <strong>@SharedLocalizer["DevelopmentModeWarningStrong", "The Development environment shouldn't be enabled for deployed applications."]</strong>
-    @SharedLocalizer["DevelopmentModeWarningText", "It can result in displaying sensitive information from exceptions to end users. For local debugging, enable the <strong>Development</strong> environment by setting the <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to <strong>Development</strong> and restarting the app."]
+    <strong>@SharedLocalizer["DevelopmentModeWarningStrong"]</strong>
+    @Html.Raw(SharedLocalizer["DevelopmentModeWarningText"])
 </p>

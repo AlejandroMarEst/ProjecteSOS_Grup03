@@ -264,4 +264,10 @@
   <data name="UnexpectedErrorTryAgain" xml:space="preserve">
     <value>Error inesperat. Intenta-ho de nou.</value>
   </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Canviar contrassenya</value>
+  </data>
+  <data name="DeleteAccount" xml:space="preserve">
+    <value>Eliminar compte</value>
+  </data>
 </root>
