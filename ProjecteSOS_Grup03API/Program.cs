@@ -88,7 +88,7 @@ builder.Services.AddSwaggerGen(opt =>
     });
 }); 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<AppDbContext>(options => options.UseAzureSql(connectionString));
+builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
