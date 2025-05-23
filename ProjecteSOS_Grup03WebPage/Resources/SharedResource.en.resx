@@ -132,13 +132,13 @@
   <data name="Logout" xml:space="preserve">
     <value>Logout</value>
   </data>
-  <data name="Register" xml:space="preserve">
+  <data name="RegisterHeader" xml:space="preserve">
     <value>Register</value>
   </data>
   <data name="MyOrders" xml:space="preserve">
     <value>My orders</value>
   </data>
-  <data name="Profile" xml:space="preserve">
+  <data name="ProfileHeader" xml:space="preserve">
     <value>Profile</value>
   </data>
   <data name="EmployeeOnly" xml:space="preserve">
@@ -200,5 +200,68 @@
   </data>
   <data name="LoginButton" xml:space="preserve">
     <value>Enter</value>
+  </data>
+  <data name="IncorrectLogin" xml:space="preserve">
+    <value>Incorrect email or password.</value>
+  </data>
+  <data name="PrivacyPolicyTitle" xml:space="preserve">
+    <value>Privacy policy</value>
+  </data>
+  <data name="UserProfileTitle" xml:space="preserve">
+    <value>User profile</value>
+  </data>
+  <data name="NameLabel" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="PhoneLabel" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="ProfileIsNull" xml:space="preserve">
+    <value>The profile is not available.</value>
+  </data>
+  <data name="LoginToViewProfile" xml:space="preserve">
+    <value>Log in to view your profile.</value>
+  </data>
+  <data name="RegisterTitle" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="RegisterButton" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="RegistryError" xml:space="preserve">
+    <value>Registry error.</value>
+  </data>
+  <data name="ProductsPageTitle" xml:space="preserve">
+    <value>Products list</value>
+  </data>
+  <data name="AddProductButton" xml:space="preserve">
+    <value>Add product</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="NoProductsAvailable" xml:space="preserve">
+    <value>There are no products available.</value>
+  </data>
+  <data name="LoadingProductsError" xml:space="preserve">
+    <value>Error loading the products.</value>
+  </data>
+  <data name="UnexpectedErrorTryAgain" xml:space="preserve">
+    <value>An unexpected error occurred. Please try again.</value>
   </data>
 </root>

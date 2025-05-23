@@ -132,13 +132,13 @@
   <data name="Logout" xml:space="preserve">
     <value>Tancar sessió</value>
   </data>
-  <data name="Register" xml:space="preserve">
+  <data name="RegisterHeader" xml:space="preserve">
     <value>Registrar-se</value>
   </data>
   <data name="MyOrders" xml:space="preserve">
     <value>Les meves comandes</value>
   </data>
-  <data name="Profile" xml:space="preserve">
+  <data name="ProfileHeader" xml:space="preserve">
     <value>Perfil</value>
   </data>
   <data name="EmployeeOnly" xml:space="preserve">
@@ -200,5 +200,68 @@
   </data>
   <data name="LoginButton" xml:space="preserve">
     <value>Entrar</value>
+  </data>
+  <data name="IncorrectLogin" xml:space="preserve">
+    <value>Correu electrònic o contrassenya incorrectes.</value>
+  </data>
+  <data name="PrivacyPolicyTitle" xml:space="preserve">
+    <value>Política de privacitat.</value>
+  </data>
+  <data name="UserProfileTitle" xml:space="preserve">
+    <value>Perfil d'usuari</value>
+  </data>
+  <data name="NameLabel" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="PhoneLabel" xml:space="preserve">
+    <value>Telèfon</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="ProfileIsNull" xml:space="preserve">
+    <value>El perfil no està disponible.</value>
+  </data>
+  <data name="LoginToViewProfile" xml:space="preserve">
+    <value>Inicia sessió per veure el teu perfil.</value>
+  </data>
+  <data name="RegisterTitle" xml:space="preserve">
+    <value>Registre</value>
+  </data>
+  <data name="RegisterButton" xml:space="preserve">
+    <value>Registrar-se</value>
+  </data>
+  <data name="RegistryError" xml:space="preserve">
+    <value>Error en el registre.</value>
+  </data>
+  <data name="ProductsPageTitle" xml:space="preserve">
+    <value>Llista de productes</value>
+  </data>
+  <data name="AddProductButton" xml:space="preserve">
+    <value>Afegir producte</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Descripció</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>Imatge</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Preu</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Detalls</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="NoProductsAvailable" xml:space="preserve">
+    <value>No hi ha productes disponibles.</value>
+  </data>
+  <data name="LoadingProductsError" xml:space="preserve">
+    <value>Error al carregar els productes.</value>
+  </data>
+  <data name="UnexpectedErrorTryAgain" xml:space="preserve">
+    <value>Error inesperat. Intenta-ho de nou.</value>
   </data>
 </root>
