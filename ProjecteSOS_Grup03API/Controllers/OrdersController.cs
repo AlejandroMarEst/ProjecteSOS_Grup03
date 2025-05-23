@@ -225,7 +225,7 @@ namespace ProjecteSOS_Grup03API.Controllers
                 SalesRep = order.SalesRepId != null ? await _context.Employees.FirstOrDefaultAsync(u => u.Id == order.SalesRepId) : null,
                 SalesRepId = order.SalesRepId,
                 OrderDate = DateOnly.FromDateTime(DateTime.Now),
-                Price = order.Price
+                Price = 0
             };
 
             _context.Orders.Add(newOrder);

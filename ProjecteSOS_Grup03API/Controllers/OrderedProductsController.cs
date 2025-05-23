@@ -216,8 +216,10 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             // Actualitzar stock del producte
             product.Stock -= dto.Quantity;
+            order.Price += product.Price * dto.Quantity;
 
             _context.ProductsOrders.Add(productOrder);
+            _context.Orders.Update(order);
 
             try
             {
