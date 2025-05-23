@@ -1,6 +1,6 @@
 ﻿namespace ProjecteSOS_Grup03WebPage.DTOs
 {
-    public class OrderDTO
+    public class ProductOrderDetailsDTO
     {
         public int OrderId { get; set; }
         public int ProductId { get; set; }
