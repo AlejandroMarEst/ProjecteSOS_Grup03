@@ -1,0 +1,59 @@
+﻿@page "{id:int}"
+@model ProjecteSOS_Grup03WebPage.Pages.Orders.DetailsModel
+@{
+    ViewData["Title"] = "Detalls de la comanda";
+    var token = HttpContext.Session.GetString("AuthToken");
+    var loggedIn = Tools.TokenHelper.IsTokenSession(token);
+    var order = Model.Order;
+}
+
+<h2>Detalls de la comanda</h2>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+
+@if (loggedIn)
+{
+    @if (order.Count != 0)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Producte</th>
+                    <th>Quantitat</th>
+                    <th>Data</th>
+                    <th>Preu Unitari</th>
+                    <th>Preu Total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var prod in order)
+                {
+                    <tr>
+                        <td>@prod.ProductName</td>
+                        <td>@prod.Quantity</td>
+                        <td>@prod.OrderDate</td>
+                        <td>@prod.UnitPrice</td>
+                        <td>@prod.TotalPrice</td>
+                        <td>
+                            <a asp-page="/Products/Details" asp-route-id="@prod.ProductId" class="btn btn-info">Detalls</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-danger">No hi ha productes encara</div>
+    }
+}
+else
+{
+    <div class="alert alert-danger">Inicia sessió</div>
+}
+
+<a asp-page="../Profile/UserOrders" class="btn btn-secondary">Tornar</a>

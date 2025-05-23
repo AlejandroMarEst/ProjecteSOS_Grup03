@@ -22,6 +22,7 @@
 				<tr>
 					<th>Data de la Ordre</th>
 					<th>Preu Total</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -30,6 +31,9 @@
 					<tr>
 						<td>@order.OrderDate</td>
 						<td>@order.Price</td>
+						<td>
+							<a asp-page="../Orders/Details" asp-route-id="@order.OrderId" class="btn btn-info">Detalls</a>
+						</td>
 					</tr>
 				}
 			</tbody>
