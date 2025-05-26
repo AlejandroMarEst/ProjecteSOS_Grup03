@@ -1,0 +1,34 @@
+﻿@page
+@model ProjecteSOS_Grup03WebPage.Pages.Products.AddToCartModel
+@{
+	ViewData["Title"] = "Crear Producte";
+	var token = HttpContext.Session.GetString("AuthToken");
+	var loggedIn = Tools.TokenHelper.IsTokenSession(token);
+}
+
+<h2>Afegir Producte</h2>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+	<div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+
+@if (loggedIn)
+{
+	<form method="post">
+        <div asp-validation-summary="All"></div>
+        <div class="mb-3">
+            <label asp-for="OrderProductCreate.Quantity">Quantitat</label>
+            <input asp-for="OrderProductCreate.Quantity" class="form-control" />
+            <span asp-validation-for="OrderProductCreate.Quantity" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Afegir</button>
+    </form>
+    <div>
+        <a asp-page="Details" asp-route-id="@Model.OrderProductCreate.ProductId" class="btn btn-secondary">Tornar</a>
+    </div>
+}
+else
+{
+	<div class="alert alert-danger">Inicia sessió per a afegir productes a la teva ordre</div>
+}

@@ -11,7 +11,7 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Products
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILogger<DetailsModel> _logger;
 
-        public ProductDTO? Product { get; set; }
+        public ProductListDTO? Product { get; set; }
         public string? ErrorMessage { get; set; }
 
         public DetailsModel(IHttpClientFactory httpClientFactory, ILogger<DetailsModel> logger)
@@ -30,7 +30,7 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Products
                 if (response.IsSuccessStatusCode)
                 {
                     var json = await response.Content.ReadAsStringAsync();
-                    Product = JsonSerializer.Deserialize<ProductDTO>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                    Product = JsonSerializer.Deserialize<ProductListDTO>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
                     if (Product == null)
                     {
