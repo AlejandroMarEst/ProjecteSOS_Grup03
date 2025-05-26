@@ -342,4 +342,46 @@
   <data name="NoOrdersAvailable" xml:space="preserve">
     <value>No hay pedidos disponibles.</value>
   </data>
+  <data name="ChangePasswordTitle" xml:space="preserve">
+    <value>Cambiar contraseña</value>
+  </data>
+  <data name="ChangePasswordHeader" xml:space="preserve">
+    <value>Cambiar contraseña</value>
+  </data>
+  <data name="CurrentPasswordLabel" xml:space="preserve">
+    <value>Contraseña actual</value>
+  </data>
+  <data name="NewPassordLabel" xml:space="preserve">
+    <value>Nueva contraseña</value>
+  </data>
+  <data name="LoginToChangePassword" xml:space="preserve">
+    <value>Inicia sesión para poder cambiar un contraseña.</value>
+  </data>
+  <data name="EditProfileTitle" xml:space="preserve">
+    <value>Editar perfil</value>
+  </data>
+  <data name="EditProfileHeader" xml:space="preserve">
+    <value>Editar perfil</value>
+  </data>
+  <data name="UserNameLabel" xml:space="preserve">
+    <value>Nombre de usuario</value>
+  </data>
+  <data name="LoginToEditProfile" xml:space="preserve">
+    <value>Inicia sesión para editar tu perfil.</value>
+  </data>
+  <data name="UserOrdersPageTitle" xml:space="preserve">
+    <value>Les meves comandes realitzades</value>
+  </data>
+  <data name="UserOrdersHeader" xml:space="preserve">
+    <value>Pedidos realizados</value>
+  </data>
+  <data name="OrderDateLabel" xml:space="preserve">
+    <value>Fecha del pedido</value>
+  </data>
+  <data name="OrderTotalPriceLabel" xml:space="preserve">
+    <value>Precio total del pedido</value>
+  </data>
+  <data name="LoginToViewUserOrders" xml:space="preserve">
+    <value>Inicia sesió para ver tus pedidos.</value>
+  </data>
 </root>

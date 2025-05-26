@@ -196,13 +196,13 @@
     <value>Iniciar sessió</value>
   </data>
   <data name="PasswordLabel" xml:space="preserve">
-    <value>Contrassenya</value>
+    <value>Contrasenya</value>
   </data>
   <data name="LoginButton" xml:space="preserve">
     <value>Entrar</value>
   </data>
   <data name="IncorrectLogin" xml:space="preserve">
-    <value>Correu electrònic o contrassenya incorrectes.</value>
+    <value>Correu electrònic o contrasenya incorrectes.</value>
   </data>
   <data name="PrivacyPolicyTitle" xml:space="preserve">
     <value>Política de privacitat.</value>
@@ -265,7 +265,7 @@
     <value>Error inesperat. Intenta-ho de nou.</value>
   </data>
   <data name="ChangePassword" xml:space="preserve">
-    <value>Canviar contrassenya</value>
+    <value>Canviar contrasenya</value>
   </data>
   <data name="DeleteAccount" xml:space="preserve">
     <value>Eliminar compte</value>
@@ -344,5 +344,47 @@
   </data>
   <data name="NoOrdersAvailable" xml:space="preserve">
     <value>No hi ha comandes disponibles.</value>
+  </data>
+  <data name="ChangePasswordTitle" xml:space="preserve">
+    <value>Canviar contrassnya</value>
+  </data>
+  <data name="ChangePasswordHeader" xml:space="preserve">
+    <value>Canviar contrasenya</value>
+  </data>
+  <data name="CurrentPasswordLabel" xml:space="preserve">
+    <value>Contrasenya actual</value>
+  </data>
+  <data name="NewPassordLabel" xml:space="preserve">
+    <value>Nova contrasenya</value>
+  </data>
+  <data name="LoginToChangePassword" xml:space="preserve">
+    <value>Inicia sessió per a poder canviar la teva contrasenya.</value>
+  </data>
+  <data name="EditProfileTitle" xml:space="preserve">
+    <value>Editar perfil</value>
+  </data>
+  <data name="EditProfileHeader" xml:space="preserve">
+    <value>Editar perfil</value>
+  </data>
+  <data name="UserNameLabel" xml:space="preserve">
+    <value>Nom d'usuari</value>
+  </data>
+  <data name="LoginToEditProfile" xml:space="preserve">
+    <value>Inicia sessió per a editar el teu perfil.</value>
+  </data>
+  <data name="UserOrdersPageTitle" xml:space="preserve">
+    <value>Les meves comandes realitzades</value>
+  </data>
+  <data name="UserOrdersHeader" xml:space="preserve">
+    <value>Comandes realitzades</value>
+  </data>
+  <data name="OrderDateLabel" xml:space="preserve">
+    <value>Data de la comanda</value>
+  </data>
+  <data name="OrderTotalPriceLabel" xml:space="preserve">
+    <value>Preu total de la comanda</value>
+  </data>
+  <data name="LoginToViewUserOrders" xml:space="preserve">
+    <value>Inicia sessió per a veure les teves comandes.</value>
   </data>
 </root>
