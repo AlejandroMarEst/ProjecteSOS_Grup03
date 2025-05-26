@@ -396,4 +396,34 @@
   <data name="Profile" xml:space="preserve">
     <value>Perfil</value>
   </data>
+  <data name="OrderDetailsTitle" xml:space="preserve">
+    <value>Detalles del pedido</value>
+  </data>
+  <data name="OrderDetailsHeader" xml:space="preserve">
+    <value>Detalles del pedido</value>
+  </data>
+  <data name="ProductColumnHeader" xml:space="preserve">
+    <value>Producto</value>
+  </data>
+  <data name="QuantityColumnHeader" xml:space="preserve">
+    <value>Cantidad</value>
+  </data>
+  <data name="DateColumnHeader" xml:space="preserve">
+    <value>Fecha</value>
+  </data>
+  <data name="UnitPriceColumnHeader" xml:space="preserve">
+    <value>Precio unitario</value>
+  </data>
+  <data name="TotalPriceColumnHeader" xml:space="preserve">
+    <value>Precio total</value>
+  </data>
+  <data name="NoProductsInOrder" xml:space="preserve">
+    <value>No hay productos en este pedido.</value>
+  </data>
+  <data name="LoginToViewOrderDetails" xml:space="preserve">
+    <value>Inicia sesión para ver los detalles del pedido.</value>
+  </data>
+  <data name="DetailsButton" xml:space="preserve">
+    <value>Detalles</value>
+  </data>
 </root>

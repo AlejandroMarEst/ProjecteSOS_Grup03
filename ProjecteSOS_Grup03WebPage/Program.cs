@@ -45,7 +45,7 @@ var supportedCultures = new[]
 
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
-    options.DefaultRequestCulture = new RequestCulture("es-ES"); // Cultura per defecte
+    options.DefaultRequestCulture = new RequestCulture("ca-ES"); // Cultura per defecte
     options.SupportedCultures = supportedCultures;
     options.SupportedUICultures = supportedCultures;
 });
