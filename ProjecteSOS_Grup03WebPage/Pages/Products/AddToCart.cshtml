@@ -3,6 +3,7 @@
 @using Microsoft.AspNetCore.Mvc.Localization
 @using ProjecteSOS_Grup03WebPage
 @inject IHtmlLocalizer<SharedResource> SharedLocalizer
+
 @{
 	ViewData["Title"] = SharedLocalizer["AddToCartPageTitle"];
 	var token = HttpContext.Session.GetString("AuthToken");
