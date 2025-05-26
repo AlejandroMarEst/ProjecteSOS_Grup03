@@ -1,13 +1,16 @@
 ﻿@page "{id:int}"
 @model ProjecteSOS_Grup03WebPage.Pages.Orders.DetailsModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ProjecteSOS_Grup03WebPage
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
 @{
-    ViewData["Title"] = "Detalls de la comanda";
+    ViewData["Title"] = SharedLocalizer["OrderDetailsTitle"];
     var token = HttpContext.Session.GetString("AuthToken");
     var loggedIn = Tools.TokenHelper.IsTokenSession(token);
     var order = Model.Order;
 }
 
-<h2>Detalls de la comanda</h2>
+<h2>@SharedLocalizer["OrderDetailsHeader"]</h2>
 
 @if (!string.IsNullOrEmpty(Model.ErrorMessage))
 {
@@ -21,11 +24,11 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Producte</th>
-                    <th>Quantitat</th>
-                    <th>Data</th>
-                    <th>Preu Unitari</th>
-                    <th>Preu Total</th>
+                    <th>@SharedLocalizer["ProductColumnHeader"]</th>
+                    <th>@SharedLocalizer["QuantityColumnHeader"]</th>
+                    <th>@SharedLocalizer["DateColumnHeader"]</th>
+                    <th>@SharedLocalizer["UnitPriceColumnHeader"]</th>
+                    <th>@SharedLocalizer["TotalPriceColumnHeader"]</th>
                     <th></th>
                 </tr>
             </thead>
@@ -39,7 +42,7 @@
                         <td>@prod.UnitPrice</td>
                         <td>@prod.TotalPrice</td>
                         <td>
-                            <a asp-page="/Products/Details" asp-route-id="@prod.ProductId" class="btn btn-info">Detalls</a>
+                            <a asp-page="/Products/Details" asp-route-id="@prod.ProductId" class="btn btn-info">@SharedLocalizer["DetailsButton"]</a>
                         </td>
                     </tr>
                 }
@@ -48,12 +51,12 @@
     }
     else
     {
-        <div class="alert alert-danger">No hi ha productes encara</div>
+        <div class="alert alert-danger">@SharedLocalizer["NoProductsInOrder"]</div>
     }
 }
 else
 {
-    <div class="alert alert-danger">Inicia sessió</div>
+    <div class="alert alert-danger">@SharedLocalizer["LoginToViewOrderDetails"]</div>
 }
 
-<a asp-page="../Profile/UserOrders" class="btn btn-secondary">Tornar</a>
+<a asp-page="../Profile/UserOrders" class="btn btn-secondary">@SharedLocalizer["BackButton"]</a>

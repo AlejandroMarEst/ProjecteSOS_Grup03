@@ -399,4 +399,34 @@
   <data name="Profile" xml:space="preserve">
     <value>Perfil</value>
   </data>
+  <data name="OrderDetailsTitle" xml:space="preserve">
+    <value>Detalls de la comanda</value>
+  </data>
+  <data name="OrderDetailsHeader" xml:space="preserve">
+    <value>Detalls de la comanda</value>
+  </data>
+  <data name="ProductColumnHeader" xml:space="preserve">
+    <value>Producte</value>
+  </data>
+  <data name="QuantityColumnHeader" xml:space="preserve">
+    <value>Quantitat</value>
+  </data>
+  <data name="DateColumnHeader" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="UnitPriceColumnHeader" xml:space="preserve">
+    <value>Preu unitari</value>
+  </data>
+  <data name="TotalPriceColumnHeader" xml:space="preserve">
+    <value>Preu total</value>
+  </data>
+  <data name="NoProductsInOrder" xml:space="preserve">
+    <value>No hi ha productes en aquesta comanda.</value>
+  </data>
+  <data name="LoginToViewOrderDetails" xml:space="preserve">
+    <value>Inicia sessió per veure els detalls de la comanda.</value>
+  </data>
+  <data name="DetailsButton" xml:space="preserve">
+    <value>Detalls</value>
+  </data>
 </root>
