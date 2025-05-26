@@ -1,24 +1,38 @@
 ﻿@page
 @model ProjecteSOS_Grup03WebPage.Employees.AllOrdersModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ProjecteSOS_Grup03WebPage
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
 @{
-	ViewData["Title"] = "Comandes Usuaris";
+	ViewData["Title"] = SharedLocalizer["AllUserOrdersTitle"];
 	var token = HttpContext.Session.GetString("AuthToken");
 	var userRoles = Tools.TokenHelper.GetUserRoles(token).ToList();
 	bool isEmployee = userRoles.Contains("Employee") || userRoles.Contains("Admin");
 }
+
+<h2>@SharedLocalizer["AllUserOrdersHeader"]</h2>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+
+<p>@Model.Users.First().Name</p>
+
 <h2>Comandes dels usuaris</h2>
 @if (!isEmployee)
 {
 	<p>No estas autoritzat</p>
 } else {
+
 <table class="table">
 	<thead>
 		<tr>
-			<th>Nom Producte</th>
-			<th>Client</th>
-			<th>Representant</th>
-			<th>Quantitat</th>
-			<th>Data de la comanda</th>
+			<th>@SharedLocalizer["OrderIdHeader"]</th>
+			<th>@SharedLocalizer["ClientHeader"]</th>
+			<th>@SharedLocalizer["SalesRepHeader"]</th>
+			<th>@SharedLocalizer["PriceHeader"]</th>
+			<th>@SharedLocalizer["OrderDateHeader"]</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -44,7 +58,8 @@
 							<td>@order.Price</td>
 							<td>@order.OrderDate.ToString("dd/MM/yyyy")</td>
 						}
-					} else
+					} 
+					else
 					{
 						<td>@order.OrderId</td>
 						<td>Ningú</td>
@@ -57,7 +72,9 @@
 	}
 	else
 	{
-		<li>No hi ha comandes disponibles.</li>
+			<tr>
+				<td colspan="5" class="text-center">@SharedLocalizer["NoOrdersAvailableInTable"]</td>
+			</tr>
 	}
 	</tbody>
 </table>

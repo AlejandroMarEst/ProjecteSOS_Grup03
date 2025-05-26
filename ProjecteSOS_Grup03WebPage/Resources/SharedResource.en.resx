@@ -277,7 +277,7 @@
     <value>Create product</value>
   </data>
   <data name="AddProductHeader" xml:space="preserve">
-    <value>Add new Product</value>
+    <value>Add new product</value>
   </data>
   <data name="ProductNameLabel" xml:space="preserve">
     <value>Product name</value>
@@ -428,5 +428,32 @@
   </data>
   <data name="DetailsButton" xml:space="preserve">
     <value>Details</value>
+  </data>
+  <data name="AllUserOrdersTitle" xml:space="preserve">
+    <value>All user orders</value>
+  </data>
+  <data name="AllUserOrdersHeader" xml:space="preserve">
+    <value>User orders</value>
+  </data>
+  <data name="OrderIdHeader" xml:space="preserve">
+    <value>Order ID</value>
+  </data>
+  <data name="ClientHeader" xml:space="preserve">
+    <value>Client</value>
+  </data>
+  <data name="SalesRepHeader" xml:space="preserve">
+    <value>Sales Representative</value>
+  </data>
+  <data name="PriceHeader" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="OrderDateHeader" xml:space="preserve">
+    <value>Order date</value>
+  </data>
+  <data name="NoneText" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="NoOrdersAvailableInTable" xml:space="preserve">
+    <value>No orders available.</value>
   </data>
 </root>
