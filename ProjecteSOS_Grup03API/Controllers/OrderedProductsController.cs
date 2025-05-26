@@ -202,7 +202,7 @@ namespace ProjecteSOS_Grup03API.Controllers
 
         // POST: api/OrderedProducts
         [Authorize]
-        [HttpPost()]
+        [HttpPost]
         public async Task<ActionResult<ProductOrderDetailsDTO>> PostProductOrder([FromBody] ProductOrderCreateDTO dto)
         {
             if (!ModelState.IsValid)
@@ -222,9 +222,27 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             var orderId = client.CurrentOrderId;
 
+            // Si no hi ha cap ordre creada es crea una
             if (orderId == null)
             {
-                return BadRequest("No s'ha creat una ordre");
+                var newOrder = new Order
+                {
+                    Client = client,
+                    ClientId = client.Id,
+                    SalesRep = null,
+                    SalesRepId = null,
+                    OrderDate = DateOnly.FromDateTime(DateTime.Now),
+                    Price = 0
+                };
+
+                _context.Orders.Add(newOrder);
+                await _context.SaveChangesAsync();
+
+                client.CurrentOrderId = newOrder.OrderId;
+                _context.Clients.Update(client);
+                await _context.SaveChangesAsync();
+
+                orderId = newOrder.OrderId;
             }
 
             var order = await _context.Orders.FindAsync(orderId);
