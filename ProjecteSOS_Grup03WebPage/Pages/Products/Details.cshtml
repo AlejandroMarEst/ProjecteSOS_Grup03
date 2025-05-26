@@ -26,6 +26,9 @@
 	<div>
 		<p>@product.Price</p>
 	</div>
+	<div>
+		<a asp-page="AddToCart" asp-route-id="@product.ProductId" class="btn btn-secondary">Afegir al carret</a>
+	</div>
 }
 
 <a asp-page="List" class="btn btn-secondary">Tornar</a>
