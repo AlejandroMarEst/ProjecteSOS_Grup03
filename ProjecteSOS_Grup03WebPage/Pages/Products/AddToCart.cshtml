@@ -1,12 +1,15 @@
 ﻿@page
 @model ProjecteSOS_Grup03WebPage.Pages.Products.AddToCartModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ProjecteSOS_Grup03WebPage
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
 @{
-	ViewData["Title"] = "Crear Producte";
+	ViewData["Title"] = SharedLocalizer["AddToCartPageTitle"];
 	var token = HttpContext.Session.GetString("AuthToken");
 	var loggedIn = Tools.TokenHelper.IsTokenSession(token);
 }
 
-<h2>Afegir Producte</h2>
+<h2>@SharedLocalizer["AddToCartHeader"]</h2>
 
 @if (!string.IsNullOrEmpty(Model.ErrorMessage))
 {
@@ -18,17 +21,17 @@
 	<form method="post">
         <div asp-validation-summary="All"></div>
         <div class="mb-3">
-            <label asp-for="OrderProductCreate.Quantity">Quantitat</label>
+            <label asp-for="OrderProductCreate.Quantity">@SharedLocalizer["QuantityLabel"]</label>
             <input asp-for="OrderProductCreate.Quantity" class="form-control" />
             <span asp-validation-for="OrderProductCreate.Quantity" class="text-danger"></span>
         </div>
-        <button type="submit" class="btn btn-primary">Afegir</button>
+        <button type="submit" class="btn btn-primary">@SharedLocalizer["AddToCartButton"]</button>
     </form>
     <div>
-        <a asp-page="Details" asp-route-id="@Model.OrderProductCreate.ProductId" class="btn btn-secondary">Tornar</a>
+        <a asp-page="Details" asp-route-id="@Model.OrderProductCreate.ProductId" class="btn btn-secondary">@SharedLocalizer["BackToProductDetailsButton"]</a>
     </div>
 }
 else
 {
-	<div class="alert alert-danger">Inicia sessió per a afegir productes a la teva ordre</div>
+	<div class="alert alert-danger">@SharedLocalizer["LoginToAddToCart"]</div>
 }
