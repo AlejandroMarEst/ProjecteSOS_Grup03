@@ -1,12 +1,14 @@
 ﻿@page
 @model ProjecteSOS_Grup03WebPage.Pages.Profile.UserOrdersModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
 @{
-	ViewData["Title"] = "Canviar Contrasenya";
+	ViewData["Title"] = SharedLocalizer["UserOrdersPageTitle"];
 	var token = HttpContext.Session.GetString("AuthToken");
 	var loggedIn = Tools.TokenHelper.IsTokenSession(token);
 }
 
-<h2>Comandes Realitzades</h2>
+<h2>@SharedLocalizer["UserOrdersHeader"]</h2>
 
 @if (!string.IsNullOrEmpty(Model.ErrorMessage))
 {
@@ -20,8 +22,8 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th>Data de la Ordre</th>
-					<th>Preu Total</th>
+					<th>@SharedLocalizer["OrderDateLabel"]</th>
+					<th>@SharedLocalizer["OrderTotalPriceLabel"]</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -32,7 +34,7 @@
 						<td>@order.OrderDate</td>
 						<td>@order.Price</td>
 						<td>
-							<a asp-page="../Orders/Details" asp-route-id="@order.OrderId" class="btn btn-info">Detalls</a>
+							<a asp-page="../Orders/Details" asp-route-id="@order.OrderId" class="btn btn-info">@SharedLocalizer["OrderDetailsTitle"]</a>
 						</td>
 					</tr>
 				}
@@ -41,10 +43,10 @@
 	}
 	else
 	{
-		<p>No hi ha comandes disponibles.</p>
+		<p>@SharedLocalizer["NoOrdersAvailable"]</p>
 	}
 }
 else
 {
-	<div class="alert alert-danger">Inicia sessió per a poder canviar la contrasenya del teu usuari</div>
+	<div class="alert alert-danger">@SharedLocalizer["LoginToViewUserOrders"]</div>
 }

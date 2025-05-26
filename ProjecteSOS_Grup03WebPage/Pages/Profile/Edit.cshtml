@@ -1,12 +1,14 @@
 ﻿@page
 @model ProjecteSOS_Grup03WebPage.Pages.Profile.EditModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
 @{
-	ViewData["Title"] = "Editar Perfil";
+	ViewData["Title"] = SharedLocalizer["EditProfileTitle"];
 	var token = HttpContext.Session.GetString("AuthToken");
 	var loggedIn = Tools.TokenHelper.IsTokenSession(token);
 }
 
-<h2>Editar Perfil</h2>
+<h2>@SharedLocalizer["EditProfileTitle"]</h2>
 
 @if (!string.IsNullOrEmpty(Model.ErrorMessage))
 {
@@ -19,21 +21,21 @@
 	{
 		<form method="post">
 			<div class="mb-3">
-				<label asp-for="Name">Nom d'usuari</label>
+				<label asp-for="Name">@SharedLocalizer["UserNameLabel"]</label>
 				<input asp-for="Name" class="form-control" />
 				<span asp-validation-for="Name" class="text-danger"></span>
 			</div>
 			<div class="mb-3">
-				<label asp-for="Phone">Telèfon</label>
+				<label asp-for="Phone">@SharedLocalizer["PhoneLabel"]</label>
 				<input asp-for="Phone" class="form-control" />
 				<span asp-validation-for="Phone" class="text-danger"></span>
 			</div>
-			<button type="submit" class="btn btn-primary">Desar</button>
-			<a asp-page="Profile" class="btn btn-secondary">Cancel·lar</a>
+			<button type="submit" class="btn btn-primary">@SharedLocalizer["SaveButton"]</button>
+			<a asp-page="Profile" class="btn btn-secondary">@SharedLocalizer["CancelButton"]</a>
 		</form>
 	}
 }
 else
 {
-	<div class="alert alert-danger">Inicia sessió per a editar el teu usuari</div>
+	<div class="alert alert-danger">@SharedLocalizer["LoginToEditProfile"]</div>
 }

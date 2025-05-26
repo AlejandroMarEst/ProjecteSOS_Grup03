@@ -1,13 +1,16 @@
 ﻿@page "{id:int}"
 @model ProjecteSOS_Grup03WebPage.Pages.Products.EditModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ProjecteSOS_Grup03WebPage
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
 @{
-	ViewData["Title"] = "Editar Producte";
+	ViewData["Title"] = SharedLocalizer["EditProductTitle"];
 	var token = HttpContext.Session.GetString("AuthToken");
 	var userRoles = Tools.TokenHelper.GetUserRoles(token).ToList();
 	bool isEmployee = userRoles.Contains("Employee") || userRoles.Contains("Admin");
 }
 
-<h2>Editar Producte</h2>
+<h2>@SharedLocalizer["EditProductHeader"]</h2>
 
 @if (!string.IsNullOrEmpty(Model.ErrorMessage))
 {
@@ -20,40 +23,40 @@
     {
 		<form method="post">
 			<div class="mb-3">
-				<label asp-for="Product.Name">Nom</label>
+				<label asp-for="Product.Name">@SharedLocalizer["ProductNameLabel"]</label>
 				<input asp-for="Product.Name" class="form-control" />
 				<span asp-validation-for="Product.Name" class="text-danger"></span>
 			</div
 			<div class="mb-3">
-				<label asp-for="Product.Description">Descripció</label>
+				<label asp-for="Product.Description">@SharedLocalizer["ProductDescriptionLabel"]</label>
 				<input asp-for="Product.Description" class="form-control" />
 				<span asp-validation-for="Product.Description" class="text-danger"></span>
 			</div>
 			<div class="mb-3">
-				<label asp-for="Product.Image">Imatge</label>
+				<label asp-for="Product.Image">@SharedLocalizer["ProductImageLabel"]</label>
 				<input asp-for="Product.Image" class="form-control" />
 				<span asp-validation-for="Product.Image" class="text-danger"></span>
 			</div>
 			<div class="mb-3">
-				<label asp-for="Product.Stock">Estoc</label>
+				<label asp-for="Product.Stock">@SharedLocalizer["ProductStockLabel"]</label>
 				<input asp-for="Product.Stock" class="form-control" />
 				<span asp-validation-for="Product.Stock" class="text-danger"></span>
 			</div>
 			<div class="mb-3">
-				<label asp-for="Product.Price">Preu</label>
+				<label asp-for="Product.Price">@SharedLocalizer["ProductPriceLabel"]</label>
 				<input asp-for="Product.Price" class="form-control" />
 				<span asp-validation-for="Product.Price" class="text-danger"></span>
 			</div>
-			<button type="submit" class="btn btn-primary">Desar</button>
-			<a asp-page="List" class="btn btn-secondary">Cancel·lar</a>
+			<button type="submit" class="btn btn-primary">@SharedLocalizer["SaveButton"]</button>
+			<a asp-page="List" class="btn btn-secondary">@SharedLocalizer["CancelButton"]</a>
 		</form>
     }
     else
     {
-        <div class="alert alert-danger">El producte és null</div>
+        <div class="alert alert-danger">@SharedLocalizer["ProductIsNull"]</div>
     }
 }
 else
 {
-    <div class="alert alert-danger">Has de ser un empleat per a editar un producte</div>
+    <div class="alert alert-danger">@SharedLocalizer["EmployeesOnlyEditProduct"]</div>
 }

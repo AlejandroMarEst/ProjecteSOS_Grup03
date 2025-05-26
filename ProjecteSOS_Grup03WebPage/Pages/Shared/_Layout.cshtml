@@ -45,17 +45,17 @@
                         @if (!loggedIn)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Login">@SharedLocalizer["Login"]</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Login">@SharedLocalizer["LoginHeader"]</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Register">@SharedLocalizer["Register"]</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Register">@SharedLocalizer["RegisterHeader"]</a>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Profile">@SharedLocalizer["Profile", "Perfil"]</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Profile">@SharedLocalizer["ProfileHeader", "Perfil"]</a>
                             </li>
                             <li class="nav-item">
                                 <form method="post" asp-page="/Logout">
@@ -68,11 +68,11 @@
                             @if (isEmployee)
                             {
                                 <div class="dropdown">
-                                    <button class="dropbtn">Només treballadors</button>
+                                    <button class="dropbtn">@SharedLocalizer["EmployeeOnly"]</button>
                                     <div class="dropdown-content">
-                                        <a asp-area="" asp-page="/Restock">Restoc</a>
-                                        <a asp-area="" asp-page="/Stats">Estadistiques</a>
-                                        <a asp-area="" asp-page="/Orders/OrdersUsers">Comandes usuaris</a>
+                                        <a asp-area="" asp-page="/Restock">@SharedLocalizer["Restock"]</a>
+                                        <a asp-area="" asp-page="/Stats">@SharedLocalizer["Statistics"]</a>
+                                        <a asp-area="" asp-page="/Employees/AllOrders">@SharedLocalizer["UserOrders"]</a>
                                     </div>
                                 </div>
                             }

@@ -1,0 +1,81 @@
+﻿@page
+@model ProjecteSOS_Grup03WebPage.Employees.AllOrdersModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ProjecteSOS_Grup03WebPage
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+@{
+	ViewData["Title"] = SharedLocalizer["AllUserOrdersTitle"];
+	var token = HttpContext.Session.GetString("AuthToken");
+	var userRoles = Tools.TokenHelper.GetUserRoles(token).ToList();
+	bool isEmployee = userRoles.Contains("Employee") || userRoles.Contains("Admin");
+}
+
+<h2>@SharedLocalizer["AllUserOrdersHeader"]</h2>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+
+<p>@Model.Users.First().Name</p>
+
+<h2>Comandes dels usuaris</h2>
+@if (!isEmployee)
+{
+	<p>No estas autoritzat</p>
+} else {
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>@SharedLocalizer["OrderIdHeader"]</th>
+			<th>@SharedLocalizer["ClientHeader"]</th>
+			<th>@SharedLocalizer["SalesRepHeader"]</th>
+			<th>@SharedLocalizer["PriceHeader"]</th>
+			<th>@SharedLocalizer["OrderDateHeader"]</th>
+		</tr>
+	</thead>
+	<tbody>
+		@if (Model.Orders != null && Model.Orders.Count > 0)
+		{
+			foreach (var order in Model.Orders)
+			{
+				<tr>
+					@if (Model.Users.FirstOrDefault(c => c.Id == order.ClientId)?.Name != null)
+					{
+						if(order.SalesRepId==null){
+							<td>@order.OrderId</td>
+							<td>@Model.Users.FirstOrDefault(c => c.Id == order.ClientId).Name</td>
+							<td>Ningú</td>
+							<td>@order.Price</td>
+							<td>@order.OrderDate.ToString("dd/MM/yyyy")</td>
+						}
+						else if (Model.Users.FirstOrDefault(c => c.Id == order.SalesRepId)?.Name != null)
+						{
+							<td>@order.OrderId</td>
+							<td>@Model.Users.FirstOrDefault(c => c.Id == order.ClientId).Name</td>
+							<td>@Model.Users.FirstOrDefault(c => c.Id == order.SalesRepId).Name</td>
+							<td>@order.Price</td>
+							<td>@order.OrderDate.ToString("dd/MM/yyyy")</td>
+						}
+					} 
+					else
+					{
+						<td>@order.OrderId</td>
+						<td>Ningú</td>
+						<td>Ningú</td>
+						<td>@order.Price</td>
+						<td>@order.OrderDate.ToString("dd/MM/yyyy")</td>
+					}
+			</tr>
+		}
+	}
+	else
+	{
+			<tr>
+				<td colspan="5" class="text-center">@SharedLocalizer["NoOrdersAvailableInTable"]</td>
+			</tr>
+	}
+	</tbody>
+</table>
+}
