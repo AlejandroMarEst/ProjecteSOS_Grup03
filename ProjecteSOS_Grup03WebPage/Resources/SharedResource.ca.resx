@@ -456,4 +456,22 @@
   <data name="NoOrdersAvailableInTable" xml:space="preserve">
     <value>No hi ha comandes disponibles.</value>
   </data>
+  <data name="AddToCartPageTitle" xml:space="preserve">
+    <value>Afegir al carret</value>
+  </data>
+  <data name="AddToCartHeader" xml:space="preserve">
+    <value>Afegir producte al carret</value>
+  </data>
+  <data name="QuantityLabel" xml:space="preserve">
+    <value>Quantitat</value>
+  </data>
+  <data name="AddToCartButton" xml:space="preserve">
+    <value>Afegir al carret</value>
+  </data>
+  <data name="BackToProductsDetailsButton" xml:space="preserve">
+    <value>Tornar als detalls del producte</value>
+  </data>
+  <data name="LoginToAddToCart" xml:space="preserve">
+    <value>Inicia sessió per a afegir productes al teu carret.</value>
+  </data>
 </root>
