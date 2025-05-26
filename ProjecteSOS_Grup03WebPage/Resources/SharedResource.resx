@@ -384,4 +384,16 @@
   <data name="LoginToViewUserOrders" xml:space="preserve">
     <value>Inicia sesión para ver tus pedidos.</value>
   </data>
+  <data name="EmployeeMenu" xml:space="preserve">
+    <value>Menú Empleado</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Iniciar Sesión</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Registarse</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Perfil</value>
+  </data>
 </root>

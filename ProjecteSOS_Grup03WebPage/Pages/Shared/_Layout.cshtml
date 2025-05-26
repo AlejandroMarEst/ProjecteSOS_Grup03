@@ -68,11 +68,11 @@
                             @if (isEmployee)
                             {
                                 <div class="dropdown">
-                                    <button class="dropbtn">Només treballadors</button>
+                                    <button class="dropbtn">@SharedLocalizer["EmployeeOnly"]</button>
                                     <div class="dropdown-content">
-                                        <a asp-area="" asp-page="/Restock">Restoc</a>
-                                        <a asp-area="" asp-page="/Stats">Estadistiques</a>
-                                        <a asp-area="" asp-page="/Orders/OrdersUsers">Comandes usuaris</a>
+                                        <a asp-area="" asp-page="/Restock">@SharedLocalizer["Restock"]</a>
+                                        <a asp-area="" asp-page="/Stats">@SharedLocalizer["Statistics"]</a>
+                                        <a asp-area="" asp-page="/Orders/OrdersUsers">@SharedLocalizer["UserOrders"]</a>
                                     </div>
                                 </div>
                             }

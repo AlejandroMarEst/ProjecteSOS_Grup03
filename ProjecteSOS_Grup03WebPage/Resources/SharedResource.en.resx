@@ -387,4 +387,16 @@
   <data name="LoginToViewUserOrders" xml:space="preserve">
     <value>Login to view your orders.</value>
   </data>
+  <data name="EmployeeMenu" xml:space="preserve">
+    <value>Employee menu</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
 </root>

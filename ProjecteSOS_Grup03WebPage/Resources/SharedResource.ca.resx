@@ -346,7 +346,7 @@
     <value>No hi ha comandes disponibles.</value>
   </data>
   <data name="ChangePasswordTitle" xml:space="preserve">
-    <value>Canviar contrassnya</value>
+    <value>Canviar contrasenya</value>
   </data>
   <data name="ChangePasswordHeader" xml:space="preserve">
     <value>Canviar contrasenya</value>
@@ -386,5 +386,17 @@
   </data>
   <data name="LoginToViewUserOrders" xml:space="preserve">
     <value>Inicia sessió per a veure les teves comandes.</value>
+  </data>
+  <data name="EmployeeMenu" xml:space="preserve">
+    <value>Menú empleat</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Iniciar sessió</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Registrar-se</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Perfil</value>
   </data>
 </root>
