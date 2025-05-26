@@ -3,9 +3,14 @@
 @{
 	ViewData["Title"] = "Comandes Usuaris";
 	var token = HttpContext.Session.GetString("AuthToken");
+	var userRoles = Tools.TokenHelper.GetUserRoles(token).ToList();
+	bool isEmployee = userRoles.Contains("Employee") || userRoles.Contains("Admin");
 }
 <h2>Comandes dels usuaris</h2>
-<p>@Model.Users.First().Name</p>
+@if (!isEmployee)
+{
+	<p>No estas autoritzat</p>
+} else {
 <table class="table">
 	<thead>
 		<tr>
@@ -56,4 +61,4 @@
 	}
 	</tbody>
 </table>
-
+}
