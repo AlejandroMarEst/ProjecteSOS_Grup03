@@ -9,6 +9,8 @@ namespace ProjecteSOS_Grup03API.Models
 
         public int Points { get; set; } = 0;
 
+        public int? CurrentOrderId { get; set; }
+
         public ICollection<Order> Orders { get; set; }
 
     }
