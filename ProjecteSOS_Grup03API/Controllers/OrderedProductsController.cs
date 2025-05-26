@@ -168,7 +168,7 @@ namespace ProjecteSOS_Grup03API.Controllers
 
         // POST: api/OrderedProducts
         [Authorize]
-        [HttpPost]
+        [HttpPost()]
         public async Task<ActionResult<ProductOrderDetailsDTO>> PostProductOrder([FromBody] ProductOrderCreateDTO dto)
         {
             if (!ModelState.IsValid)
@@ -176,10 +176,27 @@ namespace ProjecteSOS_Grup03API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var order = await _context.Orders.FindAsync(dto.OrderId);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userRole = User.FindFirstValue(ClaimTypes.Role);
+
+            var client = await _context.Clients.FindAsync(userId);
+
+            if (client == null)
+            {
+                return NotFound("No s'ha trobat el client");
+            }
+
+            var orderId = client.CurrentOrderId;
+
+            if (orderId == null)
+            {
+                return BadRequest("No s'ha creat una ordre");
+            }
+
+            var order = await _context.Orders.FindAsync(orderId);
             if (order == null)
             {
-                return NotFound($"Comanda amb id {dto.OrderId} no trobada.");
+                return NotFound($"Comanda amb no trobada.");
             }
 
             var product = await _context.Products.FindAsync(dto.ProductId);
@@ -187,9 +204,6 @@ namespace ProjecteSOS_Grup03API.Controllers
             {
                 return NotFound($"Producte amb id {dto.ProductId} no trobat.");
             }
-
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var userRole = User.FindFirstValue(ClaimTypes.Role);
 
             if (userRole == "Client" && order.ClientId != userId)
             {
@@ -201,14 +215,14 @@ namespace ProjecteSOS_Grup03API.Controllers
                 return BadRequest($"No hi ha suficient stock per el producte {product.Name}. Disponible: {product.Stock}.");
             }
 
-            if (await ProductOrderExists(dto.OrderId, dto.ProductId))
+            if (await ProductOrderExists((int)orderId, dto.ProductId))
             {
                 return Conflict($"Aquets producte ja existeix a la comanda. Utilitza PUT per actualitzar la quantitat.");
             }
 
             var productOrder = new ProductOrder
             {
-                OrderId = dto.OrderId,
+                OrderId = (int)orderId,
                 ProductId = dto.ProductId,
                 Quantity = dto.Quantity,
                 OrderDate = DateTime.UtcNow
@@ -216,8 +230,10 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             // Actualitzar stock del producte
             product.Stock -= dto.Quantity;
+            order.Price += product.Price * dto.Quantity;
 
             _context.ProductsOrders.Add(productOrder);
+            _context.Orders.Update(order);
 
             try
             {

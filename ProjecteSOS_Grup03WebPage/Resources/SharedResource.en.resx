@@ -117,13 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Login" xml:space="preserve">
-    <value>Login</value>
+  <data name="EmailLabel" xml:space="preserve">
+    <value>Email</value>
   </data>
   <data name="Products" xml:space="preserve">
     <value>Products</value>
   </data>
-  <data name="WelcomeMessage" xml:space="preserve">
+  <data name="Welcome" xml:space="preserve">
     <value>Welcome</value>
   </data>
   <data name="AppName" xml:space="preserve">
@@ -132,10 +132,301 @@
   <data name="Logout" xml:space="preserve">
     <value>Logout</value>
   </data>
-  <data name="Register" xml:space="preserve">
+  <data name="RegisterHeader" xml:space="preserve">
     <value>Register</value>
   </data>
   <data name="MyOrders" xml:space="preserve">
     <value>My orders</value>
+  </data>
+  <data name="ProfileHeader" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="EmployeeOnly" xml:space="preserve">
+    <value>Only employees</value>
+  </data>
+  <data name="Restock" xml:space="preserve">
+    <value>Restock</value>
+  </data>
+  <data name="Statistics" xml:space="preserve">
+    <value>Statistics</value>
+  </data>
+  <data name="UserOrders" xml:space="preserve">
+    <value>User orders</value>
+  </data>
+  <data name="Select Language" xml:space="preserve">
+    <value>Select language</value>
+  </data>
+  <data name="Privacy" xml:space="preserve">
+    <value>Privacy</value>
+  </data>
+  <data name="ErrorPageTitle" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ErrorOccured" xml:space="preserve">
+    <value>An error occurred processing your request.</value>
+  </data>
+  <data name="RequestId" xml:space="preserve">
+    <value>Request ID:</value>
+  </data>
+  <data name="DevelopmentMode" xml:space="preserve">
+    <value>Development mode</value>
+  </data>
+  <data name="DevelopmentModeSwapping" xml:space="preserve">
+    <value>Switching to the &lt;strong&gt;Development&lt;/strong&gt; environment displays detailed information about the error that occurred.</value>
+  </data>
+  <data name="DevelopmentModeWarningStrong" xml:space="preserve">
+    <value>The Development environment should not be enabled for deployed applications.
+</value>
+  </data>
+  <data name="DevelopmentModeWarningText" xml:space="preserve">
+    <value>This may result in sensitive exception information being displayed to end users. For local debugging, enable the &lt;strong&gt;Development&lt;/strong&gt; environment by setting the &lt;strong&gt;ASPNETCORE_ENVIRONMENT&lt;/strong&gt; environment variable to &lt;strong&gt;Development&lt;/strong&gt; and restarting the application.
+</value>
+  </data>
+  <data name="HomePageTitle" xml:space="preserve">
+    <value>Home page
+</value>
+  </data>
+  <data name="LearnAbout" xml:space="preserve">
+    <value>Learn about</value>
+  </data>
+  <data name="LoginHeader" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="LoginTitle" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="PasswordLabel" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="LoginButton" xml:space="preserve">
+    <value>Enter</value>
+  </data>
+  <data name="IncorrectLogin" xml:space="preserve">
+    <value>Incorrect email or password.</value>
+  </data>
+  <data name="PrivacyPolicyTitle" xml:space="preserve">
+    <value>Privacy policy</value>
+  </data>
+  <data name="UserProfileTitle" xml:space="preserve">
+    <value>User profile</value>
+  </data>
+  <data name="NameLabel" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="PhoneLabel" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="ProfileIsNull" xml:space="preserve">
+    <value>The profile is not available.</value>
+  </data>
+  <data name="LoginToViewProfile" xml:space="preserve">
+    <value>Log in to view your profile.</value>
+  </data>
+  <data name="RegisterTitle" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="RegisterButton" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="RegistryError" xml:space="preserve">
+    <value>Registry error.</value>
+  </data>
+  <data name="ProductsPageTitle" xml:space="preserve">
+    <value>Products list</value>
+  </data>
+  <data name="AddProductButton" xml:space="preserve">
+    <value>Add product</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="NoProductsAvailable" xml:space="preserve">
+    <value>There are no products available.</value>
+  </data>
+  <data name="LoadingProductsError" xml:space="preserve">
+    <value>Error loading the products.</value>
+  </data>
+  <data name="UnexpectedErrorTryAgain" xml:space="preserve">
+    <value>An unexpected error occurred. Please try again.</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Change password</value>
+  </data>
+  <data name="DeleteAccount" xml:space="preserve">
+    <value>Delete account</value>
+  </data>
+  <data name="Cart" xml:space="preserve">
+    <value>Basket</value>
+  </data>
+  <data name="CreateProductTitle" xml:space="preserve">
+    <value>Create product</value>
+  </data>
+  <data name="AddProductHeader" xml:space="preserve">
+    <value>Add new Product</value>
+  </data>
+  <data name="ProductNameLabel" xml:space="preserve">
+    <value>Product name</value>
+  </data>
+  <data name="ProductDescriptionLabel" xml:space="preserve">
+    <value>Product description</value>
+  </data>
+  <data name="ProductImageLabel" xml:space="preserve">
+    <value>Product image URL</value>
+  </data>
+  <data name="ProductStockLabel" xml:space="preserve">
+    <value>Product stock</value>
+  </data>
+  <data name="ProductPriceLabel" xml:space="preserve">
+    <value>Product price</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="EmployeesOnlyAddProduct" xml:space="preserve">
+    <value>Only employees can add products.</value>
+  </data>
+  <data name="ProductDetailsTitle" xml:space="preserve">
+    <value>Product details</value>
+  </data>
+  <data name="ProductNotFound" xml:space="preserve">
+    <value>Product not found.</value>
+  </data>
+  <data name="BackButton" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="EditProductTitle" xml:space="preserve">
+    <value>Edit product</value>
+  </data>
+  <data name="EditProductHeader" xml:space="preserve">
+    <value>Edit product</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ProductIsNull" xml:space="preserve">
+    <value>Product is unavailable or null.</value>
+  </data>
+  <data name="EmployeesOnlyEditProduct" xml:space="preserve">
+    <value>You must be an employee to edit a product.</value>
+  </data>
+  <data name="MyOrdersPageTitle" xml:space="preserve">
+    <value>My orders</value>
+  </data>
+  <data name="OrderProductName" xml:space="preserve">
+    <value>Product name</value>
+  </data>
+  <data name="OrderQuantity" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="OrderDate" xml:space="preserve">
+    <value>Order date</value>
+  </data>
+  <data name="OrderTotalPrice" xml:space="preserve">
+    <value>Total price</value>
+  </data>
+  <data name="NoOrdersAvailable" xml:space="preserve">
+    <value>No orders available.</value>
+  </data>
+  <data name="ChangePasswordTitle" xml:space="preserve">
+    <value>ChangePassword</value>
+  </data>
+  <data name="ChangePasswordHeader" xml:space="preserve">
+    <value>Change password</value>
+  </data>
+  <data name="CurrentPasswordLabel" xml:space="preserve">
+    <value>Current password</value>
+  </data>
+  <data name="NewPassordLabel" xml:space="preserve">
+    <value>New password</value>
+  </data>
+  <data name="LoginToChangePassword" xml:space="preserve">
+    <value>Login to change your password.</value>
+  </data>
+  <data name="EditProfileTitle" xml:space="preserve">
+    <value>Edit profile</value>
+  </data>
+  <data name="EditProfileHeader" xml:space="preserve">
+    <value>Edit profile</value>
+  </data>
+  <data name="UserNameLabel" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="LoginToEditProfile" xml:space="preserve">
+    <value>Login to edit your profile.</value>
+  </data>
+  <data name="UserOrdersPageTitle" xml:space="preserve">
+    <value>My placed orders</value>
+  </data>
+  <data name="UserOrdersHeader" xml:space="preserve">
+    <value>Placed orders</value>
+  </data>
+  <data name="OrderDateLabel" xml:space="preserve">
+    <value>Order date</value>
+  </data>
+  <data name="OrderTotalPriceLabel" xml:space="preserve">
+    <value>Order total price</value>
+  </data>
+  <data name="LoginToViewUserOrders" xml:space="preserve">
+    <value>Login to view your orders.</value>
+  </data>
+  <data name="EmployeeMenu" xml:space="preserve">
+    <value>Employee menu</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="OrderDetailsTitle" xml:space="preserve">
+    <value>Order details</value>
+  </data>
+  <data name="OrderDetailsHeader" xml:space="preserve">
+    <value>Order details</value>
+  </data>
+  <data name="ProductColumnHeader" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="QuantityColumnHeader" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="DateColumnHeader" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="UnitPriceColumnHeader" xml:space="preserve">
+    <value>Unit price</value>
+  </data>
+  <data name="TotalPriceColumnHeader" xml:space="preserve">
+    <value>Total price</value>
+  </data>
+  <data name="NoProductsInOrder" xml:space="preserve">
+    <value>There are no products in this order.</value>
+  </data>
+  <data name="LoginToViewOrderDetails" xml:space="preserve">
+    <value>Login to view order details.</value>
+  </data>
+  <data name="DetailsButton" xml:space="preserve">
+    <value>Details</value>
   </data>
 </root>

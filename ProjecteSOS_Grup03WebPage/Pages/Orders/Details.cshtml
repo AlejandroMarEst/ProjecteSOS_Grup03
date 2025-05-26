@@ -1,0 +1,62 @@
+﻿@page "{id:int}"
+@model ProjecteSOS_Grup03WebPage.Pages.Orders.DetailsModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ProjecteSOS_Grup03WebPage
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+@{
+    ViewData["Title"] = SharedLocalizer["OrderDetailsTitle"];
+    var token = HttpContext.Session.GetString("AuthToken");
+    var loggedIn = Tools.TokenHelper.IsTokenSession(token);
+    var order = Model.Order;
+}
+
+<h2>@SharedLocalizer["OrderDetailsHeader"]</h2>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+
+@if (loggedIn)
+{
+    @if (order.Count != 0)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>@SharedLocalizer["ProductColumnHeader"]</th>
+                    <th>@SharedLocalizer["QuantityColumnHeader"]</th>
+                    <th>@SharedLocalizer["DateColumnHeader"]</th>
+                    <th>@SharedLocalizer["UnitPriceColumnHeader"]</th>
+                    <th>@SharedLocalizer["TotalPriceColumnHeader"]</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var prod in order)
+                {
+                    <tr>
+                        <td>@prod.ProductName</td>
+                        <td>@prod.Quantity</td>
+                        <td>@prod.OrderDate</td>
+                        <td>@prod.UnitPrice</td>
+                        <td>@prod.TotalPrice</td>
+                        <td>
+                            <a asp-page="/Products/Details" asp-route-id="@prod.ProductId" class="btn btn-info">@SharedLocalizer["DetailsButton"]</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-danger">@SharedLocalizer["NoProductsInOrder"]</div>
+    }
+}
+else
+{
+    <div class="alert alert-danger">@SharedLocalizer["LoginToViewOrderDetails"]</div>
+}
+
+<a asp-page="../Profile/UserOrders" class="btn btn-secondary">@SharedLocalizer["BackButton"]</a>

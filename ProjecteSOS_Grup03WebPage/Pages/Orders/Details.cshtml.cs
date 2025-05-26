@@ -1,17 +1,19 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ProjecteSOS_Grup03WebPage.DTOs;
+using ProjecteSOS_Grup03WebPage.Tools;
 using System.Net;
+using System.Net.Http.Headers;
 using System.Text.Json;
 
-namespace ProjecteSOS_Grup03WebPage.Pages.Products
+namespace ProjecteSOS_Grup03WebPage.Pages.Orders
 {
     public class DetailsModel : PageModel
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILogger<DetailsModel> _logger;
 
-        public ProductListDTO? Product { get; set; }
+        public List<ProductOrderDetailsDTO> Order { get; set; } = [];
         public string? ErrorMessage { get; set; }
 
         public DetailsModel(IHttpClientFactory httpClientFactory, ILogger<DetailsModel> logger)
@@ -25,26 +27,29 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Products
             try
             {
                 var client = _httpClientFactory.CreateClient("SosApi");
-                var response = await client.GetAsync($"api/Products/{id}");
+                var token = HttpContext.Session.GetString("AuthToken");
 
+                if (TokenHelper.IsTokenSession(token))
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                }
+
+                var response = await client.GetAsync($"api/OrderedProducts/User/ForOrder/{id}");
                 if (response.IsSuccessStatusCode)
                 {
                     var json = await response.Content.ReadAsStringAsync();
-                    Product = JsonSerializer.Deserialize<ProductListDTO>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                    var order = JsonSerializer.Deserialize<List<ProductOrderDetailsDTO>>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
-                    if (Product == null)
-                    {
-                        ErrorMessage = "No s'ha trobat el producte.";
-                    }
+                    Order = order ?? new List<ProductOrderDetailsDTO>();
                 }
                 else if (response.StatusCode == HttpStatusCode.NotFound)
                 {
-                    ErrorMessage = "No s'ha trobat el producte.";
+                    ErrorMessage = "No s'ha trobat la comanda.";
                 }
                 else
                 {
-                    _logger.LogError("Product Loading Failed");
-                    ErrorMessage = "Error en carregar el producte.";
+                    _logger.LogError("Order Loading Failed");
+                    ErrorMessage = "Error en carregar la comanda.";
                 }
 
             }
@@ -56,5 +61,6 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Products
 
             return Page();
         }
+
     }
 }

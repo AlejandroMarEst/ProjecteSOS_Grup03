@@ -1,0 +1,59 @@
+﻿@page
+@model ProjecteSOS_Grup03WebPage.Employees.AllOrdersModel
+@{
+	ViewData["Title"] = "Comandes Usuaris";
+	var token = HttpContext.Session.GetString("AuthToken");
+}
+<h2>Comandes dels usuaris</h2>
+<p>@Model.Users.First().Name</p>
+<table class="table">
+	<thead>
+		<tr>
+			<th>Nom Producte</th>
+			<th>Client</th>
+			<th>Representant</th>
+			<th>Quantitat</th>
+			<th>Data de la comanda</th>
+		</tr>
+	</thead>
+	<tbody>
+		@if (Model.Orders != null && Model.Orders.Count > 0)
+		{
+			foreach (var order in Model.Orders)
+			{
+				<tr>
+					@if (Model.Users.FirstOrDefault(c => c.Id == order.ClientId)?.Name != null)
+					{
+						if(order.SalesRepId==null){
+							<td>@order.OrderId</td>
+							<td>@Model.Users.FirstOrDefault(c => c.Id == order.ClientId).Name</td>
+							<td>Ningú</td>
+							<td>@order.Price</td>
+							<td>@order.OrderDate.ToString("dd/MM/yyyy")</td>
+						}
+						else if (Model.Users.FirstOrDefault(c => c.Id == order.SalesRepId)?.Name != null)
+						{
+							<td>@order.OrderId</td>
+							<td>@Model.Users.FirstOrDefault(c => c.Id == order.ClientId).Name</td>
+							<td>@Model.Users.FirstOrDefault(c => c.Id == order.SalesRepId).Name</td>
+							<td>@order.Price</td>
+							<td>@order.OrderDate.ToString("dd/MM/yyyy")</td>
+						}
+					} else
+					{
+						<td>@order.OrderId</td>
+						<td>Ningú</td>
+						<td>Ningú</td>
+						<td>@order.Price</td>
+						<td>@order.OrderDate.ToString("dd/MM/yyyy")</td>
+					}
+			</tr>
+		}
+	}
+	else
+	{
+		<li>No hi ha comandes disponibles.</li>
+	}
+	</tbody>
+</table>
+

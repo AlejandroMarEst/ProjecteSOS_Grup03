@@ -1,10 +1,13 @@
 ﻿@page
 @model ProjecteSOS_Grup03WebPage.Pages.LoginModel
+@using ProjecteSOS_Grup03WebPage
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
 @{
-	ViewData["Title"] = "Login";
+	ViewData["Title"] = SharedLocalizer["LoginTitle"];
 }
 
-<h2>Inici de sessió</h2>
+<h2>@SharedLocalizer["LoginHeader"]</h2>
 
 @if (!string.IsNullOrEmpty(Model.ErrorMessage))
 {
@@ -14,14 +17,14 @@
 <form method="post">
     <div asp-validation-summary="All"></div>
     <div class="mb-3">
-        <label asp-for="Login.Email"></label>
+        <label asp-for="Login.Email">@SharedLocalizer["EmailLabel"]</label>
         <input asp-for="Login.Email" class="form-control" />
         <span asp-validation-for="Login.Email" class="text-danger"></span>
     </div>
     <div class="mb-3">
-        <label asp-for="Login.Password">Contrasenya</label>
+        <label asp-for="Login.Password">@SharedLocalizer["PasswordLabel"]</label>
         <input asp-for="Login.Password" class="form-control" type="password" />
         <span asp-validation-for="Login.Password" class="text-danger"></span>
     </div>
-    <button type="submit" class="btn btn-primary">Entrar</button>
+    <button type="submit" class="btn btn-primary">@SharedLocalizer["LoginButton"]</button>
 </form>

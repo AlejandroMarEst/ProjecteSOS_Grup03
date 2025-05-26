@@ -13,7 +13,7 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Profile
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILogger<UserOrdersModel> _logger;
 
-        public List<OrderListDTO> Orders { get; set; } = [];
+        public List<UserOrderListDTO> Orders { get; set; } = [];
         public string? ErrorMessage { get; set; }
 
         public UserOrdersModel(IHttpClientFactory httpClientFactory, ILogger<UserOrdersModel> logger)
@@ -38,9 +38,9 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Profile
                 if (response.IsSuccessStatusCode)
                 {
                     var json = await response.Content.ReadAsStringAsync();
-                    var orders = JsonSerializer.Deserialize<List<OrderListDTO>>(json, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+                    var orders = JsonSerializer.Deserialize<List<UserOrderListDTO>>(json, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
 
-                    Orders = orders ?? new List<OrderListDTO>();
+                    Orders = orders ?? new List<UserOrderListDTO>();
                 }
                 else
                 {
