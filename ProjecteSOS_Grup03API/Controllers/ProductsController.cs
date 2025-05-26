@@ -19,7 +19,7 @@ namespace ProjecteSOS_Grup03API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ProductDTO>> GetProduct(int id)
+        public async Task<ActionResult<ProductListDTO>> GetProduct(int id)
         {
             var product = await _context.Products.FirstOrDefaultAsync(x => x.ProductId == id);
 
