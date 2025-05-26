@@ -267,4 +267,79 @@
   <data name="DeleteAccount" xml:space="preserve">
     <value>Eliminar cuenta</value>
   </data>
+  <data name="Cart" xml:space="preserve">
+    <value>Cesta</value>
+  </data>
+  <data name="CreateProductTitle" xml:space="preserve">
+    <value>Crear Producto</value>
+  </data>
+  <data name="AddProductHeader" xml:space="preserve">
+    <value>Añadir Nuevo Producto</value>
+  </data>
+  <data name="ProductNameLabel" xml:space="preserve">
+    <value>Nombre del Producto</value>
+  </data>
+  <data name="ProductDescriptionLabel" xml:space="preserve">
+    <value>Descripción del Producto</value>
+  </data>
+  <data name="ProductImageLabel" xml:space="preserve">
+    <value>URL de Imagen del Producto</value>
+  </data>
+  <data name="ProductStockLabel" xml:space="preserve">
+    <value>Stock del Producto</value>
+  </data>
+  <data name="ProductPriceLabel" xml:space="preserve">
+    <value>Precio del Producto</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Añadir</value>
+  </data>
+  <data name="EmployeesOnlyAddProduct" xml:space="preserve">
+    <value>Solo los empleados pueden añadir productos.</value>
+  </data>
+  <data name="ProductDetailsTitle" xml:space="preserve">
+    <value>Detalles del Producto</value>
+  </data>
+  <data name="ProductNotFound" xml:space="preserve">
+    <value>No se ha encontrado el producto.</value>
+  </data>
+  <data name="BackButton" xml:space="preserve">
+    <value>Volver</value>
+  </data>
+  <data name="EditProductTitle" xml:space="preserve">
+    <value>Editar Producto</value>
+  </data>
+  <data name="EditProductHeader" xml:space="preserve">
+    <value>Editar Producto</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="ProductIsNull" xml:space="preserve">
+    <value>El producto no está disponible o es nulo.</value>
+  </data>
+  <data name="EmployeesOnlyEditProduct" xml:space="preserve">
+    <value>Debes ser un empleado para editar un producto.</value>
+  </data>
+  <data name="MyOrdersPageTitle" xml:space="preserve">
+    <value>Mis Pedidos</value>
+  </data>
+  <data name="OrderProductName" xml:space="preserve">
+    <value>Nombre del Producto</value>
+  </data>
+  <data name="OrderQuantity" xml:space="preserve">
+    <value>Cantidad</value>
+  </data>
+  <data name="OrderDate" xml:space="preserve">
+    <value>Fecha del Pedido</value>
+  </data>
+  <data name="OrderTotalPrice" xml:space="preserve">
+    <value>Precio Total</value>
+  </data>
+  <data name="NoOrdersAvailable" xml:space="preserve">
+    <value>No hay pedidos disponibles.</value>
+  </data>
 </root>

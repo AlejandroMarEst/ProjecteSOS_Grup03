@@ -1,18 +1,29 @@
 ﻿@page
 @model ProjecteSOS_Grup03WebPage.Pages.Orders.OrderListModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ProjecteSOS_Grup03WebPage
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
 @{
-    ViewData["Title"] = "Productes";
+    ViewData["Title"] = SharedLocalizer["MyOrdersPageTitle"];
     var token = HttpContext.Session.GetString("AuthToken");
 }
+
+<h2>@SharedLocalizer["MyOrdersPageTitle"]</h2>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+	<div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+
 @if (Model.Orders.Count > 0)
 {
 	<table class="table">
 		<thead>
 			<tr>
-				<th>Nom Producte</th>
-				<th>Quantitat</th>
-				<th>Data de la comanda</th>
-				<th>Preu total</th>
+				<th>@SharedLocalizer["OrderProductName"]</th>
+				<th>@SharedLocalizer["OrderQuantity"]</th>
+				<th>@SharedLocalizer["OrderDate"]</th>
+				<th>@SharedLocalizer["OrderTotalPrice"]</th>
 				<th></th>
 			</tr>
 		</thead>
@@ -31,5 +42,5 @@
 }
 else
 {
-	<p>No hi ha comandes disponibles.</p>
+	<p>@SharedLocalizer["NoOrdersAvailable"]</p>
 }
