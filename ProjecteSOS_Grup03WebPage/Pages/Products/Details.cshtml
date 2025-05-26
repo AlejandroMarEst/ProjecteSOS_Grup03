@@ -32,6 +32,9 @@
 		<h4>@SharedLocalizer["ProductPriceLabel"]</h4>
 		<p>@product.Price</p>
 	</div>
+	<div>
+		<a asp-page="AddToCart" asp-route-id="@product.ProductId" class="btn btn-secondary">Afegir al carret</a>
+	</div>
 }
 else
 {

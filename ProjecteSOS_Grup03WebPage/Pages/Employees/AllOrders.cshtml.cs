@@ -1,27 +1,26 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ProjecteSOS_Grup03WebPage.DTOs;
-using ProjecteSOS_Grup03WebPage.Pages.Products;
+using ProjecteSOS_Grup03WebPage.Pages.Orders;
 using ProjecteSOS_Grup03WebPage.Tools;
 using System.Net.Http.Headers;
 using System.Text.Json;
 
-namespace ProjecteSOS_Grup03WebPage.Pages.Profile
+namespace ProjecteSOS_Grup03WebPage.Employees
 {
-    public class UserOrdersModel : PageModel
+    public class AllOrdersModel : PageModel
     {
         private readonly IHttpClientFactory _httpClientFactory;
-        private readonly ILogger<UserOrdersModel> _logger;
+        private readonly ILogger<OrderListModel> _logger;
 
-        public List<UserOrderListDTO> Orders { get; set; } = [];
+        public List<OrderListDTO> Orders { get; set; } = [];
+        public List<UserProfileDTO> Users { get; set;} = [];
         public string? ErrorMessage { get; set; }
-
-        public UserOrdersModel(IHttpClientFactory httpClientFactory, ILogger<UserOrdersModel> logger)
+        public AllOrdersModel(IHttpClientFactory httpClientFactory, ILogger<OrderListModel> logger)
         {
             _httpClientFactory = httpClientFactory;
             _logger = logger;
         }
-
         public async Task OnGetAsync()
         {
             try
@@ -33,14 +32,16 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Profile
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                 }
-                var response = await client.GetAsync("api/Orders/User");
-
+                var response = await client.GetAsync("api/Orders");
+                var response2 = await client.GetAsync("api/Auth/Profiles");
                 if (response.IsSuccessStatusCode)
                 {
                     var json = await response.Content.ReadAsStringAsync();
-                    var orders = JsonSerializer.Deserialize<List<UserOrderListDTO>>(json, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
-
-                    Orders = orders ?? new List<UserOrderListDTO>();
+                    var orders = JsonSerializer.Deserialize<List<OrderListDTO>>(json, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+                    var json2 = await response2.Content.ReadAsStringAsync();
+                    var users = JsonSerializer.Deserialize<List<UserProfileDTO>>(json2, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+                    Orders = orders ?? new List<OrderListDTO>();
+                    Users = users ?? new List<UserProfileDTO>();
                 }
                 else
                 {

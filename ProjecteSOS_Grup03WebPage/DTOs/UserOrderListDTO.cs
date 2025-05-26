@@ -1,12 +1,8 @@
 ﻿namespace ProjecteSOS_Grup03WebPage.DTOs
 {
-    public class OrderListDTO
+    public class UserOrderListDTO
     {
         public int OrderId { get; set; }
-
-        public string? ClientId { get; set; }
-
-        public string? SalesRepId { get; set; }
 
         public DateOnly OrderDate { get; set; }
 
