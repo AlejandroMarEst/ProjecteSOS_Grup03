@@ -1,7 +1,10 @@
 ﻿@page
 @model ProjecteSOS_Grup03WebPage.Pages.Products.DetailsModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ProjecteSOS_Grup03WebPage
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
 @{
-	ViewData["Title"] = "Detalls del Producte";
+	ViewData["Title"] = SharedLocalizer["ProductDetailsTitle"];
 	var product = Model.Product;
 }
 
@@ -18,14 +21,21 @@
 		<img src="@product.Image" alt="@product.Name" width="500" />
 	</div>
 	<div>
+		<h4>@SharedLocalizer["ProductDescriptionLabel"]</h4>
 		<p>@product.Description</p>
 	</div>
 	<div>
+		<h4>@SharedLocalizer["ProductsStockLabel"]</h4>
 		<p>@product.Stock</p>
 	</div>
 	<div>
+		<h4>@SharedLocalizer["ProductPriceLabel"]</h4>
 		<p>@product.Price</p>
 	</div>
 }
+else
+{
+	<p>@SharedLocalizer["ProductNotFound"]</p>
+}
 
-<a asp-page="List" class="btn btn-secondary">Tornar</a>
+<a asp-page="List" class="btn btn-secondary">@SharedLocalizer["BackButton"]</a>

@@ -1,8 +1,11 @@
 ﻿@page
 @model PrivacyModel
+@using ProjecteSOS_Grup03WebPage
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
 @{
-    ViewData["Title"] = "Privacy Policy";
+    ViewData["Title"] = SharedLocalizer["PrivacyPolicyTitle"];
 }
-<h1>@ViewData["Title"]</h1>
+<h1>@SharedLocalizer["PrivacyPolicyTitle"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<p>@SharedLocalizer["PrivacyPolicyText"]</p>

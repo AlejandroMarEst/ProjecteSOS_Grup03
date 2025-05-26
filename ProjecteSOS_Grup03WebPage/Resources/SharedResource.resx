@@ -117,13 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Login" xml:space="preserve">
-    <value>Iniciar sesión</value>
+  <data name="EmailLabel" xml:space="preserve">
+    <value>Correo electrónico</value>
   </data>
   <data name="Products" xml:space="preserve">
     <value>Productos</value>
   </data>
-  <data name="WelcomeMessage" xml:space="preserve">
+  <data name="Welcome" xml:space="preserve">
     <value>Bienvenido</value>
   </data>
   <data name="AppName" xml:space="preserve">
@@ -132,10 +132,268 @@
   <data name="Logout" xml:space="preserve">
     <value>Cerrar Sesión</value>
   </data>
-  <data name="Register" xml:space="preserve">
+  <data name="RegisterHeader" xml:space="preserve">
     <value>Registrarse</value>
   </data>
   <data name="MyOrders" xml:space="preserve">
     <value>Mis Pedidos</value>
+  </data>
+  <data name="ProfileHeader" xml:space="preserve">
+    <value>Perfil</value>
+  </data>
+  <data name="EmployeeOnly" xml:space="preserve">
+    <value>Solo Empleados</value>
+  </data>
+  <data name="Restock" xml:space="preserve">
+    <value>Reponer Stock</value>
+  </data>
+  <data name="Statistics" xml:space="preserve">
+    <value>Estadísticas</value>
+  </data>
+  <data name="UserOrders" xml:space="preserve">
+    <value>Pedidos de Usuarios</value>
+  </data>
+  <data name="Select Language" xml:space="preserve">
+    <value>Selecciona idioma</value>
+  </data>
+  <data name="Privacy" xml:space="preserve">
+    <value>Privacidad</value>
+  </data>
+  <data name="ErrorPageTitle" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ErrorOccured" xml:space="preserve">
+    <value>Ha ocurrido un error procesando tu solicitud.</value>
+  </data>
+  <data name="RequestId" xml:space="preserve">
+    <value>ID de Solicitud:</value>
+  </data>
+  <data name="DevelopmentMode" xml:space="preserve">
+    <value>Modo de Desarrollo</value>
+  </data>
+  <data name="DevelopmentModeSwapping" xml:space="preserve">
+    <value>Cambiar al entorno de &lt;strong&gt;Desarrollo&lt;/strong&gt; muestra información detallada sobre el error ocurrido.</value>
+  </data>
+  <data name="DevelopmentModeWarningStrong" xml:space="preserve">
+    <value>El entorno de Desarrollo no debería estar habilitado para aplicaciones desplegadas.</value>
+  </data>
+  <data name="DevelopmentModeWarningText" xml:space="preserve">
+    <value>Puede resultar en la visualización de información sensible de excepciones a los usuarios finales. Para depuración local, habilita el entorno de &lt;strong&gt;Desarrollo&lt;/strong&gt; estableciendo la variable de entorno &lt;strong&gt;ASPNETCORE_ENVIRONMENT&lt;/strong&gt; a &lt;strong&gt;Development&lt;/strong&gt; y reiniciando la aplicación.</value>
+  </data>
+  <data name="HomePageTitle" xml:space="preserve">
+    <value>Página de Inicio</value>
+  </data>
+  <data name="LearnAbout" xml:space="preserve">
+    <value>Aprendre sobre</value>
+  </data>
+  <data name="LoginHeader" xml:space="preserve">
+    <value>Inicio de sesión</value>
+  </data>
+  <data name="LoginTitle" xml:space="preserve">
+    <value>Iniciar sesión</value>
+  </data>
+  <data name="PasswordLabel" xml:space="preserve">
+    <value>Contraseña</value>
+  </data>
+  <data name="LoginButton" xml:space="preserve">
+    <value>Entrar</value>
+  </data>
+  <data name="IncorrectLogin" xml:space="preserve">
+    <value>Incorrect email or password.</value>
+  </data>
+  <data name="PrivacyPolicyTitle" xml:space="preserve">
+    <value>Política de Privacidad</value>
+  </data>
+  <data name="UserProfileTitle" xml:space="preserve">
+    <value>Perfil de Usuario</value>
+  </data>
+  <data name="NameLabel" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="PhoneLabel" xml:space="preserve">
+    <value>Teléfono</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="ProfileIsNull" xml:space="preserve">
+    <value>El perfil no está disponible.</value>
+  </data>
+  <data name="LoginToViewProfile" xml:space="preserve">
+    <value>Inicia sesión para ver tu perfil.</value>
+  </data>
+  <data name="RegisterTitle" xml:space="preserve">
+    <value>Registro</value>
+  </data>
+  <data name="RegisterButton" xml:space="preserve">
+    <value>Registrarse</value>
+  </data>
+  <data name="RegistryError" xml:space="preserve">
+    <value>Error en el registro.</value>
+  </data>
+  <data name="ProductsPageTitle" xml:space="preserve">
+    <value>Lista de Productos</value>
+  </data>
+  <data name="AddProductButton" xml:space="preserve">
+    <value>Añadir Producto</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Descripción</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>Imagen</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Precio</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Detalles</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="NoProductsAvailable" xml:space="preserve">
+    <value>No hay productos disponibles.</value>
+  </data>
+  <data name="LoadingProductsError" xml:space="preserve">
+    <value>Error al cargar los productos.</value>
+  </data>
+  <data name="UnexpectedErrorTryAgain" xml:space="preserve">
+    <value>Ocurrió un error inesperado. Inténtalo de nuevo.</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Cambiar contraseña</value>
+  </data>
+  <data name="DeleteAccount" xml:space="preserve">
+    <value>Eliminar cuenta</value>
+  </data>
+  <data name="Cart" xml:space="preserve">
+    <value>Cesta</value>
+  </data>
+  <data name="CreateProductTitle" xml:space="preserve">
+    <value>Crear Producto</value>
+  </data>
+  <data name="AddProductHeader" xml:space="preserve">
+    <value>Añadir Nuevo Producto</value>
+  </data>
+  <data name="ProductNameLabel" xml:space="preserve">
+    <value>Nombre del Producto</value>
+  </data>
+  <data name="ProductDescriptionLabel" xml:space="preserve">
+    <value>Descripción del Producto</value>
+  </data>
+  <data name="ProductImageLabel" xml:space="preserve">
+    <value>URL de Imagen del Producto</value>
+  </data>
+  <data name="ProductStockLabel" xml:space="preserve">
+    <value>Stock del Producto</value>
+  </data>
+  <data name="ProductPriceLabel" xml:space="preserve">
+    <value>Precio del Producto</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Añadir</value>
+  </data>
+  <data name="EmployeesOnlyAddProduct" xml:space="preserve">
+    <value>Solo los empleados pueden añadir productos.</value>
+  </data>
+  <data name="ProductDetailsTitle" xml:space="preserve">
+    <value>Detalles del Producto</value>
+  </data>
+  <data name="ProductNotFound" xml:space="preserve">
+    <value>No se ha encontrado el producto.</value>
+  </data>
+  <data name="BackButton" xml:space="preserve">
+    <value>Volver</value>
+  </data>
+  <data name="EditProductTitle" xml:space="preserve">
+    <value>Editar Producto</value>
+  </data>
+  <data name="EditProductHeader" xml:space="preserve">
+    <value>Editar Producto</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="ProductIsNull" xml:space="preserve">
+    <value>El producto no está disponible o es nulo.</value>
+  </data>
+  <data name="EmployeesOnlyEditProduct" xml:space="preserve">
+    <value>Debes ser un empleado para editar un producto.</value>
+  </data>
+  <data name="MyOrdersPageTitle" xml:space="preserve">
+    <value>Mis Pedidos</value>
+  </data>
+  <data name="OrderProductName" xml:space="preserve">
+    <value>Nombre del Producto</value>
+  </data>
+  <data name="OrderQuantity" xml:space="preserve">
+    <value>Cantidad</value>
+  </data>
+  <data name="OrderDate" xml:space="preserve">
+    <value>Fecha del Pedido</value>
+  </data>
+  <data name="OrderTotalPrice" xml:space="preserve">
+    <value>Precio Total</value>
+  </data>
+  <data name="NoOrdersAvailable" xml:space="preserve">
+    <value>No hay pedidos disponibles.</value>
+  </data>
+  <data name="ChangePasswordTitle" xml:space="preserve">
+    <value>Cambiar Contraseña</value>
+  </data>
+  <data name="ChangePasswordHeader" xml:space="preserve">
+    <value>Cambiar Contraseña</value>
+  </data>
+  <data name="CurrentPasswordLabel" xml:space="preserve">
+    <value>Contraseña Actual</value>
+  </data>
+  <data name="NewPassordLabel" xml:space="preserve">
+    <value>Nueva Contraseña</value>
+  </data>
+  <data name="LoginToChangePassword" xml:space="preserve">
+    <value>Inicia sesión para poder cambiar tu contraseña.</value>
+  </data>
+  <data name="EditProfileTitle" xml:space="preserve">
+    <value>Editar Perfil</value>
+  </data>
+  <data name="EditProfileHeader" xml:space="preserve">
+    <value>Editar Perfil</value>
+  </data>
+  <data name="UserNameLabel" xml:space="preserve">
+    <value>Nombre de Usuario</value>
+  </data>
+  <data name="LoginToEditProfile" xml:space="preserve">
+    <value>Inicia sesión para editar tu perfil.</value>
+  </data>
+  <data name="UserOrdersPageTitle" xml:space="preserve">
+    <value>Mis Pedidos Realizados</value>
+  </data>
+  <data name="UserOrdersHeader" xml:space="preserve">
+    <value>Pedidos Realizados</value>
+  </data>
+  <data name="OrderDateLabel" xml:space="preserve">
+    <value>Fecha del pedido</value>
+  </data>
+  <data name="OrderTotalPriceLabel" xml:space="preserve">
+    <value>Precio Total del Pedido</value>
+  </data>
+  <data name="LoginToViewUserOrders" xml:space="preserve">
+    <value>Inicia sesión para ver tus pedidos.</value>
+  </data>
+  <data name="EmployeeMenu" xml:space="preserve">
+    <value>Menú Empleado</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Iniciar Sesión</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Registarse</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Perfil</value>
   </data>
 </root>
