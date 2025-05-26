@@ -1,12 +1,15 @@
 ﻿@page
 @model ProjecteSOS_Grup03WebPage.Pages.ProfileModel
+@using ProjecteSOS_Grup03WebPage
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
 @{
-	ViewData["Title"] = "Perfil d'usuari";
+	ViewData["Title"] = SharedLocalizer["UserProfileTitle"];
 	var token = HttpContext.Session.GetString("AuthToken");
 	var loggedIn = Tools.TokenHelper.IsTokenSession(token);
 }
 
-<h2>Perfil</h2>
+<h2>@SharedLocalizer["ProfileHeader"]</h2>
 
 @if (!string.IsNullOrEmpty(Model.ErrorMessage))
 {
@@ -18,41 +21,41 @@
 	@if (Model.Profile != null)
 	{
 		<div>
-			<h4>Nom</h4>
+			<h4>@SharedLocalizer["NameLabel"]</h4>
 			@if (!string.IsNullOrEmpty(Model.Profile.Name))
 			{
 				<p>@Model.Profile.Name</p>
 			}
 		</div>
 		<div>
-			<h4>Email</h4>
+			<h4>@SharedLocalizer["EmailLabel"]</h4>
 			@if (!string.IsNullOrEmpty(Model.Profile.Email))
 			{
 				<p>@Model.Profile.Email</p>
 			}
 		</div>
 		<div>
-			<h4>Telèfon</h4>
+			<h4>@SharedLocalizer["PhoneLabel"]</h4>
 			@if (!string.IsNullOrEmpty(Model.Profile.Phone))
 			{
 				<p>@Model.Profile.Phone</p>
 			}
 		</div>
 		<div>
-			<a class="btn btn-primary" asp-page="/Profile/Edit">Editar</a>
-			<a class="btn btn-primary" asp-page="/Profile/ChangePassword">Canviar Contrasenya</a>
-			<a class="btn btn-primary" asp-page="/Profile/UserOrders">Ordres Realitzades</a>
+			<a class="btn btn-primary" asp-page="/Profile/Edit">@SharedLocalizer["EditButton"]</a>
+			<a class="btn btn-primary" asp-page="/Profile/ChangePassword">@SharedLocalizer["ChangePassword"]</a>
+			<a class="btn btn-primary" asp-page="/Profile/UserOrders">@SharedLocalizer["UserOrders"]</a>
 			<form method="post" asp-page="/Profile/DeleteAccount">
-				<button type="submit" class="btn btn-danger">Eliminar Compte</button>
+				<button type="submit" class="btn btn-danger">@SharedLocalizer["DeleteAccount"]</button>
 			</form>
 		</div>
 	}
 	else
 	{
-		<div class="alert alert-danger">El perfil és null</div>
+		<div class="alert alert-danger">@SharedLocalizer["ProfileIsNull"]</div>
 	}
 }
 else
 {
-	<div class="alert alert-danger">Inicia sessió per a veure el teu usuari</div>
+	<div class="alert alert-danger">@SharedLocalizer["LoginToViewProfile"]</div>
 }

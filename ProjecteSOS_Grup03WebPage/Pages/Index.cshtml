@@ -1,10 +1,13 @@
 ﻿@page
 @model IndexModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ProjecteSOS_Grup03WebPage
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = SharedLocalizer["HomePageTitle"];
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">@SharedLocalizer["Welcome"]</h1>
+    <p>@SharedLocalizer["LearnAbout"] <a href="https://learn.microsoft.com/aspnet/core">@SharedLocalizer["LearnAboutLinkText"]</a>.</p>
 </div>
