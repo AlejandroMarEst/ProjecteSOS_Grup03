@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{id:int}"
 @model ProjecteSOS_Grup03WebPage.Pages.Products.AddToCartModel
 @using Microsoft.AspNetCore.Mvc.Localization
 @using ProjecteSOS_Grup03WebPage
@@ -26,7 +26,14 @@
             <input asp-for="OrderProductCreate.Quantity" class="form-control" />
             <span asp-validation-for="OrderProductCreate.Quantity" class="text-danger"></span>
         </div>
+
         <button type="submit" class="btn btn-primary">@SharedLocalizer["AddToCartButton"]</button>
+
+        <div class="mb-3" hidden>
+            <label asp-for="OrderProductCreate.ProductId"></label>
+            <input asp-for="OrderProductCreate.ProductId" class="form-control" />
+            <span asp-validation-for="OrderProductCreate.ProductId" class="text-danger"></span>
+        </div>
     </form>
     <div>
         <a asp-page="Details" asp-route-id="@Model.OrderProductCreate.ProductId" class="btn btn-secondary">@SharedLocalizer["BackToProductDetailsButton"]</a>

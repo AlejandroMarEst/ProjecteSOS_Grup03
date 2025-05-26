@@ -232,7 +232,14 @@ namespace ProjecteSOS_Grup03API.Controllers
             _context.Orders.Add(newOrder);
             await _context.SaveChangesAsync();
 
-            client.CurrentOrderId = newOrder.OrderId;
+            if (client.CurrentOrderId == null)
+            {
+                client.CurrentOrderId = newOrder.OrderId;
+            }
+            else
+            {
+                return Conflict("Ja existeix un ordre");
+            }
 
             _context.Clients.Update(client);
             await _context.SaveChangesAsync();
@@ -283,7 +290,14 @@ namespace ProjecteSOS_Grup03API.Controllers
             await _context.SaveChangesAsync();
 
             // Actualitza l'ordre actiu
-            client.CurrentOrderId = newOrder.OrderId;
+            if (client.CurrentOrderId == null)
+            {
+                client.CurrentOrderId = newOrder.OrderId;
+            }
+            else
+            {
+                return Conflict("Ja existeix un ordre");
+            }
 
             _context.Clients.Update(client);
             await _context.SaveChangesAsync();
@@ -331,7 +345,14 @@ namespace ProjecteSOS_Grup03API.Controllers
             await _context.SaveChangesAsync();
 
             // Actualitza l'ordre actiu
-            client.CurrentOrderId = newOrder.OrderId;
+            if (client.CurrentOrderId == null)
+            {
+                client.CurrentOrderId = newOrder.OrderId;
+            }
+            else
+            {
+                return Conflict("Ja existeix un ordre");
+            }
 
             _context.Clients.Update(client);
             await _context.SaveChangesAsync();
