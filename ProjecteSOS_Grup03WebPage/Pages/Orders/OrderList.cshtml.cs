@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ProjecteSOS_Grup03WebPage.DTOs;
 using ProjecteSOS_Grup03WebPage.Tools;
+using System.Net;
 using System.Net.Http.Headers;
 using System.Text.Json;
 
@@ -13,6 +14,7 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Orders
         private readonly ILogger<OrderListModel> _logger;
 
         public List<ProductOrderDetailsDTO> Orders { get; set; } = [];
+        public bool OrderExists { get; set; } = false;
         public string? ErrorMessage { get; set; }
 
         public OrderListModel(IHttpClientFactory httpClientFactory, ILogger<OrderListModel> logger)
@@ -32,7 +34,7 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Orders
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                 }
-                var response = await client.GetAsync("api/OrderedProducts/User/All");
+                var response = await client.GetAsync("api/OrderedProducts/User/CurrentOrder");
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -40,6 +42,12 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Orders
                     var orders = JsonSerializer.Deserialize<List<ProductOrderDetailsDTO>>(json, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
 
                     Orders = orders ?? new List<ProductOrderDetailsDTO>();
+
+                    OrderExists = true;
+                }
+                else if (response.StatusCode == HttpStatusCode.Conflict)
+                {
+                    OrderExists = false;
                 }
                 else
                 {
