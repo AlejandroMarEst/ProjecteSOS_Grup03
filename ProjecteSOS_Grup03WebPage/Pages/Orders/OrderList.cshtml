@@ -4,8 +4,8 @@
 @using ProjecteSOS_Grup03WebPage
 @inject IHtmlLocalizer<SharedResource> SharedLocalizer
 @{
-    ViewData["Title"] = SharedLocalizer["MyOrdersPageTitle"];
-    var token = HttpContext.Session.GetString("AuthToken");
+	ViewData["Title"] = SharedLocalizer["MyOrdersPageTitle"];
+	var token = HttpContext.Session.GetString("AuthToken");
 }
 
 <h2>@SharedLocalizer["MyOrdersPageTitle"]</h2>
@@ -39,8 +39,21 @@
 			}
 		</tbody>
 	</table>
+	<div>
+		<form method="post" asp-page="OrderConfirm">
+			<button type="submit" class="btn btn-primary">Confirmar</button>
+		</form>
+	</div>
 }
 else
 {
-	<p>@SharedLocalizer["NoOrdersAvailable"]</p>
+	<p>La comanda no conté productes</p>
+	@if(!Model.OrderExists)
+	{
+		<div>
+			<form method="post" asp-page="CreateOrder">
+				<button type="submit" class="btn btn-primary">Crear nova comanda</button>
+			</form>
+		</div>
+	}
 }
