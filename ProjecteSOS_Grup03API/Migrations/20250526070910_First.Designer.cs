@@ -12,7 +12,7 @@ using ProjecteSOS_Grup03API.Data;
 namespace ProjecteSOS_Grup03API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250520060903_First")]
+    [Migration("20250526070910_First")]
     partial class First
     {
         /// <inheritdoc />
@@ -168,6 +168,9 @@ namespace ProjecteSOS_Grup03API.Migrations
                     b.Property<string>("ClientId")
                         .HasColumnType("text");
 
+                    b.Property<DateOnly>("OrderDate")
+                        .HasColumnType("date");
+
                     b.Property<double>("Price")
                         .HasColumnType("double precision");
 
@@ -192,6 +195,10 @@ namespace ProjecteSOS_Grup03API.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ProductId"));
 
                     b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Image")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -312,6 +319,9 @@ namespace ProjecteSOS_Grup03API.Migrations
                 {
                     b.HasBaseType("ProjecteSOS_Grup03API.Models.User");
 
+                    b.Property<int>("CurrentOrderId")
+                        .HasColumnType("integer");
+
                     b.Property<bool>("IsMember")
                         .HasColumnType("boolean");
 
@@ -398,7 +408,7 @@ namespace ProjecteSOS_Grup03API.Migrations
                     b.HasOne("ProjecteSOS_Grup03API.Models.Client", "Client")
                         .WithMany("Orders")
                         .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("ProjecteSOS_Grup03API.Models.Employee", "SalesRep")
                         .WithMany("Orders")

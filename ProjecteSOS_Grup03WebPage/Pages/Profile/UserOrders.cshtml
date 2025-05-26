@@ -24,6 +24,7 @@
 				<tr>
 					<th>@SharedLocalizer["OrderDateLabel"]</th>
 					<th>@SharedLocalizer["OrderTotalPriceLabel"]</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -32,6 +33,9 @@
 					<tr>
 						<td>@order.OrderDate</td>
 						<td>@order.Price</td>
+						<td>
+							<a asp-page="../Orders/Details" asp-route-id="@order.OrderId" class="btn btn-info">Detalls</a>
+						</td>
 					</tr>
 				}
 			</tbody>

@@ -35,6 +35,7 @@ namespace ProjecteSOS_Grup03API.Migrations
                     UserType = table.Column<string>(type: "character varying(8)", maxLength: 8, nullable: false),
                     IsMember = table.Column<bool>(type: "boolean", nullable: true),
                     Points = table.Column<int>(type: "integer", nullable: true),
+                    CurrentOrderId = table.Column<int>(type: "integer", nullable: true),
                     StartDate = table.Column<DateOnly>(type: "date", nullable: true),
                     Salary = table.Column<double>(type: "double precision", nullable: true),
                     ManagerId = table.Column<string>(type: "text", nullable: true),
@@ -73,6 +74,7 @@ namespace ProjecteSOS_Grup03API.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
+                    Image = table.Column<string>(type: "text", nullable: false),
                     Stock = table.Column<int>(type: "integer", nullable: false),
                     Price = table.Column<double>(type: "double precision", nullable: false)
                 },
@@ -195,6 +197,7 @@ namespace ProjecteSOS_Grup03API.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ClientId = table.Column<string>(type: "text", nullable: true),
                     SalesRepId = table.Column<string>(type: "text", nullable: true),
+                    OrderDate = table.Column<DateOnly>(type: "date", nullable: false),
                     Price = table.Column<double>(type: "double precision", nullable: false)
                 },
                 constraints: table =>
@@ -205,7 +208,7 @@ namespace ProjecteSOS_Grup03API.Migrations
                         column: x => x.ClientId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Orders_AspNetUsers_SalesRepId",
                         column: x => x.SalesRepId,

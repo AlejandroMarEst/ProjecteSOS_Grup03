@@ -45,7 +45,7 @@ namespace ProjecteSOS_Grup03API.Data
                 .HasOne(o => o.Client)
                 .WithMany(c => c.Orders)
                 .HasForeignKey(o => o.ClientId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
 
             // ProductOrder (N:M entre Order i Product)
             builder.Entity<ProductOrder>()

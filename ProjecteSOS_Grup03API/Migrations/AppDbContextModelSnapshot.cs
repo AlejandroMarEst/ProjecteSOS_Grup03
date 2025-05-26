@@ -316,6 +316,9 @@ namespace ProjecteSOS_Grup03API.Migrations
                 {
                     b.HasBaseType("ProjecteSOS_Grup03API.Models.User");
 
+                    b.Property<int>("CurrentOrderId")
+                        .HasColumnType("integer");
+
                     b.Property<bool>("IsMember")
                         .HasColumnType("boolean");
 
@@ -402,7 +405,7 @@ namespace ProjecteSOS_Grup03API.Migrations
                     b.HasOne("ProjecteSOS_Grup03API.Models.Client", "Client")
                         .WithMany("Orders")
                         .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("ProjecteSOS_Grup03API.Models.Employee", "SalesRep")
                         .WithMany("Orders")

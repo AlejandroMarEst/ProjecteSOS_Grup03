@@ -201,8 +201,9 @@ namespace ProjecteSOS_Grup03API.Controllers
 
         // POST: api/Orders
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [Authorize]
-        [HttpPost]
+        // Crea una ordre
+        [Authorize(Roles = "Admin")]
+        [HttpPost("Admin/NewOrder")]
         public async Task<ActionResult<Order>> PostOrder(OrderDTO order)
         {
             if (!ModelState.IsValid)
@@ -225,10 +226,15 @@ namespace ProjecteSOS_Grup03API.Controllers
                 SalesRep = order.SalesRepId != null ? await _context.Employees.FirstOrDefaultAsync(u => u.Id == order.SalesRepId) : null,
                 SalesRepId = order.SalesRepId,
                 OrderDate = DateOnly.FromDateTime(DateTime.Now),
-                Price = order.Price
+                Price = 0
             };
 
             _context.Orders.Add(newOrder);
+            await _context.SaveChangesAsync();
+
+            client.CurrentOrderId = newOrder.OrderId;
+
+            _context.Clients.Update(client);
             await _context.SaveChangesAsync();
 
             var orderToReturn = new OrderListDTO
@@ -243,7 +249,147 @@ namespace ProjecteSOS_Grup03API.Controllers
             return CreatedAtAction(nameof(GetOrder), new { id = newOrder.OrderId }, orderToReturn);
         }
 
+        // Crea una ordre a partir de l'usuari connectat
+        [Authorize]
+        [HttpPost("NewOnlineOrder")]
+        public async Task<IActionResult> PostOrder()
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var client = await _context.Clients.FirstOrDefaultAsync(u => u.Id == userId);
+
+            if (client == null)
+            {
+                return NotFound("El client no existeix");
+            }
+
+            // Crear el nou order
+            var newOrder = new Order
+            {
+                Client = client,
+                ClientId = client.Id,
+                SalesRep = null,
+                SalesRepId = null,
+                OrderDate = DateOnly.FromDateTime(DateTime.Now),
+                Price = 0
+            };
+
+            _context.Orders.Add(newOrder);
+            await _context.SaveChangesAsync();
+
+            // Actualitza l'ordre actiu
+            client.CurrentOrderId = newOrder.OrderId;
+
+            _context.Clients.Update(client);
+            await _context.SaveChangesAsync();
+
+            return Ok("Ordre creada correctament");
+        }
+
+        // Crea una ordre a partir de l'usuari connectat, un empleat, i l'email d'un client
+        [Authorize]
+        [HttpPost("NewShopOrder")]
+        public async Task<IActionResult> PostOrder(string clientEmail)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var client = await _context.Clients.FirstOrDefaultAsync(c => c.Email == clientEmail);
+            var sales = await _context.Employees.FirstOrDefaultAsync(e => e.Id == userId);
+
+            if (client == null)
+            {
+                return NotFound("El client no existeix");
+            }
+
+            if (sales == null)
+            {
+                return NotFound("L'empleat no s'ha trobat");
+            }
+
+            // Crear el nou order
+            var newOrder = new Order
+            {
+                Client = client,
+                ClientId = client.Id,
+                SalesRep = sales,
+                SalesRepId = sales.Id,
+                OrderDate = DateOnly.FromDateTime(DateTime.Now),
+                Price = 0
+            };
+
+            _context.Orders.Add(newOrder);
+            await _context.SaveChangesAsync();
+
+            // Actualitza l'ordre actiu
+            client.CurrentOrderId = newOrder.OrderId;
+
+            _context.Clients.Update(client);
+            await _context.SaveChangesAsync();
+
+            return Ok("Ordre creada correctament");
+        }
+
+        // Confirma l'ordre actual de l'usuari connectat
+        [Authorize]
+        [HttpPatch("ConfirmOnlineOrder")]
+        public async Task<IActionResult> ConfirmOrder()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var client = await _context.Clients.FindAsync(userId);
+
+            if (client == null)
+            {
+                return NotFound("El client no s'ha trobat");
+            }
+            client.CurrentOrderId = null;
+
+            _context.Clients.Update(client);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "La comanda ha estat confirmada correctament." });
+        }
+
+        // Confirma una ordre a partir de l'usuari connectat, un empleat, i l'email d'un client
+        [Authorize(Roles = "Admin,Employee")]
+        [HttpPatch("ConfirmShopOrder")]
+        public async Task<IActionResult> ConfirmOrder(string clientEmail)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var client = await _context.Clients.FirstOrDefaultAsync(c => c.Email == clientEmail);
+            var sales = await _context.Employees.FindAsync(userId);
+
+            if (client == null)
+            {
+                return NotFound("El client no s'ha trobat");
+            }
+
+            if (sales == null)
+            {
+                return NotFound("L'emplat no s'ha trobat");
+            }
+
+            client.CurrentOrderId = null;
+
+            _context.Clients.Update(client);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "La comanda ha estat confirmada correctament." });
+        }
+
         // DELETE: api/Orders/5
+        // Elimina un ordre, els clients només poden eliminar les seves pròpies ordres
         [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteOrder(int id)
@@ -259,7 +405,7 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             if (order.ClientId != userId && userRole == "Client")
             {
-                return Forbid("No tens permisos per veure aquesta ordre");
+                return Forbid("No tens permisos per eliminar aquesta ordre");
             }
 
             _context.Orders.Remove(order);
