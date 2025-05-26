@@ -277,7 +277,7 @@
     <value>Crear producte</value>
   </data>
   <data name="AddProductHeader" xml:space="preserve">
-    <value>Afegir nou Producte</value>
+    <value>Afegir nou producte</value>
   </data>
   <data name="ProductNameLabel" xml:space="preserve">
     <value>Nom del producte</value>
@@ -428,5 +428,32 @@
   </data>
   <data name="DetailsButton" xml:space="preserve">
     <value>Detalls</value>
+  </data>
+  <data name="AllUserOrdersTitle" xml:space="preserve">
+    <value>Totes les comandes d'usuaris</value>
+  </data>
+  <data name="AllUserOrdersHeader" xml:space="preserve">
+    <value>Comandes dels usuaris</value>
+  </data>
+  <data name="OrderIdHeader" xml:space="preserve">
+    <value>ID de comanda</value>
+  </data>
+  <data name="ClientHeader" xml:space="preserve">
+    <value>Client</value>
+  </data>
+  <data name="SalesRepHeader" xml:space="preserve">
+    <value>Representant de vendes</value>
+  </data>
+  <data name="PriceHeader" xml:space="preserve">
+    <value>Preu</value>
+  </data>
+  <data name="OrderDateHeader" xml:space="preserve">
+    <value>Data de la comanda</value>
+  </data>
+  <data name="NoneText" xml:space="preserve">
+    <value>Ningú</value>
+  </data>
+  <data name="NoOrdersAvailableInTable" xml:space="preserve">
+    <value>No hi ha comandes disponibles.</value>
   </data>
 </root>
