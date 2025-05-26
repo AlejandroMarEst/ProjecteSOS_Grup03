@@ -6,6 +6,8 @@
 @{
 	ViewData["Title"] = SharedLocalizer["AllUserOrdersTitle"];
 	var token = HttpContext.Session.GetString("AuthToken");
+	var userRoles = Tools.TokenHelper.GetUserRoles(token).ToList();
+	bool isEmployee = userRoles.Contains("Employee") || userRoles.Contains("Admin");
 }
 
 <h2>@SharedLocalizer["AllUserOrdersHeader"]</h2>
@@ -16,6 +18,13 @@
 }
 
 <p>@Model.Users.First().Name</p>
+
+<h2>Comandes dels usuaris</h2>
+@if (!isEmployee)
+{
+	<p>No estas autoritzat</p>
+} else {
+
 <table class="table">
 	<thead>
 		<tr>
@@ -69,4 +78,4 @@
 	}
 	</tbody>
 </table>
-
+}
