@@ -10,16 +10,25 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Products
     public class AddToCartModel : PageModel
     {
         private readonly IHttpClientFactory _httpClientFactory;
-        private readonly ILogger<CreateModel> _logger;
+        private readonly ILogger<AddToCartModel> _logger;
 
         [BindProperty]
-        public OrderProductCreateDTO OrderProductCreate { get; set; }
+        public ProductOrderCreateDTO OrderProductCreate { get; set; } = new();
         public string? ErrorMessage { get; set; }
 
-        public AddToCartModel(IHttpClientFactory httpClientFactory, ILogger<CreateModel> logger)
+        public AddToCartModel(IHttpClientFactory httpClientFactory, ILogger<AddToCartModel> logger)
         {
             _httpClientFactory = httpClientFactory;
             _logger = logger;
+        }
+
+        public async Task<IActionResult> OnGetAsync(int id)
+        {
+            OrderProductCreate.ProductId = id;
+
+            _logger.LogInformation("Product Id {ProductId} defined", id);
+
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -43,7 +52,11 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Products
 
                 if (response.IsSuccessStatusCode)
                 {
-                    return RedirectToPage($"Details/{OrderProductCreate.ProductId}");
+                    return RedirectToPage("List");
+                }
+                else if (response.StatusCode == HttpStatusCode.Conflict)
+                {
+                    ErrorMessage = "Aquest producte ja està en la comanda, edita la quantitat";
                 }
                 else
                 {
@@ -57,7 +70,7 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Products
                 _logger.LogError(ex, $"Error Adding Product To Order");
             }
 
-            return RedirectToPage($"Details/{OrderProductCreate.ProductId}");
+            return Page();
         }
 
     }
