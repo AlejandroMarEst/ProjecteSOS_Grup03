@@ -312,7 +312,7 @@ namespace ProjecteSOS_Grup03API.Controllers
         }
 
         // PUT: api/OrderedProducts/orders/{orderId}/products/{productId}
-        [Authorize]
+        [Authorize (Roles = "Admin,Employee")]
         [HttpPut("orders/{orderId}/products/{productId}")]
         public async Task<IActionResult> PutProductOrder(int orderId, int productId, [FromBody] ProductOrderUpdateDTO dto)
         {
@@ -387,6 +387,78 @@ namespace ProjecteSOS_Grup03API.Controllers
             };
 
             return Ok(updatedDto);
+        }
+
+        [Authorize]
+        [HttpPatch("Quantity/{productId}")]
+        public async Task<IActionResult> PatchProductQuantity(int productId, int newQuantity)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var client = await _context.Clients.FirstOrDefaultAsync(u => u.Id == userId);
+
+            if (client == null)
+            {
+                return NotFound("El client no existeix");
+            }
+
+            var orderId = client.CurrentOrderId;
+
+            if (orderId == null)
+            {
+                return BadRequest("No hi ha cap comanda activa");
+            }
+
+            var existingProductOrder = await _context.ProductsOrders
+                .Include(po => po.Order)
+                .Include(po => po.Product)
+                .FirstOrDefaultAsync(po => po.OrderId == orderId && po.ProductId == productId);
+
+            if (existingProductOrder == null)
+            {
+                return NotFound("item de la comanda no trobat.");
+            }
+
+            int quantityDifference = newQuantity - existingProductOrder.Quantity;
+            if (existingProductOrder.Product.Stock < quantityDifference) // Si la nova quantitat és major, verificar si hi ha stock
+            {
+                return BadRequest($"No hi ha stock suficient per el producte {existingProductOrder.Product.Name}. Stock adicional requerit: {quantityDifference}, Disponible: {existingProductOrder.Product.Stock}");
+            }
+
+            // Actualitzar stock de producte
+            existingProductOrder.Product.Stock -= quantityDifference;
+            _context.Entry(existingProductOrder.Product).State = EntityState.Modified;
+
+            // Actualitzar la quantitat del ProductOrder
+            existingProductOrder.Quantity = newQuantity;
+            _context.Entry(existingProductOrder).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!await ProductOrderExists((int)orderId, productId))
+                {
+                    return NotFound("L'ítem de la comanda ha estat eliminat o modificat per un altre usuari.");
+                }
+                else
+                {
+                    return Conflict("Problema de concurrència. Torna a carregar les dades i intenta-ho de nou.");
+                }
+            }
+            catch (DbUpdateException ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error actualitzant la base de dades: " + ex.Message);
+            }
+
+            return Ok("La quantitat ha estat actualitzada correctament");
         }
 
         // Delete: api/OrderesProducts/orders/{orderId}/products/{productId}
