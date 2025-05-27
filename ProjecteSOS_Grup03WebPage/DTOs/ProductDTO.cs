@@ -6,6 +6,7 @@
         public string Description { get; set; }
         public string Image { get; set; }
         public int Stock { get; set; }
+        public int Points { get; set; } = 0;
         public double Price { get; set; }
     }
 }
