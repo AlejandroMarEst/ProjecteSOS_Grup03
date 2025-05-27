@@ -534,4 +534,22 @@
   <data name="IndexPageUnexpectedError" xml:space="preserve">
     <value>Error inesperat en carregar productes.</value>
   </data>
+  <data name="ProductPointsLabel" xml:space="preserve">
+    <value>Punts del producte</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Rol</value>
+  </data>
+  <data name="RoleAdmin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="RoleEmployee" xml:space="preserve">
+    <value>Empleat</value>
+  </data>
+  <data name="Points" xml:space="preserve">
+    <value>Punts</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Data d'inici</value>
+  </data>
 </root>

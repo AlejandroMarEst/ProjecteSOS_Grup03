@@ -42,7 +42,7 @@
             <span asp-validation-for="NewProduct.Stock" class="text-danger"></span>
         </div>
         <div class="mb-3">
-            <label asp-for="NewProduct.Points">Punts</label>
+            <label asp-for="NewProduct.Points">@SharedLocalizer["ProductPointsLabel"]</label>
             <input asp-for="NewProduct.Points" class="form-control" />
             <span asp-validation-for="NewProduct.Points" class="text-danger"></span>
         </div>
