@@ -542,6 +542,56 @@ namespace ProjecteSOS_Grup03API.Controllers
             return Ok(new { message = $"L'ítem del producte amb id {productId} de la comanda amb id {orderId} ha estat eliminat correctament." });
         }
 
+        [Authorize]
+        [HttpDelete("User/CurrentOrder/{productId}")]
+        public async Task<IActionResult> DeleteUserCurrentOrderProduct(int productId)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var client = await _context.Clients.FirstOrDefaultAsync(u => u.Id == userId);
+
+            if (client == null)
+            {
+                return NotFound("El client no existeix");
+            }
+
+            var orderId = client.CurrentOrderId;
+
+            if (orderId == null)
+            {
+                return BadRequest("No hi ha cap comanda activa");
+            }
+
+            var productOrder = await _context.ProductsOrders
+                .Include(po => po.Order)
+                .Include(po => po.Product)
+                .FirstOrDefaultAsync(po => po.OrderId == orderId && po.ProductId == productId);
+
+            if (productOrder == null)
+            {
+                return NotFound("Item de la comanda no trobat.");
+            }
+
+            if (productOrder.Product != null)
+            {
+                productOrder.Product.Stock += productOrder.Quantity;
+                _context.Entry(productOrder.Product).State = EntityState.Modified;
+            }
+
+            _context.ProductsOrders.Remove(productOrder);
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error eliminant l'item de la comanda de la base de dades: " + ex.Message);
+            }
+
+            return Ok("Producte eliminat de la comanda");
+        }
+
         private async Task<bool> ProductOrderExists(int orderId, int productId)
         {
             return await _context.ProductsOrders.AnyAsync(e => e.OrderId == orderId && e.ProductId == productId);
