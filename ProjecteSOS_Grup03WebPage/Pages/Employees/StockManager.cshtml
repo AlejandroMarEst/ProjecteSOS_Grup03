@@ -8,10 +8,14 @@
     var userRoles = Tools.TokenHelper.GetUserRoles(token).ToList();
     bool isEmployee = userRoles.Contains("Employee") || userRoles.Contains("Admin");
 }
+
+<h2>@SharedLocalizer["StockManagerHeader"]</h2>
+
 @if (!isEmployee)
 {
 	<p>@SharedLocalizer["NotAuthorizedMessage"]</p>
 }
+
 else
 {
     <table class="table">

@@ -486,4 +486,16 @@
   <data name="OutOfStockText" xml:space="preserve">
     <value>Sin stock</value>
   </data>
+  <data name="StockManagerTitle" xml:space="preserve">
+    <value>Gestor de stock</value>
+  </data>
+  <data name="StockManagerHeader" xml:space="preserve">
+    <value>Gestión de stock</value>
+  </data>
+  <data name="ProductActionsGroupLabel" xml:space="preserve">
+    <value>Acciones de producto</value>
+  </data>
+  <data name="ConfirmDeleteProduct" xml:space="preserve">
+    <value>¿Estás seguro de que quieres eliminar este producto?</value>
+  </data>
 </root>

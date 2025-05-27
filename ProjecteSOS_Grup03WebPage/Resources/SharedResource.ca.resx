@@ -489,4 +489,16 @@
   <data name="OutOfStockText" xml:space="preserve">
     <value>Sense estoc</value>
   </data>
+  <data name="StockManagerTitle" xml:space="preserve">
+    <value>Gestor d'estoc</value>
+  </data>
+  <data name="StockManagerHeader" xml:space="preserve">
+    <value>Gestió d'estoc</value>
+  </data>
+  <data name="ProductActionsGroupLabel" xml:space="preserve">
+    <value>Accions de producte</value>
+  </data>
+  <data name="ConfirmDeleteProduct" xml:space="preserve">
+    <value>Estàs segur que vols eliminar aquest producte?</value>
+  </data>
 </root>
