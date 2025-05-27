@@ -3,14 +3,14 @@
 @model ProjecteSOS_Grup03WebPage.Pages.Employees.StockManagerModel
 @inject IHtmlLocalizer<SharedResource> SharedLocalizer
 @{
-    ViewData["Title"] = "Controlador de l'estoc"; //Pending Translation
+    ViewData["Title"] = "StockManagerTitle";
     var token = HttpContext.Session.GetString("AuthToken");
     var userRoles = Tools.TokenHelper.GetUserRoles(token).ToList();
     bool isEmployee = userRoles.Contains("Employee") || userRoles.Contains("Admin");
 }
 @if (!isEmployee)
 {
-	<p>No estas autoritzat</p> //Pending Translation
+	<p>@SharedLocalizer["NotAuthorizedMessage"]</p>
 }
 else
 {
