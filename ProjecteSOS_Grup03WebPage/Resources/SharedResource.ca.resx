@@ -483,4 +483,7 @@
   <data name="CreateNewOrderButton" xml:space="preserve">
     <value>Crear nova comanda</value>
   </data>
+  <data name="NotAuthorizedMessage" xml:space="preserve">
+    <value>No estàs autoritzat per veure aquesta pàgina.</value>
+  </data>
 </root>

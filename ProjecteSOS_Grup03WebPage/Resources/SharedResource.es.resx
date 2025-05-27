@@ -480,4 +480,7 @@
   <data name="CreateNewOrderButton" xml:space="preserve">
     <value>Crear nuevo pedido</value>
   </data>
+  <data name="NotAuthorizedMessage" xml:space="preserve">
+    <value>No estás autorizado para ver esta página.</value>
+  </data>
 </root>
