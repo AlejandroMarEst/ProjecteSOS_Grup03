@@ -474,4 +474,16 @@
   <data name="LoginToAddToCart" xml:space="preserve">
     <value>Inicia sessió per a afegir productes al teu carret.</value>
   </data>
+  <data name="ConfirmOrderButton" xml:space="preserve">
+    <value>Confirmar comanda</value>
+  </data>
+  <data name="OrderIsEmpty" xml:space="preserve">
+    <value>La comanda no conté productes.</value>
+  </data>
+  <data name="CreateNewOrderButton" xml:space="preserve">
+    <value>Crear nova comanda</value>
+  </data>
+  <data name="NotAuthorizedMessage" xml:space="preserve">
+    <value>No estàs autoritzat per veure aquesta pàgina.</value>
+  </data>
 </root>

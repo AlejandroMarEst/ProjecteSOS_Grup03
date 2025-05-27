@@ -41,18 +41,18 @@
 	</table>
 	<div>
 		<form method="post" asp-page="OrderConfirm">
-			<button type="submit" class="btn btn-primary">Confirmar</button>
+			<button type="submit" class="btn btn-primary">@SharedLocalizer["ConfirmOrderButton"]</button>
 		</form>
 	</div>
 }
 else
 {
-	<p>La comanda no conté productes</p>
+	<p>@SharedLocalizer["OrderIsEmpty"]</p>
 	@if(!Model.OrderExists)
 	{
 		<div>
 			<form method="post" asp-page="CreateOrder">
-				<button type="submit" class="btn btn-primary">Crear nova comanda</button>
+				<button type="submit" class="btn btn-primary">@SharedLocalizer["CreateNewOrderButton"]</button>
 			</form>
 		</div>
 	}

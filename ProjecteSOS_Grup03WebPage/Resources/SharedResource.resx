@@ -471,4 +471,16 @@
   <data name="LoginToAddToCart" xml:space="preserve">
     <value>Inicia sesión para añadir productos a tu carrito,</value>
   </data>
+  <data name="ConfirmOrderButton" xml:space="preserve">
+    <value>Confirmar Pedido</value>
+  </data>
+  <data name="OrderIsEmpty" xml:space="preserve">
+    <value>El pedido no contiene productos.</value>
+  </data>
+  <data name="CreateNewOrderButton" xml:space="preserve">
+    <value>Crear Nuevo Pedido</value>
+  </data>
+  <data name="NotAuthorizedMessage" xml:space="preserve">
+    <value>No estás autorizado para ver esta página.</value>
+  </data>
 </root>
