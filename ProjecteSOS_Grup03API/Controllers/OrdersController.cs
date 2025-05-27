@@ -373,6 +373,21 @@ namespace ProjecteSOS_Grup03API.Controllers
             {
                 return NotFound("El client no s'ha trobat");
             }
+
+            var orderId = client.CurrentOrderId;
+
+            if (orderId == null)
+            {
+                return BadRequest("No hi ha cap comanda activa");
+            }
+
+            var productsPoints = await _context.ProductsOrders
+                .Where(op => op.OrderId == orderId)
+                .Select(op => op.Product.Points)
+                .ToListAsync();
+
+            productsPoints.ForEach(p => client.Points += p);
+
             client.CurrentOrderId = null;
 
             _context.Clients.Update(client);
@@ -401,6 +416,19 @@ namespace ProjecteSOS_Grup03API.Controllers
                 return NotFound("L'emplat no s'ha trobat");
             }
 
+            var orderId = client.CurrentOrderId;
+
+            if (orderId == null)
+            {
+                return BadRequest("No hi ha cap comanda activa");
+            }
+
+            var productsPoints = await _context.ProductsOrders
+                .Where(op => op.OrderId == orderId)
+                .Select(op => op.Product.Points)
+                .ToListAsync();
+
+            productsPoints.ForEach(p => client.Points += p);
             client.CurrentOrderId = null;
 
             _context.Clients.Update(client);
