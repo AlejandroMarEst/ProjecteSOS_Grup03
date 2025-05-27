@@ -143,7 +143,6 @@ namespace ProjecteSOS_Grup03API.Controllers
             var profile = new UserProfileDTO
             {
                 Email = user.Email ?? string.Empty,
-                Password = user.PasswordHash ?? string.Empty,
                 Name = user.Name ?? string.Empty,
                 Phone = user.PhoneNumber ?? string.Empty
             };
@@ -165,7 +164,6 @@ namespace ProjecteSOS_Grup03API.Controllers
             var profile = new UserProfileDTO
             {
                 Email = user.Email ?? string.Empty,
-                Password = user.PasswordHash ?? string.Empty,
                 Name = user.Name,
                 Phone = user.PhoneNumber ?? string.Empty
             };
