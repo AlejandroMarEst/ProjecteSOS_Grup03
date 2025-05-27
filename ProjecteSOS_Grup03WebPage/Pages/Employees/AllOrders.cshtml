@@ -19,12 +19,13 @@
 
 <p>@Model.Users.First().Name</p>
 
-<h2>Comandes dels usuaris</h2>
+<h2>@SharedLocalizer["AllUserOrdersHeader"]</h2>
 @if (!isEmployee)
 {
-	<p>No estas autoritzat</p>
-} else {
-
+	<p>@SharedLocalizer["NotAuthorizedMessage"]</p>
+} 
+else 
+{
 <table class="table">
 	<thead>
 		<tr>
@@ -46,7 +47,7 @@
 						if(order.SalesRepId==null){
 							<td>@order.OrderId</td>
 							<td>@Model.Users.FirstOrDefault(c => c.Id == order.ClientId).Name</td>
-							<td>Ningú</td>
+							<td>@SharedLocalizer["NoneText"]</td>
 							<td>@order.Price</td>
 							<td>@order.OrderDate.ToString("dd/MM/yyyy")</td>
 						}
@@ -62,8 +63,8 @@
 					else
 					{
 						<td>@order.OrderId</td>
-						<td>Ningú</td>
-						<td>Ningú</td>
+						<td>@SharedLocalizer["NoneText"]</td>
+						<td>@SharedLocalizer["NoneText"]</td>
 						<td>@order.Price</td>
 						<td>@order.OrderDate.ToString("dd/MM/yyyy")</td>
 					}
