@@ -519,4 +519,19 @@
   <data name="BackToMyOrdersButton" xml:space="preserve">
     <value>Back to my orders</value>
   </data>
+  <data name="ActionsLabel" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="NoImageAvailable" xml:space="preserve">
+    <value>Image not available</value>
+  </data>
+  <data name="LoginToShopButton" xml:space="preserve">
+    <value>Login to shop</value>
+  </data>
+  <data name="IndexPageLoadProductsError" xml:space="preserve">
+    <value>Could not load products at this time.</value>
+  </data>
+  <data name="IndexPageUnexpectedError" xml:space="preserve">
+    <value>An unexpected error occurred while loading products.</value>
+  </data>
 </root>

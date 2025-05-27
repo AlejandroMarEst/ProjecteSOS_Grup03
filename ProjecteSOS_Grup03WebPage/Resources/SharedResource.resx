@@ -516,4 +516,19 @@
   <data name="BackToMyOrdersButton" xml:space="preserve">
     <value>Volver a Mis Pedidos</value>
   </data>
+  <data name="ActionsLabel" xml:space="preserve">
+    <value>Acciones</value>
+  </data>
+  <data name="NoImageAvailable" xml:space="preserve">
+    <value>Imagen no disponible</value>
+  </data>
+  <data name="LoginToShopButton" xml:space="preserve">
+    <value>Inicia sesión para comprar</value>
+  </data>
+  <data name="IndexPageLoadProductsError" xml:space="preserve">
+    <value>No se pudieron cargar los productos en este momento.</value>
+  </data>
+  <data name="IndexPageUnexpectedError" xml:space="preserve">
+    <value>Ocurrió un error inesperado al cargar productos.</value>
+  </data>
 </root>
