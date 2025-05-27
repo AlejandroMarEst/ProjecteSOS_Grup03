@@ -32,9 +32,9 @@
                             <!-- image-->
                             <a asp-page="/Products/Details" asp-route-id="@product.ProductId">
                                 <img class="card-img-top"
-                                     src="@(string.IsNullOrEmpty(product.Image) ? "https://dummyimage.com/450x300/dee2e6/6c757d.jpg&text=" + SharedLocalizer["NoImageAvailable", "Imatge no disponible"] : product.Image)"
+                                     src="@(string.IsNullOrEmpty(product.Image) ? "https://dummyimage.com/450x300/dee2e6/6c757d.jpg&text=" + SharedLocalizer["NoImageAvailable"] : product.Image)"
                                      alt="@product.Name"
-                                     style="height: 200px; object-fit: cover;" />
+                                     style="height: 200px; object-fit: cover; padding: 25px;" />
                             </a>
                             <!-- details-->
                             <div class="card-body p-4">
@@ -43,15 +43,6 @@
                                     <h5 class="fw-bolder">
                                         <a asp-page="/Products/Details" asp-route-id="@product.ProductId" class="text-decoration-none text-dark">@product.Name</a>
                                     </h5>
-                                    <!-- description -->
-                                    @if (!string.IsNullOrEmpty(product.Description) && product.Description.Length > 50)
-                                    {
-                                        <p class="small text-muted">@product.Description.Substring(0, 50)...</p>
-                                    }
-                                    else if (!string.IsNullOrEmpty(product.Description))
-                                    {
-                                        <p class="small text-muted">@product.Description</p>
-                                    }
                                     <!-- price-->
                                     <span class="fs-5">@product.Price.ToString() € </span>
                                 </div>

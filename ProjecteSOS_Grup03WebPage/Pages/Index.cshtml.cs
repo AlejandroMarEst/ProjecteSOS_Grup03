@@ -38,7 +38,15 @@ namespace ProjecteSOS_Grup03WebPage.Pages
                 {
                     var json = await response.Content.ReadAsStringAsync();
                     var products = JsonSerializer.Deserialize<List<ProductListDTO>>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-                    Products = products ?? new List<ProductListDTO>();
+                    
+                    if (products != null)
+                    {
+                        Products = products.OrderByDescending(products => products.Price).ToList();
+                    }
+                    else
+                    {
+                        Products = new List<ProductListDTO>();
+                    }
                 }
                 else
                 {
