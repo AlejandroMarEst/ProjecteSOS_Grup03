@@ -12,11 +12,14 @@
 
 @if (!isEmployee)
 {
-	<p>@SharedLocalizer["NotAuthorizedMessage"]</p>
+    <p>@SharedLocalizer["NotAuthorizedMessage"]</p>
 }
-
 else
 {
+    <div class="mb-3">
+        <a class="btn btn-primary" asp-page="/Products/Create">@SharedLocalizer["AddProductButton"]</a>
+    </div>
+
     <table class="table_normal">
         <thead>
             <tr>
