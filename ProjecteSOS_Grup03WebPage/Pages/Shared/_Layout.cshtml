@@ -32,9 +32,9 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bot box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">Dynamy X</a>
+                <a class="navbar-brand normal-txt" asp-area="" asp-page="/Index">Dynamy X</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                 aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -45,32 +45,32 @@
                         @if (!loggedIn)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Login">@SharedLocalizer["LoginHeader"]</a>
+                                <a class="nav-link normal-txt" asp-area="" asp-page="/Login">@SharedLocalizer["LoginHeader"]</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Register">@SharedLocalizer["RegisterHeader"]</a>
+                                <a class="nav-link normal-txt" asp-area="" asp-page="/Register">@SharedLocalizer["RegisterHeader"]</a>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Profile">@SharedLocalizer["ProfileHeader", "Perfil"]</a>
+                                <a class="nav-link normal-txt" asp-area="" asp-page="/Profile">@SharedLocalizer["ProfileHeader", "Perfil"]</a>
                             </li>
                             <li class="nav-item">
                                 <form method="post" asp-page="/Logout">
-                                    <button type="submit" class="nav-link text-dark btn btn-link">@SharedLocalizer["Logout", "Tancar sessió"]</button>
+                                    <button type="submit" class="btn">@SharedLocalizer["Logout", "Tancar sessió"]</button>
                                 </form>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Orders/OrderList">@SharedLocalizer["Cart", "Carret"]</a>
+                                <a class="nav-link normal-txt" asp-area="" asp-page="/Orders/OrderList">@SharedLocalizer["Cart", "Carret"]</a>
                             </li>
                             @if (isEmployee)
                             {
                                 <div class="dropdown">
                                     <button class="dropbtn">@SharedLocalizer["EmployeeOnly"]</button>
                                     <div class="dropdown-content">
-                                        <a asp-area="" asp-page="/Restock">@SharedLocalizer["Restock"]</a>
+                                        <a asp-area="" asp-page="/Employees/StockManager">@SharedLocalizer["Restock"]</a>
                                         <a asp-area="" asp-page="/Stats">@SharedLocalizer["Statistics"]</a>
                                         <a asp-area="" asp-page="/Employees/AllOrders">@SharedLocalizer["UserOrders"]</a>
                                     </div>
@@ -79,7 +79,7 @@
                         }
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Products/List">@SharedLocalizer["Products", "Productes"]</a>
+                            <a class="nav-link normal-txt" asp-area="" asp-page="/Products/List">@SharedLocalizer["Products", "Productes"]</a>
                         </li>
                     </ul>
 
@@ -104,13 +104,13 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container normal-txt">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="footer text-muted normal-txt">
         <div class="container">
             &copy; 2025 - ProjecteSOS_Grup03WebPage - <a asp-area="" asp-page="/Privacy">@SharedLocalizer["Privacy"]</a>
         </div>

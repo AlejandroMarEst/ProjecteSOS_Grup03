@@ -8,7 +8,6 @@
     var userRoles = Tools.TokenHelper.GetUserRoles(token).ToList();
     bool isEmployee = userRoles.Contains("Employee") || userRoles.Contains("Admin");
 }
-
 <h2>@SharedLocalizer["StockManagerHeader"]</h2>
 
 @if (!isEmployee)
@@ -18,7 +17,7 @@
 
 else
 {
-    <table class="table">
+    <table class="table_normal">
         <thead>
             <tr>
                 <th>@SharedLocalizer["NameLabel"]</th>

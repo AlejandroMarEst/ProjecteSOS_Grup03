@@ -20,7 +20,7 @@
 @if (isEmployee)
 {
     <form method="post">
-        <div asp-validation-summary="All"></div>
+        <div>
         <div class="mb-3">
             <label asp-for="NewProduct.Name">@SharedLocalizer["ProductNameLabel"]</label>
             <input asp-for="NewProduct.Name" class="form-control" />
@@ -47,6 +47,7 @@
             <span asp-validation-for="NewProduct.Price" class="text-danger"></span>
         </div>
         <button type="submit" class="btn btn-primary">@SharedLocalizer["AddButton"]</button>
+        </div>
     </form>
 }
 else

@@ -9,7 +9,6 @@
 	var userRoles = Tools.TokenHelper.GetUserRoles(token).ToList();
 	bool isEmployee = userRoles.Contains("Employee") || userRoles.Contains("Admin");
 }
-
 <h2>@SharedLocalizer["AllUserOrdersHeader"]</h2>
 
 @if (!string.IsNullOrEmpty(Model.ErrorMessage))
@@ -26,7 +25,7 @@
 } 
 else 
 {
-<table class="table">
+<table class="table_normal">
 	<thead>
 		<tr>
 			<th>@SharedLocalizer["OrderIdHeader"]</th>
@@ -48,7 +47,7 @@ else
 							<td>@order.OrderId</td>
 							<td>@Model.Users.FirstOrDefault(c => c.Id == order.ClientId).Name</td>
 							<td>@SharedLocalizer["NoneText"]</td>
-							<td>@order.Price</td>
+							<td>@Math.Round(order.Price, 2)</td>
 							<td>@order.OrderDate.ToString("dd/MM/yyyy")</td>
 						}
 						else if (Model.Users.FirstOrDefault(c => c.Id == order.SalesRepId)?.Name != null)
@@ -56,7 +55,7 @@ else
 							<td>@order.OrderId</td>
 							<td>@Model.Users.FirstOrDefault(c => c.Id == order.ClientId).Name</td>
 							<td>@Model.Users.FirstOrDefault(c => c.Id == order.SalesRepId).Name</td>
-							<td>@order.Price</td>
+								<td>@Math.Round(order.Price, 2)</td>
 							<td>@order.OrderDate.ToString("dd/MM/yyyy")</td>
 						}
 					} 
@@ -65,7 +64,7 @@ else
 						<td>@order.OrderId</td>
 						<td>@SharedLocalizer["NoneText"]</td>
 						<td>@SharedLocalizer["NoneText"]</td>
-						<td>@order.Price</td>
+						<td>@Math.Round(order.Price, 2)</td>
 						<td>@order.OrderDate.ToString("dd/MM/yyyy")</td>
 					}
 			</tr>

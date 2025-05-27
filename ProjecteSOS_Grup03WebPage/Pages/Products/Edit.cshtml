@@ -22,6 +22,7 @@
 	@if (Model.Product != null)
     {
 		<form method="post">
+			<div>
 			<div class="mb-3">
 				<label asp-for="Product.Name">@SharedLocalizer["ProductNameLabel"]</label>
 				<input asp-for="Product.Name" class="form-control" />
@@ -49,6 +50,7 @@
 			</div>
 			<button type="submit" class="btn btn-primary">@SharedLocalizer["SaveButton"]</button>
 			<a asp-page="List" class="btn btn-secondary">@SharedLocalizer["CancelButton"]</a>
+			</div>
 		</form>
     }
     else
