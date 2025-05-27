@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{id:int}"
 @model ProjecteSOS_Grup03WebPage.Pages.Products.DetailsModel
 @using Microsoft.AspNetCore.Mvc.Localization
 @using ProjecteSOS_Grup03WebPage
@@ -6,6 +6,7 @@
 @{
 	ViewData["Title"] = SharedLocalizer["ProductDetailsTitle"];
 	var product = Model.Product;
+	var loggedIn = Tools.TokenHelper.IsTokenSession(token);
 }
 
 @if (product != null) { <h2>@product.Name</h2> }
@@ -32,9 +33,19 @@
 		<h4>@SharedLocalizer["ProductPriceLabel"]</h4>
 		<p>@product.Price</p>
 	</div>
-	<div>
-		<a asp-page="AddToCart" asp-route-id="@product.ProductId" class="btn btn-secondary">Afegir al carret</a>
-	</div>
+
+	@if (loggedIn && product.Stock > 0)
+	{
+		<div>
+			<a asp-page="AddToCart" asp-route-id="@product.ProductId" class="btn btn-secondary">@SharedLocalizer["AddToCartButton"]</a>
+		</div>
+	}
+	else if (loggedIn && product.Stock <= 0)
+	{
+		<div>
+			<p class="text-danger">@SharedLocalizer["OutOfStockText"]</p>
+		</div>
+	}
 }
 else
 {

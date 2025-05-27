@@ -4,8 +4,8 @@
 @using ProjecteSOS_Grup03WebPage
 @inject IHtmlLocalizer<SharedResource> SharedLocalizer
 @{
-    ViewData["Title"] = SharedLocalizer["MyOrdersPageTitle"];
-    var token = HttpContext.Session.GetString("AuthToken");
+	ViewData["Title"] = SharedLocalizer["MyOrdersPageTitle"];
+	var token = HttpContext.Session.GetString("AuthToken");
 }
 
 <h2>@SharedLocalizer["MyOrdersPageTitle"]</h2>
@@ -35,12 +35,28 @@
 					<td>@order.Quantity</td>
 					<td>@order.OrderDate</td>
 					<td>@order.TotalPrice</td>
+					<td>
+						<a asp-page="Edit" asp-route-id="@order.ProductId" class="btn btn-primary">@SharedLocalizer["EditButton"]</a>
+					</td>
 				</tr>
 			}
 		</tbody>
 	</table>
+	<div>
+		<form method="post" asp-page="OrderConfirm">
+			<button type="submit" class="btn btn-primary">@SharedLocalizer["ConfirmOrderButton"]</button>
+		</form>
+	</div>
 }
 else
 {
-	<p>@SharedLocalizer["NoOrdersAvailable"]</p>
+	<p>@SharedLocalizer["OrderIsEmpty"]</p>
+	@if(!Model.OrderExists)
+	{
+		<div>
+			<form method="post" asp-page="CreateOrder">
+				<button type="submit" class="btn btn-primary">@SharedLocalizer["CreateNewOrderButton"]</button>
+			</form>
+		</div>
+	}
 }

@@ -1,8 +1,10 @@
 ﻿namespace ProjecteSOS_Grup03WebPage.DTOs
 {
-    public class OrderProductCreateDTO
+    public class ProductOrderDTO
     {
-        public int ProductId { get; set; }
+        public DateTime OrderDate { get; set; }
+
         public int Quantity { get; set; }
+
     }
 }

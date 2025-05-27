@@ -274,7 +274,7 @@
     <value>Crear producto</value>
   </data>
   <data name="AddProductHeader" xml:space="preserve">
-    <value>Añadir Nuevo roducto</value>
+    <value>Añadir nuevo producto</value>
   </data>
   <data name="ProductNameLabel" xml:space="preserve">
     <value>Nombre del producto</value>
@@ -425,5 +425,77 @@
   </data>
   <data name="DetailsButton" xml:space="preserve">
     <value>Detalles</value>
+  </data>
+  <data name="AllUserOrdersTitle" xml:space="preserve">
+    <value>Todos los pedidos de usuarios</value>
+  </data>
+  <data name="AllUserOrdersHeader" xml:space="preserve">
+    <value>Pedidos de los usuarios</value>
+  </data>
+  <data name="OrderIdHeader" xml:space="preserve">
+    <value>ID del pedido</value>
+  </data>
+  <data name="ClientHeader" xml:space="preserve">
+    <value>Cliente</value>
+  </data>
+  <data name="SalesRepHeader" xml:space="preserve">
+    <value>Representante de ventas</value>
+  </data>
+  <data name="PriceHeader" xml:space="preserve">
+    <value>Precio</value>
+  </data>
+  <data name="OrderDateHeader" xml:space="preserve">
+    <value>Fecha del pedido</value>
+  </data>
+  <data name="NoneText" xml:space="preserve">
+    <value>Ninguno</value>
+  </data>
+  <data name="NoOrdersAvailableInTable" xml:space="preserve">
+    <value>No hay pedidos disponibles.</value>
+  </data>
+  <data name="AddToCartPageTitle" xml:space="preserve">
+    <value>Añadir al carrito</value>
+  </data>
+  <data name="AddToCartHeader" xml:space="preserve">
+    <value>Afegir producte al carret</value>
+  </data>
+  <data name="QuantityLabel" xml:space="preserve">
+    <value>Cantidad</value>
+  </data>
+  <data name="AddToCartButton" xml:space="preserve">
+    <value>Añadir al carrito</value>
+  </data>
+  <data name="BackToProductsDetailsButton" xml:space="preserve">
+    <value>Volver a detalles del producto</value>
+  </data>
+  <data name="LoginToAddToCart" xml:space="preserve">
+    <value>Inicia sesión para añadir productos a tu carrito.</value>
+  </data>
+  <data name="ConfirmOrderButton" xml:space="preserve">
+    <value>Confirmar pedido</value>
+  </data>
+  <data name="OrderIsEmpty" xml:space="preserve">
+    <value>El pedido no contiene productos.</value>
+  </data>
+  <data name="CreateNewOrderButton" xml:space="preserve">
+    <value>Crear nuevo pedido</value>
+  </data>
+  <data name="NotAuthorizedMessage" xml:space="preserve">
+    <value>No estás autorizado para ver esta página.</value>
+  </data>
+  <data name="OutOfStockText" xml:space="preserve">
+    <value>Sin stock</value>
+  </data>
+  <data name="StockManagerTitle" xml:space="preserve">
+    <value>Gestor de stock</value>
+  </data>
+  <data name="StockManagerHeader" xml:space="preserve">
+    <value>Gestión de stock</value>
+  </data>
+  <data name="ProductActionsGroupLabel" xml:space="preserve">
+    <value>Acciones de producto</value>
+  </data>
+  <data name="ConfirmDeleteProduct" xml:space="preserve">
+    <value>¿Estás seguro de que quieres eliminar este producto?</value>
   </data>
 </root>
