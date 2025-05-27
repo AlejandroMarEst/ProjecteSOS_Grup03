@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ProjecteSOS_Grup03WebPage.DTOs;
+using System.Text.Json;
 
 namespace ProjecteSOS_Grup03WebPage.Pages
 {
@@ -33,8 +35,25 @@ namespace ProjecteSOS_Grup03WebPage.Pages
                 }
                 else
                 {
-                    _logger.LogInformation("Register failed");
-                    ErrorMessage = "Registry error.";
+                    var errorContent = await response.Content.ReadAsStringAsync();
+                    var errors = JsonSerializer.Deserialize<List<IdentityError>>(errorContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                    if (errors != null)
+                    {
+                        foreach (var error in errors)
+                        {
+                            if (error.Code == "DuplicateUserName")
+                            {
+                                ErrorMessage = "This email is already registered.";
+                                break;
+                            }
+                            else if (error.Code.StartsWith("Password"))
+                            {
+                                ErrorMessage = "The password must be longer than 8 character and contain Majus and special characters"; // Shows the password requirement message
+                                break;
+                            }
+                        }
+                        _logger.LogInformation(ErrorMessage);
+                    }
                 }
             }
             catch (Exception ex)
