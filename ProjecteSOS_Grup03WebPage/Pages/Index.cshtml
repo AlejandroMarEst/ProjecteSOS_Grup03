@@ -7,6 +7,7 @@
     ViewData["Title"] = SharedLocalizer["HomePageTitle"];
 }
 
+
 @if (!string.IsNullOrEmpty(Model.ErrorMessage))
 {
     <div class="alert alert-danger mt-3">@Model.ErrorMessage</div>
@@ -21,65 +22,78 @@
 
 @if (Model.Products.Any())
 {
-    <table class="table table-striped table-hover">
-        <thead>
-            <tr>
-                <th>@SharedLocalizer["NameLabel"]</th>
-                <th>@SharedLocalizer["Description"]</th>
-                <th>@SharedLocalizer["Image"]</th>
-                <th>@SharedLocalizer["Price"]</th>
-                <th></th>
-                @if (Model.IsEmployee)
+    <section class="py-4">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                @foreach (var product in Model.Products)
                 {
-                    <th>@SharedLocalizer["ActionsLabel"]</th>
-                }
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var prod in Model.Products)
-            {
-                <tr>
-                    <td>@prod.Name</td>
-                    <td>@prod.Description</td>
-                    <td>
-                        @if (!string.IsNullOrEmpty(prod.Image))
-                        {
-                            <img src="@prod.Image" alt="@prod.Name" style="max-width: 100px; max-height: 100px; object-fit: cover;" />
-                        }
-                    </td>
-                    <td>@prod.Price.ToString("C")</td>
-                    <td>
-                        <div class="btn-group btn-group-sm" role="group">
-                            <a asp-page="/Products/Details" asp-route-id="@prod.ProductId" class="btn btn-info">@SharedLocalizer["Details"]</a>
-
-                            @{
-                                var token = HttpContext.Session.GetString("AuthToken");
-                                var loggedIn = Tools.TokenHelper.IsTokenSession(token);
-                            }
-
-                            @if (loggedIn)
-                            {
-                                <a asp-page="/Products/AddToCart" asp-route-id="@prod.ProductId" class="btn btn-success ms-1">@SharedLocalizer["AddToCartButton"]</a>
-                            }
-                        </div>
-                    </td>
-
-                    @if (Model.IsEmployee)
-                    {
-                        <td>
-                            <div class="btn-group btn-group-sm" role="group">
-                                <a asp-page="/Products/Edit" asp-route-id="@prod.ProductId" class="btn btn-primary">@SharedLocalizer["EditButton"]</a>
-
-                                <form method="post" asp-page="/Products/Delete" asp-route-id="@prod.ProductId" class="d-inline ms-1">
-                                    <button type="submit" class="btn btn-danger" onclick="return confirm('@SharedLocalizer["ConfirmDeleteProduct"]')">@SharedLocalizer["Delete"]</button>
-                                </form>
+                    <div class="col mb-5">
+                        <div class="card h-100 shadow-sm">
+                            <!-- image-->
+                            <a asp-page="/Products/Details" asp-route-id="@product.ProductId">
+                                <img class="card-img-top"
+                                     src="@(string.IsNullOrEmpty(product.Image) ? "https://dummyimage.com/450x300/dee2e6/6c757d.jpg&text=" + SharedLocalizer["NoImageAvailable", "Imatge no disponible"] : product.Image)"
+                                     alt="@product.Name"
+                                     style="height: 200px; object-fit: cover;" />
+                            </a>
+                            <!-- details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- name -->
+                                    <h5 class="fw-bolder">
+                                        <a asp-page="/Products/Details" asp-route-id="@product.ProductId" class="text-decoration-none text-dark">@product.Name</a>
+                                    </h5>
+                                    <!-- description -->
+                                    @if (!string.IsNullOrEmpty(product.Description) && product.Description.Length > 50)
+                                    {
+                                        <p class="small text-muted">@product.Description.Substring(0, 50)...</p>
+                                    }
+                                    else if (!string.IsNullOrEmpty(product.Description))
+                                    {
+                                        <p class="small text-muted">@product.Description</p>
+                                    }
+                                    <!-- price-->
+                                    <span class="fs-5">@product.Price.ToString() € </span>
+                                </div>
                             </div>
-                        </td>
-                    }
-                </tr>
-            }
-        </tbody>
-    </table>
+                            <!-- actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center">
+                                    @{
+                                        var token = HttpContext.Session.GetString("AuthToken");
+                                        var loggedIn = Tools.TokenHelper.IsTokenSession(token);
+                                    }
+                                    @if (loggedIn)
+                                    {
+                                        <a class="btn btn-outline-primary mt-auto" asp-page="/Products/AddToCart" asp-route-id="@product.ProductId">
+                                            <i class="bi-cart-fill me-1"></i> 
+                                            @SharedLocalizer["AddToCartButton"] 
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a class="btn btn-outline-secondary mt-auto" asp-page="/Login" asp-route-returnUrl="@Url.PageLink("/Index", null, null, Request.Scheme)">
+                                            @SharedLocalizer["LoginToShopButton"] 
+                                        </a>
+                                    }
+
+                                    @if (Model.IsEmployee)
+                                    {
+                                        <div class="mt-2">
+                                            <a asp-page="/Products/Edit" asp-route-id="@product.ProductId" class="btn btn-sm btn-outline-secondary">@SharedLocalizer["EditButton"]</a> 
+                                            <form method="post" asp-page="/Products/Delete" asp-route-id="@product.ProductId" class="d-inline ms-1">
+                                                <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('@SharedLocalizer["ConfirmDeleteProduct"]')">@SharedLocalizer["Delete"]</button>
+                                            </form>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
 }
 else if (string.IsNullOrEmpty(Model.ErrorMessage))
 {

@@ -522,4 +522,16 @@
   <data name="ActionsLabel" xml:space="preserve">
     <value>Accions</value>
   </data>
+  <data name="NoImageAvailable" xml:space="preserve">
+    <value>Imatge no disponible</value>
+  </data>
+  <data name="LoginToShopButton" xml:space="preserve">
+    <value>Inicia sessió per comprar</value>
+  </data>
+  <data name="IndexPageLoadProductsError" xml:space="preserve">
+    <value>No s'han pogut carregar els productes en aquest moment.</value>
+  </data>
+  <data name="IndexPageUnexpectedError" xml:space="preserve">
+    <value>Error inesperat en carregar productes.</value>
+  </data>
 </root>
