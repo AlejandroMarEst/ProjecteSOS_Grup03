@@ -5,6 +5,7 @@
 @inject IHtmlLocalizer<SharedResource> SharedLocalizer
 @{
 	ViewData["Title"] = SharedLocalizer["ProductDetailsTitle"];
+	var token = HttpContext.Session.GetString("AuthToken");
 	var product = Model.Product;
 	var loggedIn = Tools.TokenHelper.IsTokenSession(token);
 }
