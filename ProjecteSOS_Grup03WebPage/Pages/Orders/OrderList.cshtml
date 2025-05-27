@@ -35,6 +35,9 @@
 					<td>@order.Quantity</td>
 					<td>@order.OrderDate</td>
 					<td>@order.TotalPrice</td>
+					<td>
+						<a asp-page="Edit" asp-route-id="@order.ProductId" class="btn btn-primary">@SharedLocalizer["EditButton"]</a>
+					</td>
 				</tr>
 			}
 		</tbody>

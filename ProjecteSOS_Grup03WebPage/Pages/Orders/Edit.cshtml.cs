@@ -12,7 +12,7 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Orders
         private readonly ILogger<EditModel> _logger;
 
         [BindProperty]
-        public ProductOrderCreateDTO? ProductOrderCreate { get; set; }
+        public ProductOrderDTO? ProductOrder { get; set; }
         public string? ErrorMessage { get; set; }
 
         public EditModel(IHttpClientFactory httpClientFactory, ILogger<EditModel> logger)
@@ -26,14 +26,22 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Orders
             try
             {
                 var client = _httpClientFactory.CreateClient("SosApi");
-                var response = await client.GetAsync($"api/Products/{id}");
+                var token = HttpContext.Session.GetString("AuthToken");
+
+                if (!string.IsNullOrEmpty(token))
+                {
+                    client.DefaultRequestHeaders.Authorization =
+                        new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                }
+
+                var response = await client.GetAsync($"api/OrderedProducts/User/CurrentOrder/{id}");
 
                 if (response.IsSuccessStatusCode)
                 {
                     var json = await response.Content.ReadAsStringAsync();
-                    Product = JsonSerializer.Deserialize<ProductDTO>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                    ProductOrder = JsonSerializer.Deserialize<ProductOrderDTO>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
-                    if (Product == null)
+                    if (ProductOrder == null)
                     {
                         ErrorMessage = "No s'ha trobat el producte.";
                     }
@@ -45,7 +53,7 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Orders
                 else
                 {
                     _logger.LogError("Product Loading Failed");
-                    ErrorMessage = "Error en carregar el producte.";
+                    ErrorMessage = "Error en carregar el producte. " + response.StatusCode;
                 }
 
             }
@@ -76,11 +84,17 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Orders
                         new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                 }
 
-                var response = await client.PutAsJsonAsync($"api/Products/{id}", Product);
+                if (ProductOrder == null)
+                {
+                    ErrorMessage = "El producte és null";
+                    return Page();
+                }
+
+                var response = await client.PatchAsJsonAsync($"api/OrderedProducts/Quantity/{id}?productId={id}&newQuantity={ProductOrder.Quantity}", new { });
 
                 if (response.IsSuccessStatusCode)
                 {
-                    return RedirectToPage("List");
+                    return RedirectToPage("OrderList");
                 }
                 else if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
