@@ -7,6 +7,8 @@
 	ViewData["Title"] = SharedLocalizer["UserProfileTitle"];
 	var token = HttpContext.Session.GetString("AuthToken");
 	var loggedIn = Tools.TokenHelper.IsTokenSession(token);
+	var userRoles = Tools.TokenHelper.GetUserRoles(token).ToList();
+	bool isEmployee = userRoles.Contains("Employee") || userRoles.Contains("Admin");
 }
 
 <h2>@SharedLocalizer["ProfileHeader"]</h2>
@@ -27,6 +29,20 @@
 				<p>@Model.Profile.Name</p>
 			}
 		</div>
+		@if (Model.Profile.IsAdmin != null && isEmployee)
+		{
+			<div>
+				<h4>Rol</h4>
+				@if ((bool)Model.Profile.IsAdmin)
+				{
+					<p>Administrador</p>
+				}
+				else
+				{
+					<p>Empleat</p>
+				}
+			</div>
+		}
 		<div>
 			<h4>@SharedLocalizer["EmailLabel"]</h4>
 			@if (!string.IsNullOrEmpty(Model.Profile.Email))
@@ -41,6 +57,26 @@
 				<p>@Model.Profile.Phone</p>
 			}
 		</div>
+		@if (!isEmployee)
+		{
+			<div>
+				<h4>Punts</h4>
+				@if (Model.Profile.Points != null)
+				{
+					<p>@Model.Profile.Points</p>
+				}
+			</div>
+		}
+		else
+		{
+			<div>
+				<h4>Data d'inici</h4>
+				@if (Model.Profile.StartDate != null)
+				{
+					<p>@Model.Profile.StartDate</p>
+				}
+			</div>
+		}
 		<div>
 			<a class="btn btn-primary" asp-page="/Profile/Edit">@SharedLocalizer["EditButton"]</a>
 			<a class="btn btn-primary" asp-page="/Profile/ChangePassword">@SharedLocalizer["ChangePassword"]</a>
