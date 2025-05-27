@@ -1,0 +1,50 @@
+﻿@page "{id:int}"
+@model ProjecteSOS_Grup03WebPage.Pages.Orders.EditModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ProjecteSOS_Grup03WebPage
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+@{
+	ViewData["Title"] = "Editar Quantitat";
+	var token = HttpContext.Session.GetString("AuthToken");
+	var loggedIn = Tools.TokenHelper.IsTokenSession(token);
+}
+
+<h2>@SharedLocalizer["OrderDetailsHeader"]</h2>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+
+@if (loggedIn)
+{
+    @if (Model.ProductOrderCreate != null)
+    {
+        <form method="post">
+            <div asp-validation-summary="All"></div>
+            <div class="mb-3">
+                <label asp-for="ProductOrderCreate.Quantity">@SharedLocalizer["QuantityLabel"]</label>
+                <input asp-for="ProductOrderCreate.Quantity" class="form-control" />
+                <span asp-validation-for="ProductOrderCreate.Quantity" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">@SharedLocalizer["AddToCartButton"]</button>
+
+            <div class="mb-3" hidden>
+                <label asp-for="ProductOrderCreate.ProductId"></label>
+                <input asp-for="ProductOrderCreate.ProductId" class="form-control" />
+                <span asp-validation-for="ProductOrderCreate.ProductId" class="text-danger"></span>
+            </div>
+        </form>
+    }
+    else
+    {
+        <div class="alert alert-danger">La comanda és null</div>
+    }
+}
+else
+{
+    <div class="alert alert-danger">@SharedLocalizer["LoginToViewOrderDetails"]</div>
+}
+
+<a asp-page="../Profile/UserOrders" class="btn btn-secondary">Tornar</a>
