@@ -55,7 +55,8 @@ namespace ProjecteSOS_Grup03API.Controllers
                 Description = productDTO.Description,
                 Image = productDTO.Image,
                 Price = productDTO.Price,
-                Stock = productDTO.Stock
+                Stock = productDTO.Stock,
+                Points = productDTO.Points
             };
 
             _context.Products.Add(product);
@@ -123,6 +124,7 @@ namespace ProjecteSOS_Grup03API.Controllers
             product.Image = productDTO.Image;
             product.Price = productDTO.Price;
             product.Stock = productDTO.Stock;
+            product.Points = productDTO.Points;
 
             _context.Products.Update(product);
             await _context.SaveChangesAsync();
