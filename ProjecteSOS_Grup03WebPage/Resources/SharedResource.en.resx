@@ -519,4 +519,7 @@
   <data name="BackToMyOrdersButton" xml:space="preserve">
     <value>Back to my orders</value>
   </data>
+  <data name="ActionsLabel" xml:space="preserve">
+    <value>Actions</value>
+  </data>
 </root>
