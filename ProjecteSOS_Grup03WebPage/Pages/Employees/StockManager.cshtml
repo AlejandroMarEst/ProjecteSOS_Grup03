@@ -1,28 +1,18 @@
 ﻿@page
-@model ProjecteSOS_Grup03WebPage.Pages.Products.ProductsListModel
 @using Microsoft.AspNetCore.Mvc.Localization
-@using ProjecteSOS_Grup03WebPage
+@model ProjecteSOS_Grup03WebPage.Pages.Employees.StockManagerModel
 @inject IHtmlLocalizer<SharedResource> SharedLocalizer
 @{
-    ViewData["Title"] = SharedLocalizer["ProductsPageTitle"];
+    ViewData["Title"] = "Controlador de l'estoc"; //Pending Translation
     var token = HttpContext.Session.GetString("AuthToken");
     var userRoles = Tools.TokenHelper.GetUserRoles(token).ToList();
     bool isEmployee = userRoles.Contains("Employee") || userRoles.Contains("Admin");
 }
-
-<h2>@SharedLocalizer["ProductsPageTitle"]</h2>
-
-@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+@if (!isEmployee)
 {
-    <div class="alert alert-danger">@Model.ErrorMessage</div>
+	<p>No estas autoritzat</p> //Pending Translation
 }
-
-@if (isEmployee)
-{
-    <a class="btn btn-primary" asp-page=".\Create">@SharedLocalizer["AddProductButton"]</a>
-}
-
-@if (Model.Products.Any())
+else
 {
     <table class="table_normal">
         <thead>
@@ -32,11 +22,8 @@
                 <th>@SharedLocalizer["Image"]</th>
                 <th>@SharedLocalizer["Price"]</th>
                 <th></th>
-                @if (isEmployee)
-                {
                     <th></th>
                     <th></th>
-                }
             </tr>
         </thead>
         <tbody>
@@ -48,25 +35,18 @@
                     <td>@prod.Image</td>
                     <td>@prod.Price</td>
                     <td>
-                        <a asp-page="Details" asp-route-id="@prod.ProductId" class="btn">@SharedLocalizer["Details"]</a>
+                        <a asp-page="../Products/Details" asp-route-id="@prod.ProductId" class="btn btn-info">@SharedLocalizer["Details"]</a>
                     </td>
-                    @if (isEmployee)
-                    {
                         <td>
-                            <a asp-page="Edit" asp-route-id="@prod.ProductId" class="btn">@SharedLocalizer["EditButton"]</a>
+                            <a asp-page="../Products/Edit" asp-route-id="@prod.ProductId" class="btn btn-primary">@SharedLocalizer["EditButton"]</a>
                         </td>
                         <td>
-                            <form method="post" asp-page="Delete" asp-route-id="@prod.ProductId">
+                        <form method="post" asp-page="../Products/Delete" asp-route-id="@prod.ProductId">
                                 <button type="submit" class="btn btn-danger">@SharedLocalizer["Delete"]</button>
                             </form>
                         </td>
-                    }
                 </tr>
             }
         </tbody>
     </table>
-}
-else
-{
-    <div class="alert alert-danger">@SharedLocalizer["NoProductsAvailable"]</div>
 }

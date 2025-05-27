@@ -5,14 +5,17 @@
 	var token = HttpContext.Session.GetString("AuthToken");
 }
 <h2>Comandes dels usuaris</h2>
-<p>@Model.Users.First().Name</p>
-<table class="table">
+@if (!isEmployee)
+{
+	<p>No estas autoritzat</p>
+} else {
+	<table class="table_normal">
 	<thead>
 		<tr>
 			<th>Nom Producte</th>
 			<th>Client</th>
 			<th>Representant</th>
-			<th>Quantitat</th>
+			<th>Preu total</th>
 			<th>Data de la comanda</th>
 		</tr>
 	</thead>
@@ -28,7 +31,7 @@
 							<td>@order.OrderId</td>
 							<td>@Model.Users.FirstOrDefault(c => c.Id == order.ClientId).Name</td>
 							<td>Ningú</td>
-							<td>@order.Price</td>
+							<td>@Math.Round(order.Price, 2)</td>
 							<td>@order.OrderDate.ToString("dd/MM/yyyy")</td>
 						}
 						else if (Model.Users.FirstOrDefault(c => c.Id == order.SalesRepId)?.Name != null)
@@ -36,7 +39,7 @@
 							<td>@order.OrderId</td>
 							<td>@Model.Users.FirstOrDefault(c => c.Id == order.ClientId).Name</td>
 							<td>@Model.Users.FirstOrDefault(c => c.Id == order.SalesRepId).Name</td>
-							<td>@order.Price</td>
+								<td>@Math.Round(order.Price, 2)</td>
 							<td>@order.OrderDate.ToString("dd/MM/yyyy")</td>
 						}
 					} else
@@ -44,7 +47,7 @@
 						<td>@order.OrderId</td>
 						<td>Ningú</td>
 						<td>Ningú</td>
-						<td>@order.Price</td>
+							<td>@Math.Round(order.Price, 2)</td>
 						<td>@order.OrderDate.ToString("dd/MM/yyyy")</td>
 					}
 			</tr>
