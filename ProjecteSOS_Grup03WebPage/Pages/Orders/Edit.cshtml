@@ -4,12 +4,12 @@
 @using ProjecteSOS_Grup03WebPage
 @inject IHtmlLocalizer<SharedResource> SharedLocalizer
 @{
-	ViewData["Title"] = "Editar Quantitat";
+	ViewData["Title"] = SharedLocalizer["EditOrderItemQuantityTitle"];
 	var token = HttpContext.Session.GetString("AuthToken");
 	var loggedIn = Tools.TokenHelper.IsTokenSession(token);
 }
 
-<h2>@SharedLocalizer["OrderDetailsHeader"]</h2>
+<h2>@SharedLocalizer["EditOrderItemQuantityHeader"]</h2>
 
 @if (!string.IsNullOrEmpty(Model.ErrorMessage))
 {
@@ -32,7 +32,7 @@
     }
     else
     {
-        <div class="alert alert-danger">La comanda és null</div>
+        <div class="alert alert-danger">@SharedLocalizer["OrderItemNotFound"]</div>
     }
 }
 else
@@ -40,4 +40,4 @@ else
     <div class="alert alert-danger">@SharedLocalizer["LoginToViewOrderDetails"]</div>
 }
 
-<a asp-page="../Profile/UserOrders" class="btn btn-secondary">Tornar</a>
+<a asp-page="../Profile/UserOrders" class="btn btn-secondary">@SharedLocalizer["BackToMyOrdersButton"]</a>

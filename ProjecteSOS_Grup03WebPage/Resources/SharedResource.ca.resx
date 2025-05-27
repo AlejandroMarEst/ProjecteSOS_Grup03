@@ -501,4 +501,22 @@
   <data name="ConfirmDeleteProduct" xml:space="preserve">
     <value>Estàs segur que vols eliminar aquest producte?</value>
   </data>
+  <data name="EditOrderItemQuantityTitle" xml:space="preserve">
+    <value>Editar quantitat de l'article</value>
+  </data>
+  <data name="Edit OrderItemQuantityHeader" xml:space="preserve">
+    <value>Editar quantitat de l'article de la comanda</value>
+  </data>
+  <data name="ProductLabel" xml:space="preserve">
+    <value>Producte: </value>
+  </data>
+  <data name="OrderItemNotFound" xml:space="preserve">
+    <value>L'article de la comanda no s'ha trobat o és nul.</value>
+  </data>
+  <data name="LoginToEditOrderItem" xml:space="preserve">
+    <value>Inicia sessió per editar articles de la comanda.</value>
+  </data>
+  <data name="BackToMyOrdersButton" xml:space="preserve">
+    <value>Tornar a les meves comandes</value>
+  </data>
 </root>
