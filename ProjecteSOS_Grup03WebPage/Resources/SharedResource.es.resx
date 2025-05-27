@@ -483,4 +483,7 @@
   <data name="NotAuthorizedMessage" xml:space="preserve">
     <value>No estás autorizado para ver esta página.</value>
   </data>
+  <data name="OutOfStockText" xml:space="preserve">
+    <value>Sin stock</value>
+  </data>
 </root>
