@@ -498,4 +498,22 @@
   <data name="ConfirmDeleteProduct" xml:space="preserve">
     <value>¿Estás seguro de que quieres eliminar este producto?</value>
   </data>
+  <data name="EditOrderItemQuantityTitle" xml:space="preserve">
+    <value>Editar cantidad del artículo</value>
+  </data>
+  <data name="Edit OrderItemQuantityHeader" xml:space="preserve">
+    <value>Editar cantidad del artículo del pedido</value>
+  </data>
+  <data name="ProductLabel" xml:space="preserve">
+    <value>Producto: </value>
+  </data>
+  <data name="OrderItemNotFound" xml:space="preserve">
+    <value>El artículo del pedido no se encontró o es nulo.</value>
+  </data>
+  <data name="LoginToEditOrderItem" xml:space="preserve">
+    <value>Inicia sesión para editar artículos del pedido.</value>
+  </data>
+  <data name="BackToMyOrdersButton" xml:space="preserve">
+    <value>Volver a mis pedidos</value>
+  </data>
 </root>
