@@ -5,6 +5,19 @@ body, header {
     color: #6e4217 !important;
 }
 
+#details {
+    display: flex;
+    flex-direction: row;
+    justify-content: normal;
+    column-gap: 20px;
+    padding: 20px;
+}
+
+#details-img {
+    height: 400px;
+    width: 400px;
+}
+
 .normal-txt {
     background-color: #fcf1e6;
     color: #6e4217;
