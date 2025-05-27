@@ -325,7 +325,7 @@
     <value>Debes ser un empleado para editar un producto.</value>
   </data>
   <data name="MyOrdersPageTitle" xml:space="preserve">
-    <value>Mis pedidos</value>
+    <value>Productos en tu cesta</value>
   </data>
   <data name="OrderProductName" xml:space="preserve">
     <value>Nombre del producto</value>
