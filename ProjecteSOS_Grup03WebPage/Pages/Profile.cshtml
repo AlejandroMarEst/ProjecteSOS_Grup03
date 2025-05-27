@@ -32,14 +32,14 @@
 		@if (Model.Profile.IsAdmin != null && isEmployee)
 		{
 			<div>
-				<h4>Rol</h4>
+				<h4>@SharedLocalizer["Role"]</h4>
 				@if ((bool)Model.Profile.IsAdmin)
 				{
-					<p>Administrador</p>
+					<p>@SharedLocalizer["RoleAdmin"]</p>
 				}
 				else
 				{
-					<p>Empleat</p>
+					<p>@SharedLocalizer["RoleEmployee"]</p>
 				}
 			</div>
 		}
@@ -60,7 +60,7 @@
 		@if (!isEmployee)
 		{
 			<div>
-				<h4>Punts</h4>
+				<h4>@SharedLocalizer["Points"]</h4>
 				@if (Model.Profile.Points != null)
 				{
 					<p>@Model.Profile.Points</p>
@@ -70,7 +70,7 @@
 		else
 		{
 			<div>
-				<h4>Data d'inici</h4>
+				<h4>@SharedLocalizer["StartDate"]</h4>
 				@if (Model.Profile.StartDate != null)
 				{
 					<p>@Model.Profile.StartDate</p>
