@@ -134,18 +134,26 @@ namespace ProjecteSOS_Grup03API.Controllers
                 return NotFound("L'usuari no s'ha trobat");
             }
 
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
-            if (user == null)
+            var userRole = User.FindFirstValue(ClaimTypes.Role);
+
+            UserProfileDTO? profile = null;
+
+            switch (userRole)
             {
-                return NotFound("L'usuari no està registrat");
+                case "Client":
+                    profile = await GetClientProfile(userId);
+                    break;
+                case "Employee" or "Admin":
+                    profile = await GetEmployeeProfile(userId);
+                    break;
+                default:
+                    return NotFound("No s'ha trobat cap rol en l'usuari");
             }
 
-            var profile = new UserProfileDTO
+            if (profile == null)
             {
-                Email = user.Email ?? string.Empty,
-                Name = user.Name ?? string.Empty,
-                Phone = user.PhoneNumber ?? string.Empty
-            };
+                return NotFound("No s'ha trobat el perfil");
+            }
 
             return Ok(profile);
         }
@@ -158,15 +166,30 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             if (user == null)
             {
-                return NotFound("L'usuari no està registrat");
+                return NotFound("No s'ha trobat l'usuari");
             }
 
-            var profile = new UserProfileDTO
+            var userRoles = await _userManager.GetRolesAsync(user);
+
+            UserProfileDTO? profile = null;
+
+            if (userRoles.Contains("Client"))
             {
-                Email = user.Email ?? string.Empty,
-                Name = user.Name,
-                Phone = user.PhoneNumber ?? string.Empty
-            };
+                profile = await GetClientProfile(id);
+            }
+            else if (userRoles.Contains("Employee") || userRoles.Contains("Admin"))
+            {
+                profile = await GetEmployeeProfile(id);
+            }
+            else
+            {
+                return NotFound("No s'ha trobat cap rol en l'usuari");
+            }
+
+            if (profile == null)
+            {
+                return NotFound("No s'ha trobat el perfil");
+            }
 
             return Ok(profile);
         }
@@ -188,7 +211,6 @@ namespace ProjecteSOS_Grup03API.Controllers
             {
                 Id = u.Id,
                 Email = u.Email ?? string.Empty,
-                Password = u.PasswordHash ?? string.Empty,
                 Name = u.Name,
                 Phone = u.PhoneNumber ?? string.Empty
             }));
@@ -291,6 +313,46 @@ namespace ProjecteSOS_Grup03API.Controllers
                 signingCredentials: creds
             );
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        private async Task<UserProfileDTO?> GetClientProfile(string userId)
+        {
+            var user = await _context.Clients.FirstOrDefaultAsync(c => c.Id == userId);
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            return new UserProfileDTO
+            {
+                Email = user.Email ?? string.Empty,
+                Name = user.Name ?? string.Empty,
+                Phone = user.PhoneNumber ?? string.Empty,
+                Points = user.Points,
+                StartDate = null,
+                IsAdmin = null
+            };
+        }
+
+        private async Task<UserProfileDTO?> GetEmployeeProfile(string userId)
+        {
+            var user = await _context.Employees.FirstOrDefaultAsync(c => c.Id == userId);
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            return new UserProfileDTO
+            {
+                Email = user.Email ?? string.Empty,
+                Name = user.Name ?? string.Empty,
+                Phone = user.PhoneNumber ?? string.Empty,
+                Points = null,
+                StartDate = user.StartDate,
+                IsAdmin = user.IsAdmin
+            };
         }
     }
 }
