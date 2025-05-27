@@ -271,7 +271,7 @@
     <value>Eliminar compte</value>
   </data>
   <data name="Cart" xml:space="preserve">
-    <value>Carret</value>
+    <value>Cistella</value>
   </data>
   <data name="CreateProductTitle" xml:space="preserve">
     <value>Crear producte</value>
@@ -328,7 +328,7 @@
     <value>Has de ser un empleat per a editar un producte.</value>
   </data>
   <data name="MyOrdersPageTitle" xml:space="preserve">
-    <value>Les meves comandes</value>
+    <value>Productes a la teva cistella</value>
   </data>
   <data name="OrderProductName" xml:space="preserve">
     <value>Nom del producte</value>

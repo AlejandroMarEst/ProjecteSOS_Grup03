@@ -51,8 +51,12 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Orders
                 }
                 else
                 {
-                    _logger.LogError("Orders Loading Failed");
-                    ErrorMessage = "Loading Orders Error";
+                    string error = await response.Content.ReadAsStringAsync();
+                    if(error != "No hi ha cap comanda activa")
+                    {
+                        _logger.LogError(await response.Content.ReadAsStringAsync());
+                        ErrorMessage = "Loading Orders Error";
+                    }
                 }
             }
             catch (Exception ex)
