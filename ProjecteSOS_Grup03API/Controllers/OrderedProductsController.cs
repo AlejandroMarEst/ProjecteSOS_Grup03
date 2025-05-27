@@ -167,6 +167,40 @@ namespace ProjecteSOS_Grup03API.Controllers
             return Ok(productOrders);
         }
 
+        [Authorize]
+        [HttpGet("User/CurrentOrder/{productId}")]
+        public async Task<ActionResult<ProductOrderDTO>> GetUserCurrentOrderProduct(int productId)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var client = await _context.Clients.FindAsync(userId);
+
+            if (client == null)
+                return NotFound("El client no s'ha trobat");
+
+            var orderId = client.CurrentOrderId;
+
+            if (orderId == null)
+            {
+                return BadRequest("No hi ha cap comanda activa");
+            }
+
+            var productOrder = await _context.ProductsOrders.FirstOrDefaultAsync(po => po.OrderId == orderId && po.ProductId == productId);
+
+            if (productOrder == null)
+            {
+                return NotFound("No s'ha trobat el producte de la comanda");
+            }
+
+            var dto = new ProductOrderDTO
+            {
+                OrderDate = productOrder.OrderDate,
+                Quantity = productOrder.Quantity
+            };
+
+            return Ok(dto);
+        }
+
         // GET: api/OrderedProducts/User/orders/{orderId}/products/{productId}
         // Obtenir un ProductOrder específic d'una order de l'usuari
         [Authorize]
