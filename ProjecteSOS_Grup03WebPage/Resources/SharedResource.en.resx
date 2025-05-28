@@ -741,4 +741,7 @@
   <data name="LoadingCartError" xml:space="preserve">
     <value>Error loading basket products</value>
   </data>
+  <data name="FooterText" xml:space="preserve">
+    <value>Developed by Alejandro Martin, Arnau Pascual and Aleix Tuneu</value>
+  </data>
 </root>

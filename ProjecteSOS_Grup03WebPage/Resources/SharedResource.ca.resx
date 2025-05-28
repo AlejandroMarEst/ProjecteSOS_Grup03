@@ -741,4 +741,7 @@
   <data name="LoadingCartError" xml:space="preserve">
     <value>Error en carregar els productes de la cistella</value>
   </data>
+  <data name="FooterText" xml:space="preserve">
+    <value>Desenvolupat per Alejandro Martin, Arnau Pascual i Aleix Tuneu</value>
+  </data>
 </root>
