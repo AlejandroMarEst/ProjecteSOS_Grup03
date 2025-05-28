@@ -14,6 +14,8 @@ namespace ProjecteSOS_Grup03WebPage.Pages
         private readonly IHttpClientFactory _httpClientFactory;
 
         public List<ProductListDTO> Products { get; set; } = new List<ProductListDTO>();
+        public List<ProductListDTO> SustainableProducts { get; set; } = new List<ProductListDTO>();
+        public List<ProductListDTO> RecomendedProducts { get; set; } = new List<ProductListDTO>();
         public string? ErrorMessage { get; set; }
         public bool IsEmployee { get; private set; }
 
@@ -42,6 +44,8 @@ namespace ProjecteSOS_Grup03WebPage.Pages
                     if (products != null)
                     {
                         Products = products.OrderByDescending(products => products.Price).ToList();
+                        SustainableProducts = products.Where(p => p.Points >= 1000).OrderByDescending(p => p.Price).ToList();
+                        RecomendedProducts = products.Where(p => p.Points > 0 && p.Points < 1000).OrderByDescending(p => p.Price).ToList();
                     }
                     else
                     {
