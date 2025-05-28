@@ -1,8 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
+
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
 namespace ProjecteSOS_Grup03API.Migrations
 {
@@ -16,10 +17,10 @@ namespace ProjecteSOS_Grup03API.Migrations
                 name: "AspNetRoles",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "text", nullable: false),
-                    Name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    NormalizedName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true)
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -30,30 +31,29 @@ namespace ProjecteSOS_Grup03API.Migrations
                 name: "AspNetUsers",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "text", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    UserType = table.Column<string>(type: "character varying(8)", maxLength: 8, nullable: false),
-                    IsMember = table.Column<bool>(type: "boolean", nullable: true),
-                    Points = table.Column<int>(type: "integer", nullable: true),
-                    CurrentOrderId = table.Column<int>(type: "integer", nullable: true),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserType = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
+                    Points = table.Column<int>(type: "int", nullable: true),
+                    CurrentOrderId = table.Column<int>(type: "int", nullable: true),
                     StartDate = table.Column<DateOnly>(type: "date", nullable: true),
-                    Salary = table.Column<double>(type: "double precision", nullable: true),
-                    ManagerId = table.Column<string>(type: "text", nullable: true),
-                    IsAdmin = table.Column<bool>(type: "boolean", nullable: true),
-                    UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "boolean", nullable: false),
-                    PasswordHash = table.Column<string>(type: "text", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "text", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "boolean", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "boolean", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "boolean", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "integer", nullable: false)
+                    Salary = table.Column<double>(type: "float", nullable: true),
+                    ManagerId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    IsAdmin = table.Column<bool>(type: "bit", nullable: true),
+                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -70,13 +70,14 @@ namespace ProjecteSOS_Grup03API.Migrations
                 name: "Products",
                 columns: table => new
                 {
-                    ProductId = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: false),
-                    Image = table.Column<string>(type: "text", nullable: false),
-                    Stock = table.Column<int>(type: "integer", nullable: false),
-                    Price = table.Column<double>(type: "double precision", nullable: false)
+                    ProductId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Stock = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<double>(type: "float", nullable: false),
+                    Points = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -87,11 +88,11 @@ namespace ProjecteSOS_Grup03API.Migrations
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    RoleId = table.Column<string>(type: "text", nullable: false),
-                    ClaimType = table.Column<string>(type: "text", nullable: true),
-                    ClaimValue = table.Column<string>(type: "text", nullable: true)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -108,11 +109,11 @@ namespace ProjecteSOS_Grup03API.Migrations
                 name: "AspNetUserClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    UserId = table.Column<string>(type: "text", nullable: false),
-                    ClaimType = table.Column<string>(type: "text", nullable: true),
-                    ClaimValue = table.Column<string>(type: "text", nullable: true)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -129,10 +130,10 @@ namespace ProjecteSOS_Grup03API.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "text", nullable: false),
-                    ProviderKey = table.Column<string>(type: "text", nullable: false),
-                    ProviderDisplayName = table.Column<string>(type: "text", nullable: true),
-                    UserId = table.Column<string>(type: "text", nullable: false)
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -149,8 +150,8 @@ namespace ProjecteSOS_Grup03API.Migrations
                 name: "AspNetUserRoles",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "text", nullable: false),
-                    RoleId = table.Column<string>(type: "text", nullable: false)
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -173,10 +174,10 @@ namespace ProjecteSOS_Grup03API.Migrations
                 name: "AspNetUserTokens",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "text", nullable: false),
-                    LoginProvider = table.Column<string>(type: "text", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Value = table.Column<string>(type: "text", nullable: true)
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -193,12 +194,12 @@ namespace ProjecteSOS_Grup03API.Migrations
                 name: "Orders",
                 columns: table => new
                 {
-                    OrderId = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ClientId = table.Column<string>(type: "text", nullable: true),
-                    SalesRepId = table.Column<string>(type: "text", nullable: true),
+                    OrderId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ClientId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    SalesRepId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     OrderDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    Price = table.Column<double>(type: "double precision", nullable: false)
+                    Price = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -221,10 +222,10 @@ namespace ProjecteSOS_Grup03API.Migrations
                 name: "ProductsOrders",
                 columns: table => new
                 {
-                    OrderId = table.Column<int>(type: "integer", nullable: false),
-                    ProductId = table.Column<int>(type: "integer", nullable: false),
-                    OrderDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Quantity = table.Column<int>(type: "integer", nullable: false)
+                    OrderId = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -243,6 +244,18 @@ namespace ProjecteSOS_Grup03API.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "ProductId", "Description", "Image", "Name", "Points", "Price", "Stock" },
+                values: new object[,]
+                {
+                    { 1, "Aquest ordinador amb pantalla Full HD de 15,6 polzades est� fabricat amb pl�stics reciclats postconsum (PCR), que s�n m�s sostenibles, respectuosos amb el medi ambient i ajuden a reduir els residus als abocadors Tot i la seva construcci� ecol�gica, el port�til ha superat totes les proves de durabilitat de la marca, per la qual cosa �s un producte fet per durar molts anys. Del seu rendiment se n'encarrega un processador Intel Core i5-1155G7, suficient per executar les teves aplicacions de manera r�pida i eficient. La targeta gr�fica integrada Intel, juntament amb la impressionant mem�ria RAM de 8GB, ofereix gr�fics d'alta qualitat, c�rrega m�s r�pida i multitasca eficient.", "https://m.media-amazon.com/images/I/514xBx-rGML._AC_UF894,1000_QL80_.jpg", "Acer Aspire Vero AV15-51", 1300, 549.89999999999998, 10 },
+                    { 2, "Aquests auriculars de Sony estan fabricats amb materials pl�stics reciclats a partir de peces dautom�bils. A m�s, com la resta de productes de Sony, el seu embalatge est� 100% lliure de pl�stic. Amb tan sols 4 grams de pes i una mida compacta de 25 x 15 x 15mm, aquests auriculars et permetran gaudir de la teva m�sica preferida mentre mantens el contacte amb el teu entorn.", "https://m.media-amazon.com/images/I/61kUVBJ8DML._AC_SL1500_.jpg-", "Sony Linkbuds", 900, 113.59999999999999, 50 },
+                    { 3, "Aquest carregador amb panell solar port�til compta amb tecnologia innovadora, incloent-hi un amper�metre i un xip incorporats. L'amper�metre digital a la pantalla us permet monitoritzar la quantitat d'ampers presents i la pot�ncia de c�rrega, assegurant un proc�s de c�rrega eficient i prec�s. A m�s, gr�cies al xip intern, pots comptar amb una c�rrega estable, augmentant l'efici�ncia de c�rrega fins a un 21,5% - 24%. Est� equipat amb dos ports USB intel�ligents que poden detectar el teu dispositiu i oferir la velocitat de c�rrega m�s r�pida possible.", "https://m.media-amazon.com/images/I/81eY6Rp1-cL._AC_SL1500_.jpg", "BigBlue 28W Cargador Solar Port�til", 1200, 69.989999999999995, 30 },
+                    { 4, "Fabricat amb components reciclats i fins i tot amb xarxes de pesca que altrament acabarien als oceans, amena�ant la vida marina, aquest dispositiu �s un clar exemple que la qualitat i la sostenibilitat poden anar de la m�. El Galaxy S23 est� certificat amb el UL ECOLOGO, una garantia que el producte t� un impacte ambiental redu�t.", "https://m.media-amazon.com/images/I/71BqGC+sBZL._AC_SL1500_.jpg", "Samsung Galaxy S23", 800, 499.97000000000003, 40 },
+                    { 5, "Este scooter, de peso pluma y f�cil manejo, es extremadamente sencillo de almacenar.Incluye una aplicaci�n interactiva que te permitir� acceder a varios datos como el estado de la conexi�n y el rendimiento de la bater�a, entre otros.Para maximizar la comodidad durante la conducci�n, cuenta con un mango revestido de espuma.Adem�s, tiene una caracter�stica de recuperaci�n de energ�a cin�tica (KERS). Este sistema innovador garantiza que, al desacelerar o frenar, se optimice la conversi�n de energ�a, incrementando considerablemente la duraci�n de la bater�a.", "https://m.media-amazon.com/images/I/51ipdfwihhL._AC_SL1200_.jpg", "Xiaomi Electric Scooter 4 Lite", 1000, 229.99000000000001, 6 }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -252,7 +265,8 @@ namespace ProjecteSOS_Grup03API.Migrations
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
                 column: "NormalizedName",
-                unique: true);
+                unique: true,
+                filter: "[NormalizedName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
@@ -283,7 +297,8 @@ namespace ProjecteSOS_Grup03API.Migrations
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
-                unique: true);
+                unique: true,
+                filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_ClientId",
