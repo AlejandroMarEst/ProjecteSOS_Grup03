@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using ProjecteSOS_Grup03API.Models;
+using System.Diagnostics.Metrics;
 
 namespace ProjecteSOS_Grup03API.Tools
 {
@@ -43,6 +46,25 @@ namespace ProjecteSOS_Grup03API.Tools
                 {
                     await userManager.AddToRoleAsync(admin, "Admin");
                 }
+            }
+        }
+
+        public static void SeedProducts(ModelBuilder builder)
+        {
+            const string FileName = "Products.json";
+            const string FilePath = @"Files/" + FileName;
+
+            FileInfo fileInfo = new FileInfo(FilePath);
+
+            StreamReader reader = fileInfo.OpenText();
+            string fileText = reader.ReadToEnd();
+            reader.Close();
+
+            List<Product>? products = JsonConvert.DeserializeObject<List<Product>>(fileText);
+
+            if (products != null)
+            {
+                builder.Entity<Product>().HasData(products);
             }
         }
     }

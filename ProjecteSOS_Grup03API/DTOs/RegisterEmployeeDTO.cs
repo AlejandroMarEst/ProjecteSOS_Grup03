@@ -1,14 +1,30 @@
-﻿namespace ProjecteSOS_Grup03API.DTOs
+﻿using ProjecteSOS_Grup03API.Tools;
+using System.ComponentModel.DataAnnotations;
+
+namespace ProjecteSOS_Grup03API.DTOs
 {
     public class RegisterEmployeeDTO
     {
+        [Required(ErrorMessage = ValidationMessages.EmailRequired)]
+        [EmailAddress(ErrorMessage = ValidationMessages.EmailInvalid)]
         public string Email { get; set; }
+
+        [Required(ErrorMessage = ValidationMessages.PasswordRequired)]
+        [MinLength(6, ErrorMessage = ValidationMessages.PasswordMinLength)]
         public string Password { get; set; }
+
+        [Required(ErrorMessage = ValidationMessages.NameRequired)]
+        [StringLength(100, MinimumLength = 2, ErrorMessage = ValidationMessages.NameLength)]
         public string Name { get; set; }
+
+        [Required(ErrorMessage = ValidationMessages.PhoneRequired)]
+        [Phone(ErrorMessage = ValidationMessages.PhoneInvalid)]
         public string Phone { get; set; }
+
         public DateOnly? StartDate { get; set; }
+
+        [Required(ErrorMessage = ValidationMessages.SalaryRequired)]
+        [Range(0, double.MaxValue, ErrorMessage = ValidationMessages.SalaryPositive)]
         public double Salary { get; set; }
-        public string? ManagerId { get; set; }
-        public bool IsAdmin { get; set; }
     }
 }
