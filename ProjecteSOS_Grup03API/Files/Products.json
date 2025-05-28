@@ -1,47 +1,47 @@
 [
-  {
-    "productId": 1,
-    "name": "Acer Aspire Vero AV15-51",
-    "description": "Aquest ordinador amb pantalla Full HD de 15,6 polzades està fabricat amb plàstics reciclats postconsum (PCR), que són més sostenibles, respectuosos amb el medi ambient i ajuden a reduir els residus als abocadors Tot i la seva construcció ecològica, el portàtil ha superat totes les proves de durabilitat de la marca, per la qual cosa és un producte fet per durar molts anys. Del seu rendiment se n'encarrega un processador Intel Core i5-1155G7, suficient per executar les teves aplicacions de manera ràpida i eficient. La targeta gràfica integrada Intel, juntament amb la impressionant memòria RAM de 8GB, ofereix gràfics d'alta qualitat, càrrega més ràpida i multitasca eficient.",
-    "image": "https://m.media-amazon.com/images/I/514xBx-rGML._AC_UF894,1000_QL80_.jpg",
-    "stock": 10,
-    "points": 1300,
-    "price": 549.90
-  },
-  {
-    "productId": 2,
-    "name": "Sony Linkbuds",
-    "description": "Aquests auriculars de Sony estan fabricats amb materials plàstics reciclats a partir de peces dautomòbils. A més, com la resta de productes de Sony, el seu embalatge està 100% lliure de plàstic. Amb tan sols 4 grams de pes i una mida compacta de 25 x 15 x 15mm, aquests auriculars et permetran gaudir de la teva música preferida mentre mantens el contacte amb el teu entorn.",
-    "image": "https://m.media-amazon.com/images/I/61kUVBJ8DML._AC_SL1500_.jpg-",
-    "stock": 50,
-    "points": 900,
-    "price": 113.60
-  },
-  {
-    "productId": 3,
-    "name": "BigBlue 28W Cargador Solar Portátil",
-    "description": "Aquest carregador amb panell solar portàtil compta amb tecnologia innovadora, incloent-hi un amperímetre i un xip incorporats. L'amperímetre digital a la pantalla us permet monitoritzar la quantitat d'ampers presents i la potència de càrrega, assegurant un procés de càrrega eficient i precís. A més, gràcies al xip intern, pots comptar amb una càrrega estable, augmentant l'eficiència de càrrega fins a un 21,5% - 24%. Està equipat amb dos ports USB intel·ligents que poden detectar el teu dispositiu i oferir la velocitat de càrrega més ràpida possible.",
-    "image": "https://m.media-amazon.com/images/I/81eY6Rp1-cL._AC_SL1500_.jpg",
-    "stock": 30,
-    "points": 1200,
-    "price": 69.99
-  },
-  {
-    "productId": 4,
-    "name": "Samsung Galaxy S23",
-    "description": "Fabricat amb components reciclats i fins i tot amb xarxes de pesca que altrament acabarien als oceans, amenaçant la vida marina, aquest dispositiu és un clar exemple que la qualitat i la sostenibilitat poden anar de la mà. El Galaxy S23 està certificat amb el UL ECOLOGO, una garantia que el producte té un impacte ambiental reduït.",
-    "image": "https://m.media-amazon.com/images/I/71BqGC+sBZL._AC_SL1500_.jpg",
-    "stock": 40,
-    "points": 800,
-    "price": 499.97
-  },
-  {
-    "productId": 5,
-    "name": "Xiaomi Electric Scooter 4 Lite",
-    "description": "Este scooter, de peso pluma y fácil manejo, es extremadamente sencillo de almacenar.Incluye una aplicación interactiva que te permitirá acceder a varios datos como el estado de la conexión y el rendimiento de la batería, entre otros.Para maximizar la comodidad durante la conducción, cuenta con un mango revestido de espuma.Además, tiene una característica de recuperación de energía cinética (KERS). Este sistema innovador garantiza que, al desacelerar o frenar, se optimice la conversión de energía, incrementando considerablemente la duración de la batería.",
-    "image": "https://m.media-amazon.com/images/I/51ipdfwihhL._AC_SL1200_.jpg",
-    "stock": 6,
-    "points": 1000,
-    "price": 229.99
-  }
+    {
+        "productId": 1,
+        "name": "Acer Aspire Vero AV15-51",
+        "description": "This computer, featuring a 15.6-inch Full HD display, is made with post-consumer recycled (PCR) plastics, making it more sustainable, environmentally friendly, and helping to reduce landfill waste. Despite its eco-friendly construction, the laptop has passed all of the brandâ€™s durability tests, meaning it is a product built to last for many years. Its performance is powered by an Intel Core i5-1155G7 processor, which is more than sufficient to run your applications quickly and efficiently. The integrated Intel graphics card, together with an impressive 8GB of RAM, delivers high-quality graphics, faster loading times, and efficient multitasking.",
+        "image": "https://m.media-amazon.com/images/I/514xBx-rGML._AC_UF894,1000_QL80_.jpg",
+        "stock": 10,
+        "points": 1300,
+        "price": 549.90
+    },
+    {
+        "productId": 2,
+        "name": "Sony Linkbuds",
+        "description": "These Sony headphones are made from recycled plastic materials sourced from car parts. Additionally, like the rest of Sonyâ€™s products, their packaging is 100% plastic-free. Weighing just 4 grams and with a compact size of 25 x 15 x 15 mm, these headphones allow you to enjoy your favorite music while staying aware of your surroundings.",
+        "image": "https://m.media-amazon.com/images/I/61kUVBJ8DML._AC_SL1500_.jpg",
+        "stock": 50,
+        "points": 900,
+        "price": 113.60
+    },
+    {
+        "productId": 3,
+        "name": "BigBlue 28W Portatil Solar Charger",
+        "description": "This portable solar panel charger features innovative technology, including a built-in ammeter and chip. The digital ammeter on the display allows you to monitor the amount of amperes and charging power, ensuring an efficient and precise charging process. Additionally, thanks to the internal chip, you can rely on stable charging, increasing charging efficiency up to 21.5%â€“24%. It is equipped with two smart USB ports that can detect your device and provide the fastest possible charging speed.",
+        "image": "https://m.media-amazon.com/images/I/81eY6Rp1-cL._AC_SL1500_.jpg",
+        "stock": 30,
+        "points": 1200,
+        "price": 69.99
+    },
+    {
+        "productId": 4,
+        "name": "Samsung Galaxy S23",
+        "description": "Made with recycled components and even fishing nets that would otherwise end up in the oceans, threatening marine life, this device is a clear example that quality and sustainability can go hand in hand. The Galaxy S23 is UL ECOLOGO certified, ensuring that the product has a reduced environmental impact.",
+        "image": "https://m.media-amazon.com/images/I/71BqGC+sBZL._AC_SL1500_.jpg",
+        "stock": 40,
+        "points": 800,
+        "price": 499.97
+    },
+    {
+        "productId": 5,
+        "name": "Xiaomi Electric Scooter 4 Lite",
+        "description": "This lightweight and easy-to-handle scooter is extremely simple to store. It includes an interactive app that allows you to access various data such as connection status and battery performance, among others. To maximize comfort while riding, it features a foam-covered handlebar. Additionally, it is equipped with a kinetic energy recovery system (KERS). This innovative system ensures that, when decelerating or braking, energy conversion is optimized, significantly increasing battery life.",
+        "image": "https://m.media-amazon.com/images/I/51ipdfwihhL._AC_SL1200_.jpg",
+        "stock": 6,
+        "points": 1000,
+        "price": 229.99
+    }
 ]
