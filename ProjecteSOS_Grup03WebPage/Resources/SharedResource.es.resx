@@ -741,4 +741,34 @@
   <data name="FooterText" xml:space="preserve">
     <value>Desarrollado por Alejandro Martin, Arnau Pascual y Aleix Tuneu</value>
   </data>
+  <data name="SosStats" xml:space="preserve">
+    <value>Estadisticas Sostenibles</value>
+  </data>
+  <data name="SustainableTitle" xml:space="preserve">
+    <value>Impacto Sostenible</value>
+  </data>
+  <data name="RegisterPaper" xml:space="preserve">
+    <value>Registrar ahorro de paper</value>
+  </data>
+  <data name="PaperRegisters" xml:space="preserve">
+    <value>Registros de papel</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Mes</value>
+  </data>
+  <data name="Sheets" xml:space="preserve">
+    <value>Hojas por pedido</value>
+  </data>
+  <data name="KgPaper" xml:space="preserve">
+    <value>Kg Paper</value>
+  </data>
+  <data name="KgCO" xml:space="preserve">
+    <value>Kg CO₂</value>
+  </data>
+  <data name="PaperOrders" xml:space="preserve">
+    <value>Pedidos en papel</value>
+  </data>
+  <data name="SustainableProductsPercent" xml:space="preserve">
+    <value>Porcentaje de Productos Sostenibles vendidos</value>
+  </data>
 </root>
