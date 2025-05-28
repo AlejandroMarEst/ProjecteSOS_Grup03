@@ -10,12 +10,12 @@ on:
   workflow_dispatch:
 
 jobs:
-    build:
-      runs-on: windows-latest
-      permissions:
-        contents: read
+  build:
+    runs-on: windows-latest
+    permissions:
+      contents: read
 
-      steps:
+    steps:
       - uses: actions/checkout@v4
 
       - name: Set up .NET Core
@@ -37,12 +37,42 @@ jobs:
 
       - name: Combine publish folders
         run: |
-          mkdir "${{env.DOTNET_ROOT}}/myapp"
-          cp -r ${{env.DOTNET_ROOT}}/publish/WebApp/* ${{env.DOTNET_ROOT}}/myapp/
-          cp -r ${{env.DOTNET_ROOT}}/publish/Api/* ${{env.DOTNET_ROOT}}/myapp/
+          mkdir -p "${{env.DOTNET_ROOT}}/myapp"
+          cp -r ${{env.DOTNET_ROOT}}/publish/WebApp/. ${{env.DOTNET_ROOT}}/myapp/
+          cp -r ${{env.DOTNET_ROOT}}/publish/Api/. ${{env.DOTNET_ROOT}}/myapp/
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
+
+  deploy:
+    runs-on: windows-latest
+    needs: build
+    environment:
+      name: 'Production'
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v4
+        with:
+          name: .net-app
+
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_F1F7F4FBAEA74636BE2C34E76CC75A9A }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_66DAA99309D8448F9360759244C04FDD }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_CE631BE8D8DB4C8E8DAECE5CE6DAEC6A }}
+
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: 'grup03-sostenibilitat-dynamx'
+          slot-name: 'Production'
+          package: './.net-app'
