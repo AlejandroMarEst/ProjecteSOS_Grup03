@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using ProjecteSOS_Grup03API.Data;
 using ProjecteSOS_Grup03API.DTOs;
 using ProjecteSOS_Grup03API.Models;
+using ProjecteSOS_Grup03API.Tools;
 
 namespace ProjecteSOS_Grup03API.Controllers
 {
@@ -11,13 +12,6 @@ namespace ProjecteSOS_Grup03API.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private const string ProductNotFound = "Product not found";
-        private const string NoProducts = "There are no products";
-        private const string ProductNotDeleted = "Product not deleted";
-        private const string ProductDeleted = "Product {0} deleted";
-        private const string ProductRestocked = "Product {0} restocked";
-        private const string ProductUpdated = "Product {0} updated";
-
         private readonly AppDbContext _context;
 
         public ProductsController(AppDbContext context)
@@ -32,7 +26,7 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             if (product == null)
             {
-                return NotFound(ProductNotFound);
+                return NotFound(ErrorMessages.ProductNotFound);
             }
 
             return Ok(product);
@@ -46,7 +40,7 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             if (products.Count == 0)
             {
-                return NotFound(NoProducts);
+                return NotFound(ErrorMessages.NoProducts);
             }
 
             return Ok(products);
@@ -81,19 +75,19 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             if (product == null)
             {
-                return NotFound(ProductNotFound);
+                return NotFound(ErrorMessages.ProductNotFound);
             }
 
             var result = _context.Products.Remove(product);
 
             if (result == null)
             {
-                return BadRequest(ProductNotDeleted);
+                return BadRequest(ErrorMessages.ProductNotDeleted);
             }
 
             await _context.SaveChangesAsync();
 
-            return Ok(string.Format(ProductDeleted, id));
+            return Ok(string.Format(ErrorMessages.ProductDeleted, id));
         }
 
         [Authorize(Roles = "Employee,Admin")]
@@ -104,7 +98,7 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             if (product == null)
             {
-                return NotFound(ProductNotFound);
+                return NotFound(ErrorMessages.ProductNotFound);
             }
 
             product.Stock += stock;
@@ -112,7 +106,7 @@ namespace ProjecteSOS_Grup03API.Controllers
             _context.Products.Update(product);
             await _context.SaveChangesAsync();
 
-            return Ok(string.Format(ProductRestocked, id));
+            return Ok(string.Format(ErrorMessages.ProductRestocked, id));
         }
 
         [Authorize(Roles = "Employee,Admin")]
@@ -123,7 +117,7 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             if (product == null)
             {
-                return NotFound(ProductNotFound);
+                return NotFound(ErrorMessages.ProductNotFound);
             }
 
             product.Name = productDTO.Name;
@@ -136,7 +130,7 @@ namespace ProjecteSOS_Grup03API.Controllers
             _context.Products.Update(product);
             await _context.SaveChangesAsync();
 
-            return Ok(string.Format(ProductUpdated, id));
+            return Ok(string.Format(ErrorMessages.ProductUpdated, id));
         }
     }
 }

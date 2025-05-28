@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using ProjecteSOS_Grup03API.Data;
 using ProjecteSOS_Grup03API.DTOs;
 using ProjecteSOS_Grup03API.Models;
+using ProjecteSOS_Grup03API.Tools;
 using System.Security.Claims;
 
 namespace ProjecteSOS_Grup03API.Controllers
@@ -12,22 +13,6 @@ namespace ProjecteSOS_Grup03API.Controllers
     [ApiController]
     public class OrdersController : ControllerBase
     {
-        private const string OrderNotFound = "Order not found";
-        private const string NoPermissionToViewOrder = "You do not have permission to view this order";
-        private const string OrderNotFoundForEdit = "Order not found.";
-        private const string NoPermissionToEditOrder = "You do not have permission to edit this order.";
-        private const string NoPermissionToChangeOwner = "You cannot change the owner of the order.";
-        private const string InvalidNewClientId = "The new ClientId is not valid.";
-        private const string InvalidSalesRepId = "The SalesRepId is not valid.";
-        private const string ClientNotFound = "Client does not exist";
-        private const string OrderAlreadyExists = "An order already exists";
-        private const string OrderCreated = "Order created successfully";
-        private const string EmployeeNotFound = "Employee not found";
-        private const string NoActiveOrder = "There is no active order";
-        private const string OrderConfirmed = "The order has been confirmed successfully.";
-        private const string NoPermissionToDeleteOrder = "You do not have permission to delete this order";
-        private const string OrderDeleted = "The order with id {0} has been deleted successfully.";
-
         private readonly AppDbContext _context;
 
         public OrdersController(AppDbContext context)
@@ -54,7 +39,7 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             if (order == null)
             {
-                return NotFound(OrderNotFound);
+                return NotFound(ErrorMessages.OrderNotFound);
             }
 
             return new OrderDTO
@@ -92,14 +77,14 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             if (order == null)
             {
-                return NotFound(OrderNotFound);
+                return NotFound(ErrorMessages.OrderNotFound);
             }
 
             if (userRole == "Client")
             {
                 if (order.ClientId != userId)
                 {
-                    return Unauthorized(NoPermissionToViewOrder);
+                    return Unauthorized(ErrorMessages.NoPermissionToViewOrder);
                 }
             }            
 
@@ -128,19 +113,19 @@ namespace ProjecteSOS_Grup03API.Controllers
 
                 if (orderBeingEdited == null)
                 {
-                    return NotFound(OrderNotFoundForEdit);
+                    return NotFound(ErrorMessages.OrderNotFoundForEdit);
                 }
 
                 if (orderBeingEdited.ClientId != userId)
                 {
-                    return Forbid(NoPermissionToEditOrder);
+                    return Forbid(ErrorMessages.NoPermissionToEditOrder);
                 }
             }
 
             var existingOrder = await _context.Orders.FindAsync(id);
             if (existingOrder == null)
             {
-                return NotFound(OrderNotFound);
+                return NotFound(ErrorMessages.OrderNotFound);
             }
 
             // Validar que el clientid enb el DTO només el pugui canviar un admin/worker o si el client és el mateix
@@ -148,14 +133,14 @@ namespace ProjecteSOS_Grup03API.Controllers
             {
                 if (userRole == "Client") // un client no pot canviar el ClientId de la comanda
                 {
-                    return Forbid(NoPermissionToChangeOwner);
+                    return Forbid(ErrorMessages.NoPermissionToChangeOwner);
                 }
 
                 var newClient = await _context.Clients.FindAsync(order.ClientId);
 
                 if (newClient == null)
                 {
-                    return BadRequest(InvalidNewClientId);
+                    return BadRequest(ErrorMessages.InvalidNewClientId);
                 }
 
                 existingOrder.ClientId = order.ClientId;
@@ -170,7 +155,7 @@ namespace ProjecteSOS_Grup03API.Controllers
 
                     if (salesRep == null)
                     {
-                        return BadRequest(InvalidSalesRepId);
+                        return BadRequest(ErrorMessages.InvalidSalesRepId);
                     }
 
                     existingOrder.SalesRep = salesRep;
@@ -195,7 +180,7 @@ namespace ProjecteSOS_Grup03API.Controllers
             {
                 if (!OrderExists(id))
                 {
-                    return NotFound(OrderNotFound);
+                    return NotFound(ErrorMessages.OrderNotFound);
                 }
                 else
                 {
@@ -231,7 +216,7 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             if (client == null)
             {
-                return NotFound(ClientNotFound);
+                return NotFound(ErrorMessages.ClientNotFound);
             }
 
             // Crear el nou order
@@ -254,7 +239,7 @@ namespace ProjecteSOS_Grup03API.Controllers
             }
             else
             {
-                return Conflict(OrderAlreadyExists);
+                return Conflict(ErrorMessages.OrderAlreadyExists);
             }
 
             _context.Clients.Update(client);
@@ -288,7 +273,7 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             if (client == null)
             {
-                return NotFound(ClientNotFound);
+                return NotFound(ErrorMessages.ClientNotFound);
             }
 
             // Crear el nou order
@@ -312,13 +297,13 @@ namespace ProjecteSOS_Grup03API.Controllers
             }
             else
             {
-                return Conflict(OrderAlreadyExists);
+                return Conflict(ErrorMessages.OrderAlreadyExists);
             }
 
             _context.Clients.Update(client);
             await _context.SaveChangesAsync();
 
-            return Ok(OrderCreated);
+            return Ok(ErrorMessages.OrderCreated);
         }
 
         // Crea una ordre a partir de l'usuari connectat, un empleat, i l'email d'un client
@@ -338,12 +323,12 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             if (client == null)
             {
-                return NotFound(ClientNotFound);
+                return NotFound(ErrorMessages.ClientNotFound);
             }
 
             if (sales == null)
             {
-                return NotFound(EmployeeNotFound);
+                return NotFound(ErrorMessages.EmployeeNotFound);
             }
 
             // Crear el nou order
@@ -367,13 +352,13 @@ namespace ProjecteSOS_Grup03API.Controllers
             }
             else
             {
-                return Conflict(OrderAlreadyExists);
+                return Conflict(ErrorMessages.OrderAlreadyExists);
             }
 
             _context.Clients.Update(client);
             await _context.SaveChangesAsync();
 
-            return Ok(OrderCreated);
+            return Ok(ErrorMessages.OrderCreated);
         }
 
         // Confirma l'ordre actual de l'usuari connectat
@@ -387,14 +372,14 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             if (client == null)
             {
-                return NotFound(ClientNotFound);
+                return NotFound(ErrorMessages.ClientNotFound);
             }
 
             var orderId = client.CurrentOrderId;
 
             if (orderId == null)
             {
-                return BadRequest(NoActiveOrder);
+                return BadRequest(ErrorMessages.NoActiveOrder);
             }
 
             var productsPoints = await _context.ProductsOrders
@@ -409,7 +394,7 @@ namespace ProjecteSOS_Grup03API.Controllers
             _context.Clients.Update(client);
             await _context.SaveChangesAsync();
 
-            return Ok(new { message = OrderConfirmed });
+            return Ok(new { message = ErrorMessages.OrderConfirmed });
         }
 
         // Confirma una ordre a partir de l'usuari connectat, un empleat, i l'email d'un client
@@ -424,19 +409,19 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             if (client == null)
             {
-                return NotFound(ClientNotFound);
+                return NotFound(ErrorMessages.ClientNotFound);
             }
 
             if (sales == null)
             {
-                return NotFound(EmployeeNotFound);
+                return NotFound(ErrorMessages.EmployeeNotFound);
             }
 
             var orderId = client.CurrentOrderId;
 
             if (orderId == null)
             {
-                return BadRequest(NoActiveOrder);
+                return BadRequest(ErrorMessages.NoActiveOrder);
             }
 
             var productsPoints = await _context.ProductsOrders
@@ -450,7 +435,7 @@ namespace ProjecteSOS_Grup03API.Controllers
             _context.Clients.Update(client);
             await _context.SaveChangesAsync();
 
-            return Ok(new { message = OrderConfirmed });
+            return Ok(new { message = ErrorMessages.OrderConfirmed });
         }
 
         // DELETE: api/Orders/5
@@ -462,7 +447,7 @@ namespace ProjecteSOS_Grup03API.Controllers
             var order = await _context.Orders.FindAsync(id);
             if (order == null)
             {
-                return NotFound(ClientNotFound);
+                return NotFound(ErrorMessages.ClientNotFound);
             }
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -470,13 +455,13 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             if (order.ClientId != userId && userRole == "Client")
             {
-                return Forbid(NoPermissionToDeleteOrder);
+                return Forbid(ErrorMessages.NoPermissionToDeleteOrder);
             }
 
             _context.Orders.Remove(order);
             await _context.SaveChangesAsync();
 
-            return Ok(new { message = string.Format(OrderDeleted, id) });
+            return Ok(new { message = string.Format(ErrorMessages.OrderDeleted, id) });
         }
 
         private bool OrderExists(int id)
