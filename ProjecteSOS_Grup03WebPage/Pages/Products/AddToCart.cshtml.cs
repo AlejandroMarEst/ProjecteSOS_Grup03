@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using ProjecteSOS_Grup03WebPage.Tools;
 using System.Net.Http.Headers;
 using System.Net;
 using ProjecteSOS_Grup03WebPage.DTOs;
@@ -13,7 +12,8 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Products
         private readonly ILogger<AddToCartModel> _logger;
 
         [BindProperty]
-        public ProductOrderCreateDTO OrderProductCreate { get; set; } = new();
+        public int Quantity { get; set; } = 0;
+        public int ProductId { get; set; }
         public string? ErrorMessage { get; set; }
 
         public AddToCartModel(IHttpClientFactory httpClientFactory, ILogger<AddToCartModel> logger)
@@ -24,14 +24,14 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Products
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
-            OrderProductCreate.ProductId = id;
+            ProductId = id;
 
             _logger.LogInformation("Product Id {ProductId} defined", id);
 
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int id)
         {
             if (!ModelState.IsValid)
             {
@@ -48,7 +48,7 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Products
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                 }
 
-                var response = await client.PostAsJsonAsync("api/OrderedProducts", OrderProductCreate);
+                var response = await client.PostAsJsonAsync("api/OrderedProducts", new ProductOrderCreateDTO { ProductId = id, Quantity = Quantity} );
 
                 if (response.IsSuccessStatusCode)
                 {
