@@ -573,4 +573,40 @@
   <data name="ConfirmDeleteItemFromOrder" xml:space="preserve">
     <value>Estàs segur que vols eliminar aquest article de la comanda?</value>
   </data>
+  <data name="LoadingAllOrdersError" xml:space="preserve">
+    <value>Error en carregar la informació de les comandes.</value>
+  </data>
+  <data name="OrdersLoadingFailed" xml:space="preserve">
+    <value>Error al carregar les comandes.</value>
+  </data>
+  <data name="LoadingStatsError" xml:space="preserve">
+    <value>Error en carregar les estadístiques.</value>
+  </data>
+  <data name="UserStatsTitle" xml:space="preserve">
+    <value>Estadístiques d'usuaris</value>
+  </data>
+  <data name="UserStatsHeader" xml:space="preserve">
+    <value>Estadístiques dels usuaris</value>
+  </data>
+  <data name="UserId" xml:space="preserve">
+    <value>ID Usuari</value>
+  </data>
+  <data name="NumberOfOrders" xml:space="preserve">
+    <value>Núm. comandes</value>
+  </data>
+  <data name="TotalSpent" xml:space="preserve">
+    <value>Total gastat</value>
+  </data>
+  <data name="LastOrderDate" xml:space="preserve">
+    <value>Última comanda</value>
+  </data>
+  <data name="UserPoints" xml:space="preserve">
+    <value>Punts</value>
+  </data>
+  <data name="UserHasNoOrders" xml:space="preserve">
+    <value>No té comandes.</value>
+  </data>
+  <data name="NoUsersToDisplayStats" xml:space="preserve">
+    <value>No hi ha usuaris per mostrar estadístiques.</value>
+  </data>
 </root>

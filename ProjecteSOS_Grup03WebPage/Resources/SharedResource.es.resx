@@ -570,4 +570,40 @@
   <data name="ConfirmDeleteItemFromOrder" xml:space="preserve">
     <value>¿Estás seguro de que quieres eliminar este artículo del pedido?</value>
   </data>
+  <data name="LoadingAllOrdersError" xml:space="preserve">
+    <value>Error al cargar la información de los pedidos.</value>
+  </data>
+  <data name="OrdersLoadingFailed" xml:space="preserve">
+    <value>Error al cargar los pedidos.</value>
+  </data>
+  <data name="LoadingStatsError" xml:space="preserve">
+    <value>Error al cargar las estadísticas.</value>
+  </data>
+  <data name="UserStatsTitle" xml:space="preserve">
+    <value>Estadísticas de usuarios</value>
+  </data>
+  <data name="UserStatsHeader" xml:space="preserve">
+    <value>Estadísticas de los usuarios</value>
+  </data>
+  <data name="UserId" xml:space="preserve">
+    <value>ID Usuario</value>
+  </data>
+  <data name="NumberOfOrders" xml:space="preserve">
+    <value>Nº pedidos</value>
+  </data>
+  <data name="TotalSpent" xml:space="preserve">
+    <value>Total gastado</value>
+  </data>
+  <data name="LastOrderDate" xml:space="preserve">
+    <value>Último pedido</value>
+  </data>
+  <data name="UserPoints" xml:space="preserve">
+    <value>Puntos</value>
+  </data>
+  <data name="UserHasNoOrders" xml:space="preserve">
+    <value>No tiene pedidos.</value>
+  </data>
+  <data name="NoUsersToDisplayStats" xml:space="preserve">
+    <value>No hay usuarios para mostrar estadísticas.</value>
+  </data>
 </root>

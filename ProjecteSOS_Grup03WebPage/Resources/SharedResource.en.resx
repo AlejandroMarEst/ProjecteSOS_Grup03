@@ -573,4 +573,40 @@
   <data name="ConfirmDeleteItemFromOrder" xml:space="preserve">
     <value>Are you sure you want to remove this item from the order?</value>
   </data>
+  <data name="LoadingAllOrdersError" xml:space="preserve">
+    <value>Error loading order information.</value>
+  </data>
+  <data name="OrdersLoadingFailed" xml:space="preserve">
+    <value>Error loading orders.</value>
+  </data>
+  <data name="LoadingStatsError" xml:space="preserve">
+    <value>Error loading statistics.</value>
+  </data>
+  <data name="UserStatsTitle" xml:space="preserve">
+    <value>User statistics</value>
+  </data>
+  <data name="UserStatsHeader" xml:space="preserve">
+    <value>User statistics</value>
+  </data>
+  <data name="UserId" xml:space="preserve">
+    <value>User ID</value>
+  </data>
+  <data name="NumberOfOrders" xml:space="preserve">
+    <value>No. orders</value>
+  </data>
+  <data name="TotalSpent" xml:space="preserve">
+    <value>Total spent</value>
+  </data>
+  <data name="LastOrderDate" xml:space="preserve">
+    <value>Last order</value>
+  </data>
+  <data name="UserPoints" xml:space="preserve">
+    <value>Points</value>
+  </data>
+  <data name="UserHasNoOrders" xml:space="preserve">
+    <value>Has no orders.</value>
+  </data>
+  <data name="NoUsersToDisplayStats" xml:space="preserve">
+    <value>No users to display statistics.</value>
+  </data>
 </root>
