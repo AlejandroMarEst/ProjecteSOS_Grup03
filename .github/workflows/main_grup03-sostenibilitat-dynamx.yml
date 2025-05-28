@@ -1,6 +1,3 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
 name: Build and deploy ASP.Net Core app to Azure Web App - grup03-sostenibilitat-dynamx
 
 on:
@@ -35,14 +32,18 @@ jobs:
       - name: Publish API
         run: dotnet publish ./ProjecteSOS_Grup03API/ProjecteSOS_Grup03API.csproj -c Release -o "${{env.DOTNET_ROOT}}/publish/Api"
 
-      - name: Combine publish folders
+      - name: Combine publish folders with API in /api subfolder
         shell: pwsh
         run: |
           $myAppPath = "$env:DOTNET_ROOT\myapp"
-            New-Item -ItemType Directory -Force -Path $myAppPath
-            Copy-Item "$env:DOTNET_ROOT\publish\WebApp\*" -Destination $myAppPath -Recurse -Force
-            Copy-Item "$env:DOTNET_ROOT\publish\Api\*" -Destination $myAppPath -Recurse -Force
-
+          $apiPath = Join-Path $myAppPath "api"
+          # Crear directorios
+          New-Item -ItemType Directory -Force -Path $myAppPath
+          New-Item -ItemType Directory -Force -Path $apiPath
+          # Copiar WebApp al root
+          Copy-Item -Path "$env:DOTNET_ROOT\publish\WebApp\*" -Destination $myAppPath -Recurse -Force
+          # Copiar API a /api
+          Copy-Item -Path "$env:DOTNET_ROOT\publish\Api\*" -Destination $apiPath -Recurse -Force
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -78,4 +79,4 @@ jobs:
         with:
           app-name: 'grup03-sostenibilitat-dynamx'
           slot-name: 'Production'
-          package: '.'
+          package: ${{ github.workspace }}/.net-app
