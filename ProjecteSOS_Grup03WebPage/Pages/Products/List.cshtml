@@ -24,7 +24,6 @@
             <tr>
                 <th>@SharedLocalizer["NameLabel"]</th>
                 <th>@SharedLocalizer["Description"]</th>
-                <th>@SharedLocalizer["Image"]</th>
                 <th>@SharedLocalizer["Price"]</th>
                 <th></th>
                 @if (isEmployee)
@@ -40,7 +39,6 @@
                 <tr>
                     <td>@prod.Name</td>
                     <td>@prod.Description</td>
-                    <td>@prod.Image</td>
                     <td>@prod.Price</td>
                     <td>
                         <a asp-page="Details" asp-route-id="@prod.ProductId" class="btn">@SharedLocalizer["Details"]</a>
