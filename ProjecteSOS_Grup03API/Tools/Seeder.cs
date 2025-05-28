@@ -52,7 +52,7 @@ namespace ProjecteSOS_Grup03API.Tools
         public static void SeedProducts(ModelBuilder builder)
         {
             const string FileName = "Products.json";
-            const string FilePath = @"../../../Files/" + FileName;
+            const string FilePath = @"Files/" + FileName;
 
             FileInfo fileInfo = new FileInfo(FilePath);
 
