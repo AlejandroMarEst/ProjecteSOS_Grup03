@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using ProjecteSOS_Grup03API.Data;
 using ProjecteSOS_Grup03API.DTOs;
 using ProjecteSOS_Grup03API.Models;
+using ProjecteSOS_Grup03API.Tools;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -40,7 +41,7 @@ namespace ProjecteSOS_Grup03API.Controllers
             }
             if (result.Succeeded && roleResult.Succeeded)
             {
-                return Ok("Client was registered");
+                return Ok(ErrorMessages.ClientRegistered);
             }
 
             return BadRequest(result.Errors);
@@ -60,7 +61,7 @@ namespace ProjecteSOS_Grup03API.Controllers
             }
             if (result.Succeeded && roleResult.Succeeded)
             {
-                return Ok("Employee was registered");
+                return Ok(ErrorMessages.EmployeeRegistered);
             }
 
             return BadRequest(result.Errors);
@@ -80,7 +81,7 @@ namespace ProjecteSOS_Grup03API.Controllers
             }
             if (result.Succeeded && roleResult.Succeeded)
             {
-                return Ok("Admin was registered");
+                return Ok(ErrorMessages.AdminRegistered);
             }
 
             return BadRequest(result.Errors);
@@ -93,7 +94,7 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             if (user == null || !await _userManager.CheckPasswordAsync(user, userDTO.Password))
             {
-                return Unauthorized("Invalid email or password");
+                return Unauthorized(ErrorMessages.InvalidEmailOrPassword);
             }
 
             var claims = new List<Claim>();
@@ -131,7 +132,7 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             if (string.IsNullOrEmpty(userId))
             {
-                return NotFound("L'usuari no s'ha trobat");
+                return NotFound(ErrorMessages.UserNotFound);
             }
 
             var userRole = User.FindFirstValue(ClaimTypes.Role);
@@ -147,12 +148,12 @@ namespace ProjecteSOS_Grup03API.Controllers
                     profile = await GetEmployeeProfile(userId);
                     break;
                 default:
-                    return NotFound("No s'ha trobat cap rol en l'usuari");
+                    return NotFound(ErrorMessages.NoRoleFound);
             }
 
             if (profile == null)
             {
-                return NotFound("No s'ha trobat el perfil");
+                return NotFound(ErrorMessages.ProfileNotFound);
             }
 
             return Ok(profile);
@@ -166,7 +167,7 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             if (user == null)
             {
-                return NotFound("No s'ha trobat l'usuari");
+                return NotFound(ErrorMessages.UserNotFound);
             }
 
             var userRoles = await _userManager.GetRolesAsync(user);
@@ -183,12 +184,12 @@ namespace ProjecteSOS_Grup03API.Controllers
             }
             else
             {
-                return NotFound("No s'ha trobat cap rol en l'usuari");
+                return NotFound(ErrorMessages.NoRoleFound);
             }
 
             if (profile == null)
             {
-                return NotFound("No s'ha trobat el perfil");
+                return NotFound(ErrorMessages.ProfileNotFound);
             }
 
             return Ok(profile);
@@ -202,7 +203,7 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             if (users == null || !users.Any())
             {
-                return NotFound("No hi ha usuaris registrats");
+                return NotFound(ErrorMessages.NoRegisteredUsers);
             }
 
             var profiles = new List<UserProfileListDTO>();
@@ -223,7 +224,7 @@ namespace ProjecteSOS_Grup03API.Controllers
                 }
                 else
                 {
-                    return NotFound("No s'ha trobat cap rol en l'usuari");
+                    return NotFound(ErrorMessages.NoRoleFound);
                 }
                 if (profile != null)
                 {
@@ -248,13 +249,13 @@ namespace ProjecteSOS_Grup03API.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrEmpty(userId))
             {
-                return NotFound("L'usuari no s'ha trobat");
+                return NotFound(ErrorMessages.UserNotFound);
             }
 
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
             if (user == null)
             {
-                return NotFound("L'usuari no està registrat");
+                return NotFound(ErrorMessages.UserIsNotRegistered);
             }
 
             user.PhoneNumber = phone;
@@ -263,7 +264,7 @@ namespace ProjecteSOS_Grup03API.Controllers
             var result = await _userManager.UpdateAsync(user);
             if (result.Succeeded)
             {
-                return Ok("User was updated");
+                return Ok(ErrorMessages.UserUpdated);
             }
 
             return BadRequest();
@@ -276,22 +277,22 @@ namespace ProjecteSOS_Grup03API.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrEmpty(userId))
             {
-                return NotFound("L'usuari no s'ha trobat");
+                return NotFound(ErrorMessages.UserNotFound);
             }
 
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
             if (user == null)
             {
-                return NotFound("L'usuari no està registrat");
+                return NotFound(ErrorMessages.UserIsNotRegistered);
             }
 
             var result = await _userManager.ChangePasswordAsync(user, oldPasswd, newPasswd);
             if (result.Succeeded)
             {
-                return Ok("Password was updated");
+                return Ok(ErrorMessages.PasswordUpdated);
             }
             
-            return BadRequest("La contrasenya no és correcte");
+            return BadRequest(ErrorMessages.IncorrectPassword);
         }
 
         [Authorize]
@@ -301,19 +302,19 @@ namespace ProjecteSOS_Grup03API.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrEmpty(userId))
             {
-                return NotFound("L'usuari no s'ha trobat");
+                return NotFound(ErrorMessages.UserNotFound);
             }
 
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
             if (user == null)
             {
-                return NotFound("L'usuari no està registrat");
+                return NotFound(ErrorMessages.UserIsNotRegistered);
             }
 
             var result = await _userManager.DeleteAsync(user);
             if (result.Succeeded)
             {
-                return Ok("Your account was deleted");
+                return Ok(ErrorMessages.AccountDeleted);
             }
 
             return BadRequest();
