@@ -464,6 +464,20 @@ namespace ProjecteSOS_Grup03API.Controllers
                 return BadRequest($"No hi ha stock suficient per el producte {existingProductOrder.Product.Name}. Stock adicional requerit: {quantityDifference}, Disponible: {existingProductOrder.Product.Stock}");
             }
 
+            var oldProductOrderPrice = existingProductOrder.Product.Price * existingProductOrder.Quantity;
+            var newProductOrderPrice = existingProductOrder.Product.Price * newQuantity;
+
+            var order = await _context.Orders.FindAsync(orderId);
+
+            if (order == null)
+            {
+                return NotFound("Order not found");
+            }
+
+            order.Price -= oldProductOrderPrice;
+            order.Price += newProductOrderPrice;
+            _context.Entry(order).State = EntityState.Modified;
+
             // Actualitzar stock de producte
             existingProductOrder.Product.Stock -= quantityDifference;
             _context.Entry(existingProductOrder.Product).State = EntityState.Modified;
