@@ -15,157 +15,23 @@
 
 @if (Model.Products.Any())
 {
-    <section class="py-4">
-        <div class="container px-4 px-lg-5">
-
-            <h2>Productes Sostenibles</h2>
+    <!-- sustainable products section -->
+    <section class="py-4 bg-light">
+        <div class="container px-4 px-lg-5">  
+            <h2 class="fw-bolder mb-4 text-center">@SharedLocalizer["SustainableProductsHeader"]</h2>
             @if (Model.SustainableProducts.Any())
             {
                 <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                    @foreach (var product in Model.SustainableProducts)
-                    {
-                        <div class="col mb-5">
-                            <div class="card h-100 shadow-sm">
-                                <!-- image-->
-                                <a asp-page="/Products/Details" asp-route-id="@product.ProductId">
-                                    <img class="card-img-top"
-                                    src="@(string.IsNullOrEmpty(product.Image) ? "https://dummyimage.com/450x300/dee2e6/6c757d.jpg&text=" + SharedLocalizer["NoImageAvailable"] : product.Image)"
-                                    alt="@product.Name"
-                                    style="height: 200px; object-fit: cover; padding: 25px;" />
-                                </a>
-                                <!-- details-->
-                                <div class="card-body p-4">
-                                    <div class="text-center">
-                                        <!-- name -->
-                                        <h5 class="fw-bolder">
-                                            <a asp-page="/Products/Details" asp-route-id="@product.ProductId" class="text-decoration-none text-dark">@product.Name</a>
-                                        </h5>
-                                        <!-- price-->
-                                        <span class="fs-5">@product.Price.ToString() € </span>
-                                    </div>
-                                </div>
-                                <!-- actions-->
-                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center">
-                                        @{
-                                            var token = HttpContext.Session.GetString("AuthToken");
-                                            var loggedIn = Tools.TokenHelper.IsTokenSession(token);
-                                        }
-                                        @if (loggedIn)
-                                        {
-                                            <a class="btn btn-outline-primary mt-auto" asp-page="/Products/AddToCart" asp-route-id="@product.ProductId">
-                                                <i class="bi-cart-fill me-1"></i>
-                                                @SharedLocalizer["AddToCartButton"]
-                                            </a>
-                                        }
-                                        else
-                                        {
-                                            <a class="btn btn-outline-secondary mt-auto" asp-page="/Login" asp-route-returnUrl="@Url.PageLink("/Index", null, null, Request.Scheme)">
-                                                @SharedLocalizer["LoginToShopButton"]
-                                            </a>
-                                        }
-
-                                        @if (Model.IsEmployee)
-                                        {
-                                            <div class="mt-2">
-                                                <a asp-page="/Products/Edit" asp-route-id="@product.ProductId" class="btn btn-sm btn-outline-secondary">@SharedLocalizer["EditButton"]</a>
-                                                <form method="post" asp-page="/Products/Delete" asp-route-id="@product.ProductId" class="d-inline ms-1">
-                                                    <button type="submit" class="btn btn-sm btn-outline-danger btn-danger" onclick="return confirm('@SharedLocalizer["ConfirmDeleteProduct"]')">@SharedLocalizer["Delete"]</button>
-                                                </form>
-                                            </div>
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                </div>
-            }
-            else
-            {
-                <p>No hi ha Productes Sostenibles actualment</p>
-            }
-
-            <h2>Productes Recomanats</h2>
-            @if (Model.RecomendedProducts.Any())
-            {
-                <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                    @foreach (var product in Model.RecomendedProducts)
-                    {
-                        <div class="col mb-5">
-                            <div class="card h-100 shadow-sm">
-                                <!-- image-->
-                                <a asp-page="/Products/Details" asp-route-id="@product.ProductId">
-                                    <img class="card-img-top"
-                                    src="@(string.IsNullOrEmpty(product.Image) ? "https://dummyimage.com/450x300/dee2e6/6c757d.jpg&text=" + SharedLocalizer["NoImageAvailable"] : product.Image)"
-                                    alt="@product.Name"
-                                    style="height: 200px; object-fit: cover; padding: 25px;" />
-                                </a>
-                                <!-- details-->
-                                <div class="card-body p-4">
-                                    <div class="text-center">
-                                        <!-- name -->
-                                        <h5 class="fw-bolder">
-                                            <a asp-page="/Products/Details" asp-route-id="@product.ProductId" class="text-decoration-none text-dark">@product.Name</a>
-                                        </h5>
-                                        <!-- price-->
-                                        <span class="fs-5">@product.Price.ToString() € </span>
-                                    </div>
-                                </div>
-                                <!-- actions-->
-                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center">
-                                        @{
-                                            var token = HttpContext.Session.GetString("AuthToken");
-                                            var loggedIn = Tools.TokenHelper.IsTokenSession(token);
-                                        }
-                                        @if (loggedIn)
-                                        {
-                                            <a class="btn btn-outline-primary mt-auto" asp-page="/Products/AddToCart" asp-route-id="@product.ProductId">
-                                                <i class="bi-cart-fill me-1"></i>
-                                                @SharedLocalizer["AddToCartButton"]
-                                            </a>
-                                        }
-                                        else
-                                        {
-                                            <a class="btn btn-outline-secondary mt-auto" asp-page="/Login" asp-route-returnUrl="@Url.PageLink("/Index", null, null, Request.Scheme)">
-                                                @SharedLocalizer["LoginToShopButton"]
-                                            </a>
-                                        }
-
-                                        @if (Model.IsEmployee)
-                                        {
-                                            <div class="mt-2">
-                                                <a asp-page="/Products/Edit" asp-route-id="@product.ProductId" class="btn btn-sm btn-outline-secondary">@SharedLocalizer["EditButton"]</a>
-                                                <form method="post" asp-page="/Products/Delete" asp-route-id="@product.ProductId" class="d-inline ms-1">
-                                                    <button type="submit" class="btn btn-sm btn-outline-danger btn-danger" onclick="return confirm('@SharedLocalizer["ConfirmDeleteProduct"]')">@SharedLocalizer["Delete"]</button>
-                                                </form>
-                                            </div>
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                </div>
-            }
-            else
-            {
-                <p>No hi ha Productes Recomanats actualment</p>
-            }
-
-            <h2>Tots els Productes</h2>
-            <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                @foreach (var product in Model.Products)
+                @foreach (var product in Model.SustainableProducts)
                 {
                     <div class="col mb-5">
                         <div class="card h-100 shadow-sm">
                             <!-- image-->
                             <a asp-page="/Products/Details" asp-route-id="@product.ProductId">
                                 <img class="card-img-top"
-                                     src="@(string.IsNullOrEmpty(product.Image) ? "https://dummyimage.com/450x300/dee2e6/6c757d.jpg&text=" + SharedLocalizer["NoImageAvailable"] : product.Image)"
-                                     alt="@product.Name"
-                                     style="height: 200px; object-fit: cover; padding: 25px;" />
+                                src="@(string.IsNullOrEmpty(product.Image) ? "https://dummyimage.com/450x300/dee2e6/6c757d.jpg&text=" + SharedLocalizer["NoImageAvailable"] : product.Image)"
+                                alt="@product.Name"
+                                style="height: 200px; object-fit: cover; padding: 25px;" />
                             </a>
                             <!-- details-->
                             <div class="card-body p-4">
@@ -213,6 +79,150 @@
                         </div>
                     </div>
                 }
+                </div>
+            }
+            else
+            {
+                <p class="text-center">@SharedLocalizer["NoSustainableProducts"]</p>
+            }
+        </div>
+    </section>
+    <br />
+    <!-- recomended products section -->
+    <section class="py-4 bg-light">
+        <div class="container px-4 px-lg-5">
+            <h2 class="fw-bolder mb-4 text-center">@SharedLocalizer["RecommendedProductsHeader"]</h2>
+            @if (Model.RecomendedProducts.Any())
+            {
+                <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                @foreach (var product in Model.RecomendedProducts)
+                {
+                    <div class="col mb-5">
+                        <div class="card h-100 shadow-sm">
+                            <!-- image-->
+                            <a asp-page="/Products/Details" asp-route-id="@product.ProductId">
+                                <img class="card-img-top"
+                                src="@(string.IsNullOrEmpty(product.Image) ? "https://dummyimage.com/450x300/dee2e6/6c757d.jpg&text=" + SharedLocalizer["NoImageAvailable"] : product.Image)"
+                                alt="@product.Name"
+                                style="height: 200px; object-fit: cover; padding: 25px;" />
+                            </a>
+                            <!-- details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- name -->
+                                    <h5 class="fw-bolder">
+                                        <a asp-page="/Products/Details" asp-route-id="@product.ProductId" class="text-decoration-none text-dark">@product.Name</a>
+                                    </h5>
+                                    <!-- price-->
+                                    <span class="fs-5">@product.Price.ToString() € </span>
+                                </div>
+                            </div>
+                            <!-- actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center">
+                                    @{
+                                        var token = HttpContext.Session.GetString("AuthToken");
+                                        var loggedIn = Tools.TokenHelper.IsTokenSession(token);
+                                    }
+                                    @if (loggedIn)
+                                    {
+                                        <a class="btn btn-outline-primary mt-auto" asp-page="/Products/AddToCart" asp-route-id="@product.ProductId">
+                                            <i class="bi-cart-fill me-1"></i>
+                                            @SharedLocalizer["AddToCartButton"]
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a class="btn btn-outline-secondary mt-auto" asp-page="/Login" asp-route-returnUrl="@Url.PageLink("/Index", null, null, Request.Scheme)">
+                                            @SharedLocalizer["LoginToShopButton"]
+                                        </a>
+                                    }
+
+                                    @if (Model.IsEmployee)
+                                    {
+                                        <div class="mt-2">
+                                            <a asp-page="/Products/Edit" asp-route-id="@product.ProductId" class="btn btn-sm btn-outline-secondary">@SharedLocalizer["EditButton"]</a>
+                                            <form method="post" asp-page="/Products/Delete" asp-route-id="@product.ProductId" class="d-inline ms-1">
+                                                <button type="submit" class="btn btn-sm btn-outline-danger btn-danger" onclick="return confirm('@SharedLocalizer["ConfirmDeleteProduct"]')">@SharedLocalizer["Delete"]</button>
+                                            </form>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                </div>
+            }
+            else
+            {
+                <p class="text-center">@SharedLocalizer["NoRecommendedProducts"]</p>
+            }
+        </div>
+    </section>
+    <br />
+    <!-- all products section -->
+    <section class="py-4">
+        <div class="container px-4 px-lg-5">
+            <h2 class="fw-bolder mb-4 text-center">@SharedLocalizer["AllProductsHeader"]</h2>
+            <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            @foreach (var product in Model.Products)
+            {
+                <div class="col mb-5">
+                    <div class="card h-100 shadow-sm">
+                        <!-- image-->
+                        <a asp-page="/Products/Details" asp-route-id="@product.ProductId">
+                            <img class="card-img-top"
+                                    src="@(string.IsNullOrEmpty(product.Image) ? "https://dummyimage.com/450x300/dee2e6/6c757d.jpg&text=" + SharedLocalizer["NoImageAvailable"] : product.Image)"
+                                    alt="@product.Name"
+                                    style="height: 200px; object-fit: cover; padding: 25px;" />
+                        </a>
+                        <!-- details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- name -->
+                                <h5 class="fw-bolder">
+                                    <a asp-page="/Products/Details" asp-route-id="@product.ProductId" class="text-decoration-none text-dark">@product.Name</a>
+                                </h5>
+                                <!-- price-->
+                                <span class="fs-5">@product.Price.ToString() € </span>
+                            </div>
+                        </div>
+                        <!-- actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center">
+                                @{
+                                    var token = HttpContext.Session.GetString("AuthToken");
+                                    var loggedIn = Tools.TokenHelper.IsTokenSession(token);
+                                }
+                                @if (loggedIn)
+                                {
+                                    <a class="btn btn-outline-primary mt-auto" asp-page="/Products/AddToCart" asp-route-id="@product.ProductId">
+                                        <i class="bi-cart-fill me-1"></i>
+                                        @SharedLocalizer["AddToCartButton"]
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a class="btn btn-outline-secondary mt-auto" asp-page="/Login" asp-route-returnUrl="@Url.PageLink("/Index", null, null, Request.Scheme)">
+                                        @SharedLocalizer["LoginToShopButton"]
+                                    </a>
+                                }
+
+                                @if (Model.IsEmployee)
+                                {
+                                    <div class="mt-2">
+                                        <a asp-page="/Products/Edit" asp-route-id="@product.ProductId" class="btn btn-sm btn-outline-secondary">@SharedLocalizer["EditButton"]</a>
+                                        <form method="post" asp-page="/Products/Delete" asp-route-id="@product.ProductId" class="d-inline ms-1">
+                                            <button type="submit" class="btn btn-sm btn-outline-danger btn-danger" onclick="return confirm('@SharedLocalizer["ConfirmDeleteProduct"]')">@SharedLocalizer["Delete"]</button>
+                                        </form>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
             </div>
         </div>
     </section>
