@@ -271,13 +271,13 @@
     <value>Eliminar compte</value>
   </data>
   <data name="Cart" xml:space="preserve">
-    <value>Carret</value>
+    <value>Cistella</value>
   </data>
   <data name="CreateProductTitle" xml:space="preserve">
     <value>Crear producte</value>
   </data>
   <data name="AddProductHeader" xml:space="preserve">
-    <value>Afegir nou Producte</value>
+    <value>Afegir nou producte</value>
   </data>
   <data name="ProductNameLabel" xml:space="preserve">
     <value>Nom del producte</value>
@@ -328,7 +328,7 @@
     <value>Has de ser un empleat per a editar un producte.</value>
   </data>
   <data name="MyOrdersPageTitle" xml:space="preserve">
-    <value>Les meves comandes</value>
+    <value>Productes a la teva cistella</value>
   </data>
   <data name="OrderProductName" xml:space="preserve">
     <value>Nom del producte</value>
@@ -428,5 +428,128 @@
   </data>
   <data name="DetailsButton" xml:space="preserve">
     <value>Detalls</value>
+  </data>
+  <data name="AllUserOrdersTitle" xml:space="preserve">
+    <value>Totes les comandes d'usuaris</value>
+  </data>
+  <data name="AllUserOrdersHeader" xml:space="preserve">
+    <value>Comandes dels usuaris</value>
+  </data>
+  <data name="OrderIdHeader" xml:space="preserve">
+    <value>ID de comanda</value>
+  </data>
+  <data name="ClientHeader" xml:space="preserve">
+    <value>Client</value>
+  </data>
+  <data name="SalesRepHeader" xml:space="preserve">
+    <value>Representant de vendes</value>
+  </data>
+  <data name="PriceHeader" xml:space="preserve">
+    <value>Preu</value>
+  </data>
+  <data name="OrderDateHeader" xml:space="preserve">
+    <value>Data de la comanda</value>
+  </data>
+  <data name="NoneText" xml:space="preserve">
+    <value>Ningú</value>
+  </data>
+  <data name="NoOrdersAvailableInTable" xml:space="preserve">
+    <value>No hi ha comandes disponibles.</value>
+  </data>
+  <data name="AddToCartPageTitle" xml:space="preserve">
+    <value>Afegir al carret</value>
+  </data>
+  <data name="AddToCartHeader" xml:space="preserve">
+    <value>Afegir producte al carret</value>
+  </data>
+  <data name="QuantityLabel" xml:space="preserve">
+    <value>Quantitat</value>
+  </data>
+  <data name="AddToCartButton" xml:space="preserve">
+    <value>Afegir al carret</value>
+  </data>
+  <data name="BackToProductsDetailsButton" xml:space="preserve">
+    <value>Tornar als detalls del producte</value>
+  </data>
+  <data name="LoginToAddToCart" xml:space="preserve">
+    <value>Inicia sessió per a afegir productes al teu carret.</value>
+  </data>
+  <data name="ConfirmOrderButton" xml:space="preserve">
+    <value>Confirmar comanda</value>
+  </data>
+  <data name="OrderIsEmpty" xml:space="preserve">
+    <value>La comanda no conté productes.</value>
+  </data>
+  <data name="CreateNewOrderButton" xml:space="preserve">
+    <value>Crear nova comanda</value>
+  </data>
+  <data name="NotAuthorizedMessage" xml:space="preserve">
+    <value>No estàs autoritzat per veure aquesta pàgina.</value>
+  </data>
+  <data name="OutOfStockText" xml:space="preserve">
+    <value>Sense estoc</value>
+  </data>
+  <data name="StockManagerTitle" xml:space="preserve">
+    <value>Gestor d'estoc</value>
+  </data>
+  <data name="StockManagerHeader" xml:space="preserve">
+    <value>Gestió d'estoc</value>
+  </data>
+  <data name="ProductActionsGroupLabel" xml:space="preserve">
+    <value>Accions de producte</value>
+  </data>
+  <data name="ConfirmDeleteProduct" xml:space="preserve">
+    <value>Estàs segur que vols eliminar aquest producte?</value>
+  </data>
+  <data name="EditOrderItemQuantityTitle" xml:space="preserve">
+    <value>Editar quantitat de l'article</value>
+  </data>
+  <data name="Edit OrderItemQuantityHeader" xml:space="preserve">
+    <value>Editar quantitat de l'article de la comanda</value>
+  </data>
+  <data name="ProductLabel" xml:space="preserve">
+    <value>Producte: </value>
+  </data>
+  <data name="OrderItemNotFound" xml:space="preserve">
+    <value>L'article de la comanda no s'ha trobat o és nul.</value>
+  </data>
+  <data name="LoginToEditOrderItem" xml:space="preserve">
+    <value>Inicia sessió per editar articles de la comanda.</value>
+  </data>
+  <data name="BackToMyOrdersButton" xml:space="preserve">
+    <value>Tornar a les meves comandes</value>
+  </data>
+  <data name="ActionsLabel" xml:space="preserve">
+    <value>Accions</value>
+  </data>
+  <data name="NoImageAvailable" xml:space="preserve">
+    <value>Imatge no disponible</value>
+  </data>
+  <data name="LoginToShopButton" xml:space="preserve">
+    <value>Inicia sessió per comprar</value>
+  </data>
+  <data name="IndexPageLoadProductsError" xml:space="preserve">
+    <value>No s'han pogut carregar els productes en aquest moment.</value>
+  </data>
+  <data name="IndexPageUnexpectedError" xml:space="preserve">
+    <value>Error inesperat en carregar productes.</value>
+  </data>
+  <data name="ProductPointsLabel" xml:space="preserve">
+    <value>Punts del producte</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Rol</value>
+  </data>
+  <data name="RoleAdmin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="RoleEmployee" xml:space="preserve">
+    <value>Empleat</value>
+  </data>
+  <data name="Points" xml:space="preserve">
+    <value>Punts</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Data d'inici</value>
   </data>
 </root>

@@ -22,6 +22,7 @@
 	@if (Model.Product != null)
     {
 		<form method="post">
+			<div>
 			<div class="mb-3">
 				<label asp-for="Product.Name">@SharedLocalizer["ProductNameLabel"]</label>
 				<input asp-for="Product.Name" class="form-control" />
@@ -43,12 +44,18 @@
 				<span asp-validation-for="Product.Stock" class="text-danger"></span>
 			</div>
 			<div class="mb-3">
+				<label asp-for="Product.Points">@SharedLocalizer["ProductPointsLabel"]</label>
+				<input asp-for="Product.Points" class="form-control" />
+				<span asp-validation-for="Product.Points" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
 				<label asp-for="Product.Price">@SharedLocalizer["ProductPriceLabel"]</label>
 				<input asp-for="Product.Price" class="form-control" />
 				<span asp-validation-for="Product.Price" class="text-danger"></span>
 			</div>
 			<button type="submit" class="btn btn-primary">@SharedLocalizer["SaveButton"]</button>
 			<a asp-page="List" class="btn btn-secondary">@SharedLocalizer["CancelButton"]</a>
+			</div>
 		</form>
     }
     else

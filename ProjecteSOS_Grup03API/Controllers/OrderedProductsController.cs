@@ -133,6 +133,74 @@ namespace ProjecteSOS_Grup03API.Controllers
             return Ok(productOrders);
         }
 
+        [Authorize]
+        [HttpGet("User/CurrentOrder")]
+        public async Task<ActionResult<ProductOrderDetailsDTO>> GetUserCurrentOrderProducts()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var client = await _context.Clients.FindAsync(userId);
+
+            if (client == null)
+                return NotFound("El client no s'ha trobat");
+
+            var orderId = client.CurrentOrderId;
+
+            if (orderId == null)
+            {
+                return BadRequest("No hi ha cap comanda activa");
+            }
+
+            var productOrders = await _context.ProductsOrders
+                .Where(op => op.OrderId == orderId)
+                .Select(op => new ProductOrderDetailsDTO
+                {
+                    OrderId = op.OrderId,
+                    ProductId = op.ProductId,
+                    ProductName = op.Product.Name,
+                    Quantity = op.Quantity,
+                    OrderDate = op.OrderDate,
+                    UnitPrice = op.Product.Price
+                })
+                .ToListAsync();
+
+            return Ok(productOrders);
+        }
+
+        [Authorize]
+        [HttpGet("User/CurrentOrder/{productId}")]
+        public async Task<ActionResult<ProductOrderDTO>> GetUserCurrentOrderProduct(int productId)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var client = await _context.Clients.FindAsync(userId);
+
+            if (client == null)
+                return NotFound("El client no s'ha trobat");
+
+            var orderId = client.CurrentOrderId;
+
+            if (orderId == null)
+            {
+                return BadRequest("No hi ha cap comanda activa");
+            }
+
+            var productOrder = await _context.ProductsOrders.FirstOrDefaultAsync(po => po.OrderId == orderId && po.ProductId == productId);
+
+            if (productOrder == null)
+            {
+                return NotFound("No s'ha trobat el producte de la comanda");
+            }
+
+            var dto = new ProductOrderDTO
+            {
+                OrderDate = productOrder.OrderDate,
+                Quantity = productOrder.Quantity
+            };
+
+            return Ok(dto);
+        }
+
         // GET: api/OrderedProducts/User/orders/{orderId}/products/{productId}
         // Obtenir un ProductOrder específic d'una order de l'usuari
         [Authorize]
@@ -168,7 +236,7 @@ namespace ProjecteSOS_Grup03API.Controllers
 
         // POST: api/OrderedProducts
         [Authorize]
-        [HttpPost()]
+        [HttpPost]
         public async Task<ActionResult<ProductOrderDetailsDTO>> PostProductOrder([FromBody] ProductOrderCreateDTO dto)
         {
             if (!ModelState.IsValid)
@@ -188,9 +256,27 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             var orderId = client.CurrentOrderId;
 
+            // Si no hi ha cap ordre creada es crea una
             if (orderId == null)
             {
-                return BadRequest("No s'ha creat una ordre");
+                var newOrder = new Order
+                {
+                    Client = client,
+                    ClientId = client.Id,
+                    SalesRep = null,
+                    SalesRepId = null,
+                    OrderDate = DateOnly.FromDateTime(DateTime.Now),
+                    Price = 0
+                };
+
+                _context.Orders.Add(newOrder);
+                await _context.SaveChangesAsync();
+
+                client.CurrentOrderId = newOrder.OrderId;
+                _context.Clients.Update(client);
+                await _context.SaveChangesAsync();
+
+                orderId = newOrder.OrderId;
             }
 
             var order = await _context.Orders.FindAsync(orderId);
@@ -260,7 +346,7 @@ namespace ProjecteSOS_Grup03API.Controllers
         }
 
         // PUT: api/OrderedProducts/orders/{orderId}/products/{productId}
-        [Authorize]
+        [Authorize (Roles = "Admin,Employee")]
         [HttpPut("orders/{orderId}/products/{productId}")]
         public async Task<IActionResult> PutProductOrder(int orderId, int productId, [FromBody] ProductOrderUpdateDTO dto)
         {
@@ -337,6 +423,78 @@ namespace ProjecteSOS_Grup03API.Controllers
             return Ok(updatedDto);
         }
 
+        [Authorize]
+        [HttpPatch("Quantity/{productId}")]
+        public async Task<IActionResult> PatchProductQuantity(int productId, int newQuantity)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var client = await _context.Clients.FirstOrDefaultAsync(u => u.Id == userId);
+
+            if (client == null)
+            {
+                return NotFound("El client no existeix");
+            }
+
+            var orderId = client.CurrentOrderId;
+
+            if (orderId == null)
+            {
+                return BadRequest("No hi ha cap comanda activa");
+            }
+
+            var existingProductOrder = await _context.ProductsOrders
+                .Include(po => po.Order)
+                .Include(po => po.Product)
+                .FirstOrDefaultAsync(po => po.OrderId == orderId && po.ProductId == productId);
+
+            if (existingProductOrder == null)
+            {
+                return NotFound("item de la comanda no trobat.");
+            }
+
+            int quantityDifference = newQuantity - existingProductOrder.Quantity;
+            if (existingProductOrder.Product.Stock < quantityDifference) // Si la nova quantitat és major, verificar si hi ha stock
+            {
+                return BadRequest($"No hi ha stock suficient per el producte {existingProductOrder.Product.Name}. Stock adicional requerit: {quantityDifference}, Disponible: {existingProductOrder.Product.Stock}");
+            }
+
+            // Actualitzar stock de producte
+            existingProductOrder.Product.Stock -= quantityDifference;
+            _context.Entry(existingProductOrder.Product).State = EntityState.Modified;
+
+            // Actualitzar la quantitat del ProductOrder
+            existingProductOrder.Quantity = newQuantity;
+            _context.Entry(existingProductOrder).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!await ProductOrderExists((int)orderId, productId))
+                {
+                    return NotFound("L'ítem de la comanda ha estat eliminat o modificat per un altre usuari.");
+                }
+                else
+                {
+                    return Conflict("Problema de concurrència. Torna a carregar les dades i intenta-ho de nou.");
+                }
+            }
+            catch (DbUpdateException ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error actualitzant la base de dades: " + ex.Message);
+            }
+
+            return Ok("La quantitat ha estat actualitzada correctament");
+        }
+
         // Delete: api/OrderesProducts/orders/{orderId}/products/{productId}
         [Authorize]
         [HttpDelete("orders/{orderId}/products/{productId}")]
@@ -382,6 +540,56 @@ namespace ProjecteSOS_Grup03API.Controllers
             //return NoContent();
 
             return Ok(new { message = $"L'ítem del producte amb id {productId} de la comanda amb id {orderId} ha estat eliminat correctament." });
+        }
+
+        [Authorize]
+        [HttpDelete("User/CurrentOrder/{productId}")]
+        public async Task<IActionResult> DeleteUserCurrentOrderProduct(int productId)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var client = await _context.Clients.FirstOrDefaultAsync(u => u.Id == userId);
+
+            if (client == null)
+            {
+                return NotFound("El client no existeix");
+            }
+
+            var orderId = client.CurrentOrderId;
+
+            if (orderId == null)
+            {
+                return BadRequest("No hi ha cap comanda activa");
+            }
+
+            var productOrder = await _context.ProductsOrders
+                .Include(po => po.Order)
+                .Include(po => po.Product)
+                .FirstOrDefaultAsync(po => po.OrderId == orderId && po.ProductId == productId);
+
+            if (productOrder == null)
+            {
+                return NotFound("Item de la comanda no trobat.");
+            }
+
+            if (productOrder.Product != null)
+            {
+                productOrder.Product.Stock += productOrder.Quantity;
+                _context.Entry(productOrder.Product).State = EntityState.Modified;
+            }
+
+            _context.ProductsOrders.Remove(productOrder);
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error eliminant l'item de la comanda de la base de dades: " + ex.Message);
+            }
+
+            return Ok("Producte eliminat de la comanda");
         }
 
         private async Task<bool> ProductOrderExists(int orderId, int productId)

@@ -277,7 +277,7 @@
     <value>Create product</value>
   </data>
   <data name="AddProductHeader" xml:space="preserve">
-    <value>Add new Product</value>
+    <value>Add new product</value>
   </data>
   <data name="ProductNameLabel" xml:space="preserve">
     <value>Product name</value>
@@ -328,7 +328,7 @@
     <value>You must be an employee to edit a product.</value>
   </data>
   <data name="MyOrdersPageTitle" xml:space="preserve">
-    <value>My orders</value>
+    <value>Products on your basket</value>
   </data>
   <data name="OrderProductName" xml:space="preserve">
     <value>Product name</value>
@@ -428,5 +428,128 @@
   </data>
   <data name="DetailsButton" xml:space="preserve">
     <value>Details</value>
+  </data>
+  <data name="AllUserOrdersTitle" xml:space="preserve">
+    <value>All user orders</value>
+  </data>
+  <data name="AllUserOrdersHeader" xml:space="preserve">
+    <value>User orders</value>
+  </data>
+  <data name="OrderIdHeader" xml:space="preserve">
+    <value>Order ID</value>
+  </data>
+  <data name="ClientHeader" xml:space="preserve">
+    <value>Client</value>
+  </data>
+  <data name="SalesRepHeader" xml:space="preserve">
+    <value>Sales Representative</value>
+  </data>
+  <data name="PriceHeader" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="OrderDateHeader" xml:space="preserve">
+    <value>Order date</value>
+  </data>
+  <data name="NoneText" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="NoOrdersAvailableInTable" xml:space="preserve">
+    <value>No orders available.</value>
+  </data>
+  <data name="AddToCartPageTitle" xml:space="preserve">
+    <value>Add to cart</value>
+  </data>
+  <data name="AddToCartHeader" xml:space="preserve">
+    <value>Add product to cart</value>
+  </data>
+  <data name="QuantityLabel" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="AddToCartButton" xml:space="preserve">
+    <value>Add to cart</value>
+  </data>
+  <data name="BackToProductsDetailsButton" xml:space="preserve">
+    <value>Back to product details</value>
+  </data>
+  <data name="LoginToAddToCart" xml:space="preserve">
+    <value>Login to add products to your cart.</value>
+  </data>
+  <data name="ConfirmOrderButton" xml:space="preserve">
+    <value>Confirm order</value>
+  </data>
+  <data name="OrderIsEmpty" xml:space="preserve">
+    <value>The order contains no products.</value>
+  </data>
+  <data name="CreateNewOrderButton" xml:space="preserve">
+    <value>Create new order</value>
+  </data>
+  <data name="NotAuthorizedMessage" xml:space="preserve">
+    <value>You are not authorized to view this page.</value>
+  </data>
+  <data name="OutOfStockText" xml:space="preserve">
+    <value>Out of stock</value>
+  </data>
+  <data name="StockManagerTitle" xml:space="preserve">
+    <value>Stock manager</value>
+  </data>
+  <data name="StockManagerHeader" xml:space="preserve">
+    <value>Stock management</value>
+  </data>
+  <data name="ProductActionsGroupLabel" xml:space="preserve">
+    <value>Product actions</value>
+  </data>
+  <data name="ConfirmDeleteProduct" xml:space="preserve">
+    <value>Are you sure you want to delete this product?</value>
+  </data>
+  <data name="EditOrderItemQuantityTitle" xml:space="preserve">
+    <value>Edit item quantity</value>
+  </data>
+  <data name="Edit OrderItemQuantityHeader" xml:space="preserve">
+    <value>Edit order item quantity</value>
+  </data>
+  <data name="ProductLabel" xml:space="preserve">
+    <value>Product: </value>
+  </data>
+  <data name="OrderItemNotFound" xml:space="preserve">
+    <value>The order item was not found or is null.</value>
+  </data>
+  <data name="LoginToEditOrderItem" xml:space="preserve">
+    <value>Login to edit order items.</value>
+  </data>
+  <data name="BackToMyOrdersButton" xml:space="preserve">
+    <value>Back to my orders</value>
+  </data>
+  <data name="ActionsLabel" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="NoImageAvailable" xml:space="preserve">
+    <value>Image not available</value>
+  </data>
+  <data name="LoginToShopButton" xml:space="preserve">
+    <value>Login to shop</value>
+  </data>
+  <data name="IndexPageLoadProductsError" xml:space="preserve">
+    <value>Could not load products at this time.</value>
+  </data>
+  <data name="IndexPageUnexpectedError" xml:space="preserve">
+    <value>An unexpected error occurred while loading products.</value>
+  </data>
+  <data name="ProductPointsLabel" xml:space="preserve">
+    <value>Product points</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="RoleAdmin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="RoleEmployee" xml:space="preserve">
+    <value>Employee</value>
+  </data>
+  <data name="Points" xml:space="preserve">
+    <value>Points</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Start date</value>
   </data>
 </root>

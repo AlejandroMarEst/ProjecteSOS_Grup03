@@ -1,11 +1,15 @@
-﻿@page
+﻿@page "{id:int}"
 @model ProjecteSOS_Grup03WebPage.Pages.Products.DetailsModel
 @using Microsoft.AspNetCore.Mvc.Localization
 @using ProjecteSOS_Grup03WebPage
 @inject IHtmlLocalizer<SharedResource> SharedLocalizer
 @{
 	ViewData["Title"] = SharedLocalizer["ProductDetailsTitle"];
+	var token = HttpContext.Session.GetString("AuthToken");
+	var userRoles = Tools.TokenHelper.GetUserRoles(token).ToList();
 	var product = Model.Product;
+	var loggedIn = Tools.TokenHelper.IsTokenSession(token);
+	var isEmployee = userRoles.Contains("Employee") || userRoles.Contains("Admin");
 }
 
 @if (product != null) { <h2>@product.Name</h2> }
@@ -17,9 +21,11 @@
 
 @if (product != null)
 {
+	<div id="details">
 	<div>
-		<img src="@product.Image" alt="@product.Name" width="500" />
+		<img id="details-img" src="@product.Image" alt="@product.Name" width="500" />
 	</div>
+	<div>
 	<div>
 		<h4>@SharedLocalizer["ProductDescriptionLabel"]</h4>
 		<p>@product.Description</p>
@@ -32,8 +38,20 @@
 		<h4>@SharedLocalizer["ProductPriceLabel"]</h4>
 		<p>@product.Price</p>
 	</div>
-	<div>
-		<a asp-page="AddToCart" asp-route-id="@product.ProductId" class="btn btn-secondary">Afegir al carret</a>
+
+	@if (loggedIn && product.Stock > 0 && !isEmployee)
+	{
+		<div>
+			<a asp-page="AddToCart" asp-route-id="@product.ProductId" class="btn btn-secondary">@SharedLocalizer["AddToCartButton"]</a>
+		</div>
+	}
+	else if (loggedIn && product.Stock <= 0)
+	{
+		<div>
+			<p class="text-danger">@SharedLocalizer["OutOfStockText"]</p>
+		</div>
+	}
+	</div>
 	</div>
 }
 else

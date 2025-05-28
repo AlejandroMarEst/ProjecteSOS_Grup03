@@ -19,6 +19,8 @@ namespace ProjecteSOS_Grup03API.Models
 
         public double Price { get; set; }
 
+        public int Points { get; set; } = 0;
+
         public ICollection<ProductOrder> ProductsOrders { get; set; }
     }
 }
