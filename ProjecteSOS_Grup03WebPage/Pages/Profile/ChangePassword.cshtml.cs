@@ -5,6 +5,7 @@ using System.Net.Http.Headers;
 using System.Net;
 using System.Text.Json;
 using ProjecteSOS_Grup03WebPage.DTOs;
+using Microsoft.Extensions.Localization;
 
 namespace ProjecteSOS_Grup03WebPage.Pages.Profile
 {
@@ -12,8 +13,9 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Profile
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILogger<ChangePasswordModel> _logger;
+		private readonly IStringLocalizer<SharedResource> _localizer;
 
-        [BindProperty]
+		[BindProperty]
         public string OldPassword { get; set; }
 
         [BindProperty]
@@ -21,10 +23,11 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Profile
 
         public string? ErrorMessage { get; set; }
 
-        public ChangePasswordModel(IHttpClientFactory httpClientFactory, ILogger<ChangePasswordModel> logger)
+        public ChangePasswordModel(IHttpClientFactory httpClientFactory, ILogger<ChangePasswordModel> logger, IStringLocalizer<SharedResource> localizer)
         {
             _httpClientFactory = httpClientFactory;
             _logger = logger;
+            _localizer = localizer;
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -51,17 +54,17 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Profile
                 }
                 else if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
-                    ErrorMessage = "Només pots editar el teu propi perfil";
+                    ErrorMessage = _localizer["UnauthorizedPasswordChange"];
                 }
                 else
                 {
-                    ErrorMessage = "Error en editar el perfil: " + response.StatusCode;
+                    ErrorMessage = _localizer["PasswordChangeFailedBadRequest"] + response.StatusCode;
                 }
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error Editing User Profile");
-                ErrorMessage = "There was an unexpected error. Try again.";
+                ErrorMessage = _localizer["UnexpectedErrorTryAgain"];
             }
 
             return Page();

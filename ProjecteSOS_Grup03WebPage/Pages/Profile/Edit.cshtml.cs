@@ -5,6 +5,7 @@ using ProjecteSOS_Grup03WebPage.Tools;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Text.Json;
+using Microsoft.Extensions.Localization;
 
 namespace ProjecteSOS_Grup03WebPage.Pages.Profile
 {
@@ -12,8 +13,9 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Profile
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILogger<EditModel> _logger;
+		private readonly IStringLocalizer<SharedResource> _localizer;
 
-        [BindProperty]
+		[BindProperty]
         public string Name { get; set; }
 
         [BindProperty]
@@ -21,10 +23,11 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Profile
 
         public string? ErrorMessage { get; set; }
 
-        public EditModel(IHttpClientFactory httpClientFactory, ILogger<EditModel> logger)
+        public EditModel(IHttpClientFactory httpClientFactory, ILogger<EditModel> logger, IStringLocalizer<SharedResource> localizer)
         {
             _httpClientFactory = httpClientFactory;
             _logger = logger;
+            _localizer = localizer;
         }
 
         public async Task<IActionResult> OnGetAsync(int id)
@@ -47,7 +50,7 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Profile
 
                     if (user == null)
                     {
-                        ErrorMessage = "No s'ha trobat l'usuari.";
+                        ErrorMessage = _localizer["UserProfileNotFound"];
                     }
                     else
                     {
@@ -57,19 +60,19 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Profile
                 }
                 else if (response.StatusCode == HttpStatusCode.NotFound)
                 {
-                    ErrorMessage = "No s'ha trobat l'usuari.";
+                    ErrorMessage = _localizer["UserProfileNotFound"];
                 }
                 else
                 {
                     _logger.LogError("User Loading Failed");
-                    ErrorMessage = "Error en carregar l'usuari.";
+                    ErrorMessage = _localizer["LoadingUserProfileError"];
                 }
 
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error Loading User");
-                ErrorMessage = "There was an unexpected error. Try again.";
+                ErrorMessage = _localizer["UnexpectedErrorTryAgain"];
             }
 
             return Page();
@@ -99,17 +102,17 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Profile
                 }
                 else if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
-                    ErrorMessage = "Només pots editar el teu propi perfil";
+                    ErrorMessage = _localizer["UnauthorizedProfileEdit"];
                 }
                 else
                 {
-                    ErrorMessage = "Error en editar el perfil: " + response.StatusCode;
+                    ErrorMessage = _localizer["EditProfileApiError"] + response.StatusCode;
                 }
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error Editing User Profile");
-                ErrorMessage = "There was an unexpected error. Try again.";
+                ErrorMessage = _localizer["UnexpectedErrorTryAgain"];
             }
 
             return Page();

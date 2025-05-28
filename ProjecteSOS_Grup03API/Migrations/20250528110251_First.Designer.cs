@@ -2,9 +2,9 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ProjecteSOS_Grup03API.Data;
 
 #nullable disable
@@ -12,7 +12,7 @@ using ProjecteSOS_Grup03API.Data;
 namespace ProjecteSOS_Grup03API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250526070910_First")]
+    [Migration("20250528110251_First")]
     partial class First
     {
         /// <inheritdoc />
@@ -21,32 +21,33 @@ namespace ProjecteSOS_Grup03API.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "9.0.5")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedName")
                         .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasDatabaseName("RoleNameIndex");
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
                 });
@@ -55,19 +56,19 @@ namespace ProjecteSOS_Grup03API.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RoleId")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -80,19 +81,19 @@ namespace ProjecteSOS_Grup03API.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -104,17 +105,17 @@ namespace ProjecteSOS_Grup03API.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -126,10 +127,10 @@ namespace ProjecteSOS_Grup03API.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("RoleId")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -141,16 +142,16 @@ namespace ProjecteSOS_Grup03API.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
@@ -161,21 +162,21 @@ namespace ProjecteSOS_Grup03API.Migrations
                 {
                     b.Property<int>("OrderId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("OrderId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"));
 
                     b.Property<string>("ClientId")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateOnly>("OrderDate")
                         .HasColumnType("date");
 
                     b.Property<double>("Price")
-                        .HasColumnType("double precision");
+                        .HasColumnType("float");
 
                     b.Property<string>("SalesRepId")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("OrderId");
 
@@ -190,46 +191,101 @@ namespace ProjecteSOS_Grup03API.Migrations
                 {
                     b.Property<int>("ProductId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ProductId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"));
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Image")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Points")
+                        .HasColumnType("int");
 
                     b.Property<double>("Price")
-                        .HasColumnType("double precision");
+                        .HasColumnType("float");
 
                     b.Property<int>("Stock")
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
                     b.HasKey("ProductId");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            ProductId = 1,
+                            Description = "Aquest ordinador amb pantalla Full HD de 15,6 polzades est� fabricat amb pl�stics reciclats postconsum (PCR), que s�n m�s sostenibles, respectuosos amb el medi ambient i ajuden a reduir els residus als abocadors Tot i la seva construcci� ecol�gica, el port�til ha superat totes les proves de durabilitat de la marca, per la qual cosa �s un producte fet per durar molts anys. Del seu rendiment se n'encarrega un processador Intel Core i5-1155G7, suficient per executar les teves aplicacions de manera r�pida i eficient. La targeta gr�fica integrada Intel, juntament amb la impressionant mem�ria RAM de 8GB, ofereix gr�fics d'alta qualitat, c�rrega m�s r�pida i multitasca eficient.",
+                            Image = "https://m.media-amazon.com/images/I/514xBx-rGML._AC_UF894,1000_QL80_.jpg",
+                            Name = "Acer Aspire Vero AV15-51",
+                            Points = 1300,
+                            Price = 549.89999999999998,
+                            Stock = 10
+                        },
+                        new
+                        {
+                            ProductId = 2,
+                            Description = "Aquests auriculars de Sony estan fabricats amb materials pl�stics reciclats a partir de peces dautom�bils. A m�s, com la resta de productes de Sony, el seu embalatge est� 100% lliure de pl�stic. Amb tan sols 4 grams de pes i una mida compacta de 25 x 15 x 15mm, aquests auriculars et permetran gaudir de la teva m�sica preferida mentre mantens el contacte amb el teu entorn.",
+                            Image = "https://m.media-amazon.com/images/I/61kUVBJ8DML._AC_SL1500_.jpg-",
+                            Name = "Sony Linkbuds",
+                            Points = 900,
+                            Price = 113.59999999999999,
+                            Stock = 50
+                        },
+                        new
+                        {
+                            ProductId = 3,
+                            Description = "Aquest carregador amb panell solar port�til compta amb tecnologia innovadora, incloent-hi un amper�metre i un xip incorporats. L'amper�metre digital a la pantalla us permet monitoritzar la quantitat d'ampers presents i la pot�ncia de c�rrega, assegurant un proc�s de c�rrega eficient i prec�s. A m�s, gr�cies al xip intern, pots comptar amb una c�rrega estable, augmentant l'efici�ncia de c�rrega fins a un 21,5% - 24%. Est� equipat amb dos ports USB intel�ligents que poden detectar el teu dispositiu i oferir la velocitat de c�rrega m�s r�pida possible.",
+                            Image = "https://m.media-amazon.com/images/I/81eY6Rp1-cL._AC_SL1500_.jpg",
+                            Name = "BigBlue 28W Cargador Solar Port�til",
+                            Points = 1200,
+                            Price = 69.989999999999995,
+                            Stock = 30
+                        },
+                        new
+                        {
+                            ProductId = 4,
+                            Description = "Fabricat amb components reciclats i fins i tot amb xarxes de pesca que altrament acabarien als oceans, amena�ant la vida marina, aquest dispositiu �s un clar exemple que la qualitat i la sostenibilitat poden anar de la m�. El Galaxy S23 est� certificat amb el UL ECOLOGO, una garantia que el producte t� un impacte ambiental redu�t.",
+                            Image = "https://m.media-amazon.com/images/I/71BqGC+sBZL._AC_SL1500_.jpg",
+                            Name = "Samsung Galaxy S23",
+                            Points = 800,
+                            Price = 499.97000000000003,
+                            Stock = 40
+                        },
+                        new
+                        {
+                            ProductId = 5,
+                            Description = "Este scooter, de peso pluma y f�cil manejo, es extremadamente sencillo de almacenar.Incluye una aplicaci�n interactiva que te permitir� acceder a varios datos como el estado de la conexi�n y el rendimiento de la bater�a, entre otros.Para maximizar la comodidad durante la conducci�n, cuenta con un mango revestido de espuma.Adem�s, tiene una caracter�stica de recuperaci�n de energ�a cin�tica (KERS). Este sistema innovador garantiza que, al desacelerar o frenar, se optimice la conversi�n de energ�a, incrementando considerablemente la duraci�n de la bater�a.",
+                            Image = "https://m.media-amazon.com/images/I/51ipdfwihhL._AC_SL1200_.jpg",
+                            Name = "Xiaomi Electric Scooter 4 Lite",
+                            Points = 1000,
+                            Price = 229.99000000000001,
+                            Stock = 6
+                        });
                 });
 
             modelBuilder.Entity("ProjecteSOS_Grup03API.Models.ProductOrder", b =>
                 {
                     b.Property<int>("OrderId")
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
                     b.Property<int>("ProductId")
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("OrderDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("Quantity")
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
                     b.HasKey("OrderId", "ProductId");
 
@@ -241,63 +297,63 @@ namespace ProjecteSOS_Grup03API.Migrations
             modelBuilder.Entity("ProjecteSOS_Grup03API.Models.User", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("boolean");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("boolean");
+                        .HasColumnType("bit");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("boolean");
+                        .HasColumnType("bit");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("boolean");
+                        .HasColumnType("bit");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("UserType")
                         .IsRequired()
                         .HasMaxLength(8)
-                        .HasColumnType("character varying(8)");
+                        .HasColumnType("nvarchar(8)");
 
                     b.HasKey("Id");
 
@@ -306,7 +362,8 @@ namespace ProjecteSOS_Grup03API.Migrations
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasDatabaseName("UserNameIndex");
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
 
@@ -319,14 +376,11 @@ namespace ProjecteSOS_Grup03API.Migrations
                 {
                     b.HasBaseType("ProjecteSOS_Grup03API.Models.User");
 
-                    b.Property<int>("CurrentOrderId")
-                        .HasColumnType("integer");
-
-                    b.Property<bool>("IsMember")
-                        .HasColumnType("boolean");
+                    b.Property<int?>("CurrentOrderId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Points")
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
                     b.HasDiscriminator().HasValue("Client");
                 });
@@ -336,13 +390,13 @@ namespace ProjecteSOS_Grup03API.Migrations
                     b.HasBaseType("ProjecteSOS_Grup03API.Models.User");
 
                     b.Property<bool>("IsAdmin")
-                        .HasColumnType("boolean");
+                        .HasColumnType("bit");
 
                     b.Property<string>("ManagerId")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<double>("Salary")
-                        .HasColumnType("double precision");
+                        .HasColumnType("float");
 
                     b.Property<DateOnly>("StartDate")
                         .HasColumnType("date");

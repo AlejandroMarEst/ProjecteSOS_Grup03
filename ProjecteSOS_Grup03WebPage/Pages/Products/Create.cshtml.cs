@@ -4,6 +4,7 @@ using ProjecteSOS_Grup03WebPage.DTOs;
 using ProjecteSOS_Grup03WebPage.Tools;
 using System.Net;
 using System.Net.Http.Headers;
+using Microsoft.Extensions.Localization;
 
 namespace ProjecteSOS_Grup03WebPage.Pages.Products
 {
@@ -11,15 +12,17 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Products
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILogger<CreateModel> _logger;
+		private readonly IStringLocalizer<SharedResource> _localizer;
 
-        [BindProperty]
+		[BindProperty]
         public ProductDTO NewProduct { get; set; } = new();
         public string? ErrorMessage { get; set; }
 
-        public CreateModel(IHttpClientFactory httpClientFactory, ILogger<CreateModel> logger)
+        public CreateModel(IHttpClientFactory httpClientFactory, ILogger<CreateModel> logger, IStringLocalizer<SharedResource> localizer)
         {
             _httpClientFactory = httpClientFactory;
             _logger = logger;
+            _localizer = localizer; 
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -47,17 +50,17 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Products
                 }
                 else if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
-                    ErrorMessage = "Has de ser administrador per a afegir productes";
+                    ErrorMessage = _localizer["UnauthorizedCreateProduct"];
                 }
                 else
                 {
-                    ErrorMessage = "Error en crear el producte: " + response.StatusCode;
+                    ErrorMessage = _localizer["ForbiddenCreateProduct"] + response.StatusCode;
                 }
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error Creating Product");
-                ErrorMessage = "There was an unexpected error. Try again.";
+                ErrorMessage = _localizer["UnexpectedErrorTryAgain"];
             }
 
             return Page();

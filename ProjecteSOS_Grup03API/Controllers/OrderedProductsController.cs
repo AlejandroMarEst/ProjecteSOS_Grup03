@@ -22,7 +22,7 @@ namespace ProjecteSOS_Grup03API.Controllers
 
         // GET: api/OrderedProducts/ForOrder/{orderId}
         // Obtenir tots els products d'una order específica (per admins/workers)
-        [Authorize(Roles = "Admin,Worker")]
+        [Authorize(Roles = "Admin,Employee")]
         [HttpGet("ForOrder/{orderId}")]
         public async Task<ActionResult<IEnumerable<ProductOrderDetailsDTO>>> GetProductsForOrder(int orderId)
         {
@@ -50,7 +50,7 @@ namespace ProjecteSOS_Grup03API.Controllers
 
         // GET: api/OrderedProducts/orders/{orderId}/products/{productId}
         // Obtenir un ProductOrder per OrderId i ProductId (per admins/workers)
-        [Authorize(Roles = "Admin,Worker")]
+        [Authorize(Roles = "Admin,Employee")]
         [HttpGet("orders/{orderId}/products/{productId}")]
         public async Task<ActionResult<ProductOrderDetailsDTO>> GetProductOrder(int orderId, int productId)
         {

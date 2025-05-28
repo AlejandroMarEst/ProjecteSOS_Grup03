@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ProjecteSOS_Grup03WebPage.DTOs;
 using System.Text.Json;
+using Microsoft.Extensions.Localization;
 
 namespace ProjecteSOS_Grup03WebPage.Pages
 {
@@ -10,14 +11,19 @@ namespace ProjecteSOS_Grup03WebPage.Pages
     {
         private readonly IHttpClientFactory _httpClient;
         private readonly ILogger<RegisterModel> _logger;
-        [BindProperty]
+		private readonly IStringLocalizer<SharedResource> _localizer;
+
+		[BindProperty]
         public RegisterDTO Register { get; set; } = new();
         public string? ErrorMessage { get; set; }
-        public RegisterModel(IHttpClientFactory httpClient, ILogger<RegisterModel> logger)
+
+        public RegisterModel(IHttpClientFactory httpClient, ILogger<RegisterModel> logger, IStringLocalizer<SharedResource> localizer)
         {
             _httpClient = httpClient;
             _logger = logger;
+            _localizer = localizer;
         }
+
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -43,12 +49,12 @@ namespace ProjecteSOS_Grup03WebPage.Pages
                         {
                             if (error.Code == "DuplicateUserName")
                             {
-                                ErrorMessage = "This email is already registered.";
+                                ErrorMessage = _localizer["EmailAlreadyRegistered"];
                                 break;
                             }
                             else if (error.Code.StartsWith("Password"))
                             {
-                                ErrorMessage = "The password must be longer than 8 character and contain Majus and special characters"; // Shows the password requirement message
+                                ErrorMessage = _localizer["PasswordRequirementsError"]; // Shows the password requirement message
                                 break;
                             }
                         }
@@ -59,7 +65,7 @@ namespace ProjecteSOS_Grup03WebPage.Pages
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Registry error");
-                ErrorMessage = "There was an unexpected error. Try again.";
+                ErrorMessage = _localizer["UnexpectedErrorTryAgain"];
             }
             return Page();
         }

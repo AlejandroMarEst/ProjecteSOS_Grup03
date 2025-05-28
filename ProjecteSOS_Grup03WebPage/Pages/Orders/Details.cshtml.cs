@@ -5,6 +5,7 @@ using ProjecteSOS_Grup03WebPage.Tools;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Text.Json;
+using Microsoft.Extensions.Localization;
 
 namespace ProjecteSOS_Grup03WebPage.Pages.Orders
 {
@@ -12,14 +13,16 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Orders
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILogger<DetailsModel> _logger;
+		private readonly IStringLocalizer<SharedResource> _localizer;
 
-        public List<ProductOrderDetailsDTO> Order { get; set; } = [];
+		public List<ProductOrderDetailsDTO> Order { get; set; } = [];
         public string? ErrorMessage { get; set; }
 
-        public DetailsModel(IHttpClientFactory httpClientFactory, ILogger<DetailsModel> logger)
+        public DetailsModel(IHttpClientFactory httpClientFactory, ILogger<DetailsModel> logger, IStringLocalizer<SharedResource> localizer)
         {
             _httpClientFactory = httpClientFactory;
             _logger = logger;
+            _localizer = localizer;
         }
 
         public async Task<IActionResult> OnGetAsync(int id)
@@ -44,23 +47,22 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Orders
                 }
                 else if (response.StatusCode == HttpStatusCode.NotFound)
                 {
-                    ErrorMessage = "No s'ha trobat la comanda.";
+                    ErrorMessage = _localizer["OrderNotFound"];
                 }
                 else
                 {
                     _logger.LogError("Order Loading Failed");
-                    ErrorMessage = "Error en carregar la comanda.";
+                    ErrorMessage = _localizer["LoadingOrderDetailsError"];
                 }
 
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error Loading Product");
-                ErrorMessage = "There was an unexpected error. Try again.";
+                ErrorMessage = _localizer["UnexpectedErrorTryAgain"];
             }
 
             return Page();
         }
-
     }
 }

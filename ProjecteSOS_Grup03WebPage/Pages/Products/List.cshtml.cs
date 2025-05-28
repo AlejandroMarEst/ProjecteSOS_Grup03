@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using ProjecteSOS_Grup03WebPage.DTOs;
 using System.Net.Http.Headers;
 using System.Text.Json;
+using Microsoft.Extensions.Localization;
 
 namespace ProjecteSOS_Grup03WebPage.Pages.Products
 {
@@ -10,14 +11,16 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Products
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILogger<ProductsListModel> _logger;
+		private readonly IStringLocalizer<SharedResource> _localizer;
 
-        public List<ProductListDTO> Products { get; set; } = [];
+		public List<ProductListDTO> Products { get; set; } = [];
         public string? ErrorMessage { get; set; }
 
-        public ProductsListModel(IHttpClientFactory httpClientFactory, ILogger<ProductsListModel> logger)
+        public ProductsListModel(IHttpClientFactory httpClientFactory, ILogger<ProductsListModel> logger, IStringLocalizer<SharedResource> localizer)
         {
             _httpClientFactory = httpClientFactory;
             _logger = logger;
+            _localizer = localizer;
         }
 
         public async Task OnGetAsync()
@@ -37,13 +40,13 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Products
                 else
                 {
                     _logger.LogError("Products Loading Failed");
-                    ErrorMessage = "Loading Products Error";
+                    ErrorMessage = _localizer["LoadingProductsError"];
                 }
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error Loading Products");
-                ErrorMessage = "There was an unexpected error. Try again.";
+                ErrorMessage = _localizer["UnexpectedErrorTryAgain"];
             }
         }
     }

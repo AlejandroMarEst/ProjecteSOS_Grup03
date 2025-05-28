@@ -5,6 +5,7 @@ using ProjecteSOS_Grup03WebPage.Tools;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Text.Json;
+using Microsoft.Extensions.Localization;
 
 namespace ProjecteSOS_Grup03WebPage.Pages.Orders
 {
@@ -12,16 +13,18 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Orders
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILogger<OrderListModel> _logger;
+		private readonly IStringLocalizer<SharedResource> _localizer;
 
-        public List<ProductOrderDetailsDTO> Orders { get; set; } = [];
+		public List<ProductOrderDetailsDTO> Orders { get; set; } = [];
         public bool OrderExists { get; set; } = false;
         public string? ErrorMessage { get; set; }
         public double GrandTotal { get; private set; }
 
-        public OrderListModel(IHttpClientFactory httpClientFactory, ILogger<OrderListModel> logger)
+        public OrderListModel(IHttpClientFactory httpClientFactory, ILogger<OrderListModel> logger, IStringLocalizer<SharedResource> localizer)
         {
             _httpClientFactory = httpClientFactory;
             _logger = logger;
+            _localizer = localizer;
         }
 
         public async Task OnGetAsync()
@@ -66,14 +69,14 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Orders
                     if(error != "No hi ha cap comanda activa")
                     {
                         _logger.LogError(await response.Content.ReadAsStringAsync());
-                        ErrorMessage = "Loading Orders Error";
+                        ErrorMessage = _localizer["LoadingCartError"];
                     }
                 }
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error Loading Orders");
-                ErrorMessage = "There was an unexpected error. Try again.";
+                ErrorMessage = _localizer["UnexpectedErrorTryAgain"];
             }
         }
     }

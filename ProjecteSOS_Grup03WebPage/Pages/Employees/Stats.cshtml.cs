@@ -6,6 +6,7 @@ using ProjecteSOS_Grup03WebPage.Pages.Orders;
 using ProjecteSOS_Grup03WebPage.Tools;
 using System.Net.Http.Headers;
 using System.Text.Json;
+using Microsoft.Extensions.Localization;
 
 namespace ProjecteSOS_Grup03WebPage.Pages.Employees
 {
@@ -13,14 +14,20 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Employees
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILogger<OrderListModel> _logger;
+        private readonly IStringLocalizer<SharedResource> _localizer;
+
         public List<OrderListDTO> Orders { get; set; } = [];
         public List<UserProfileDTO> Users { get; set; } = [];
         public string? ErrorMessage { get; set; }
-        public StatsModel(IHttpClientFactory httpClientFactory, ILogger<OrderListModel> logger)
+
+
+        public StatsModel(IHttpClientFactory httpClientFactory, ILogger<OrderListModel> logger, IStringLocalizer<SharedResource> localizer)
         {
             _httpClientFactory = httpClientFactory;
             _logger = logger;
+            _localizer = localizer;
         }
+
         public async Task OnGetAsync()
         {
             try
@@ -46,13 +53,13 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Employees
                 else
                 {
                     _logger.LogError(await responseOrders.Content.ReadAsStringAsync());
-                    ErrorMessage = "Loading Orders Error";
+                    ErrorMessage = _localizer["LoadingStatsError"];
                 }
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error Loading Orders");
-                ErrorMessage = "There was an unexpected error. Try again.";
+                ErrorMessage = _localizer["UnexpectedErrorTryAgain"];
             }
         }
     }

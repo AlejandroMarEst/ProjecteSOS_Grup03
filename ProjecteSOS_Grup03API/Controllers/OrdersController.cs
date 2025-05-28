@@ -21,7 +21,7 @@ namespace ProjecteSOS_Grup03API.Controllers
         }
 
         // GET: api/Orders
-        [Authorize(Roles = "Admin,Manager,Employee")]
+        [Authorize(Roles = "Admin,Employee")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<OrderListDTO>>> GetAllOrders()
         {
@@ -31,7 +31,7 @@ namespace ProjecteSOS_Grup03API.Controllers
         }
 
         // GET: api/Orders/5
-        [Authorize(Roles = "Admin,Manager,Employee")]
+        [Authorize(Roles = "Admin,Employee")]
         [HttpGet("{id}")]
         public async Task<ActionResult<OrderDTO>> GetOrder(int id)
         {

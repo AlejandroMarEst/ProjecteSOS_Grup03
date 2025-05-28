@@ -5,6 +5,7 @@ using ProjecteSOS_Grup03WebPage.Pages.Orders;
 using ProjecteSOS_Grup03WebPage.Tools;
 using System.Net.Http.Headers;
 using System.Text.Json;
+using Microsoft.Extensions.Localization;
 
 namespace ProjecteSOS_Grup03WebPage.Employees
 {
@@ -12,15 +13,17 @@ namespace ProjecteSOS_Grup03WebPage.Employees
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILogger<OrderListModel> _logger;
+		private readonly IStringLocalizer<SharedResource> _localizer;
 
-        public List<OrderListDTO> Orders { get; set; } = [];
+		public List<OrderListDTO> Orders { get; set; } = [];
         public List<UserProfileDTO> Users { get; set;} = [];
         public string? ErrorMessage { get; set; }
-        public AllOrdersModel(IHttpClientFactory httpClientFactory, ILogger<OrderListModel> logger)
+        public AllOrdersModel(IHttpClientFactory httpClientFactory, ILogger<OrderListModel> logger, IStringLocalizer<SharedResource> localizer)
         {
             _httpClientFactory = httpClientFactory;
             _logger = logger;
-        }
+			_localizer = localizer;
+		}
         public async Task OnGetAsync()
         {
             try
@@ -32,8 +35,10 @@ namespace ProjecteSOS_Grup03WebPage.Employees
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                 }
+
                 var response = await client.GetAsync("api/Orders");
                 var response2 = await client.GetAsync("api/Auth/Profiles");
+
                 if (response.IsSuccessStatusCode)
                 {
                     var json = await response.Content.ReadAsStringAsync();
@@ -46,13 +51,13 @@ namespace ProjecteSOS_Grup03WebPage.Employees
                 else
                 {
                     _logger.LogError("Orders Loading Failed");
-                    ErrorMessage = "Loading Orders Error";
+                    ErrorMessage = _localizer["LoadingAllOrdersError"];
                 }
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error Loading Orders");
-                ErrorMessage = "There was an unexpected error. Try again.";
+                ErrorMessage = _localizer["UnexpectedErrorTryAgain."];
             }
         }
     }
