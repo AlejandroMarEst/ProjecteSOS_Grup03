@@ -586,11 +586,23 @@ namespace ProjecteSOS_Grup03API.Controllers
                 return NotFound("Item de la comanda no trobat.");
             }
 
+            var ProductOrderPrice = productOrder.Product.Price * productOrder.Quantity;
+
             if (productOrder.Product != null)
             {
                 productOrder.Product.Stock += productOrder.Quantity;
                 _context.Entry(productOrder.Product).State = EntityState.Modified;
             }
+
+            var order = await _context.Orders.FindAsync(orderId);
+
+            if (order == null)
+            {
+                return NotFound("Order not found");
+            }
+
+            order.Price -= ProductOrderPrice;
+            _context.Entry(order).State = EntityState.Modified;
 
             _context.ProductsOrders.Remove(productOrder);
 
