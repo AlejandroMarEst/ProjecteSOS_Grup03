@@ -24,10 +24,10 @@ jobs:
           dotnet-version: '9.x'
 
       - name: Restore dependencies
-        run: dotnet restore grup03-sostenibilitat-dynamx.sln
+        run: dotnet restore ProjecteSOS_Grup03.sln
 
       - name: Build solution
-        run: dotnet build grup03-sostenibilitat-dynamx.sln --configuration Release
+        run: dotnet build ProjecteSOS_Grup03.sln --configuration Release
 
       - name: Publish WebApp
         run: dotnet publish ./ProjecteSOS_Grup03WebPage/ProjecteSOS_Grup03WebPage.csproj -c Release -o "${{env.DOTNET_ROOT}}/publish/WebApp"
