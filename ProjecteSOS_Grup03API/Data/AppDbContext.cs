@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ProjecteSOS_Grup03API.Models;
+using ProjecteSOS_Grup03API.Tools;
 
 namespace ProjecteSOS_Grup03API.Data
 {
@@ -60,6 +61,8 @@ namespace ProjecteSOS_Grup03API.Data
                 .HasOne(po => po.Product)
                 .WithMany(o => o.ProductsOrders)
                 .HasForeignKey(po => po.ProductId);
+
+            Seeder.SeedProducts(builder);
         }
     }
 }
