@@ -606,4 +606,34 @@
   <data name="NoUsersToDisplayStats" xml:space="preserve">
     <value>No hay usuarios para mostrar estadísticas.</value>
   </data>
+  <data name="OrderNotFound" xml:space="preserve">
+    <value>No se ha encontrado el pedido.</value>
+  </data>
+  <data name="LoadingOrderDetailsError" xml:space="preserve">
+    <value>Error al cargar los detalles del pedido.</value>
+  </data>
+  <data name="LoadingOrderItemError" xml:space="preserve">
+    <value>Error al cargar el artículo del pedido: {0}</value>
+  </data>
+  <data name="UnauthorizedEditOrderItem" xml:space="preserve">
+    <value>No estás autorizado para editar este artículo del pedido.</value>
+  </data>
+  <data name="OrderItemOrOrderNotFoundForEdit" xml:space="preserve">
+    <value>No se encontró el artículo o el pedido para editar.</value>
+  </data>
+  <data name="EditingOrderItemError" xml:space="preserve">
+    <value>Error al editar el artículo del pedido: {0}</value>
+  </data>
+  <data name="InvalidInputData" xml:space="preserve">
+    <value>Datos de entrada no válidos. Por favor, revisa el formulario.</value>
+  </data>
+  <data name="LoginToViewCart" xml:space="preserve">
+    <value>Inicia sesión para ver tu carrito.</value>
+  </data>
+  <data name="OrderConflictError" xml:space="preserve">
+    <value>Hay un conflicto con el estado de tu pedido actual.</value>
+  </data>
+  <data name="LoadingtCartError" xml:space="preserve">
+    <value>Error al cargar el carrito.</value>
+  </data>
 </root>

@@ -609,4 +609,34 @@
   <data name="NoUsersToDisplayStats" xml:space="preserve">
     <value>No hi ha usuaris per mostrar estadístiques.</value>
   </data>
+  <data name="OrderNotFound" xml:space="preserve">
+    <value>No s'ha trobat la comanda.</value>
+  </data>
+  <data name="LoadingOrderDetailsError" xml:space="preserve">
+    <value>Error en carregar els detalls de la comanda.</value>
+  </data>
+  <data name="LoadingOrderItemError" xml:space="preserve">
+    <value>Error en carregar l'article de la comanda: {0}</value>
+  </data>
+  <data name="UnauthorizedEditOrderItem" xml:space="preserve">
+    <value>No estàs autoritzat per a editar aquest article de la comanda.</value>
+  </data>
+  <data name="OrderItemOrOrderNotFoundForEdit" xml:space="preserve">
+    <value>No s'ha trobat l'article o la comanda per a editar.</value>
+  </data>
+  <data name="EditingOrderItemError" xml:space="preserve">
+    <value>Error en editar l'article de la comanda: {0}</value>
+  </data>
+  <data name="InvalidInputData" xml:space="preserve">
+    <value>Dades d'entrada no vàlides. Si us plau, revisa el formulari.</value>
+  </data>
+  <data name="LoginToViewCart" xml:space="preserve">
+    <value>Inicia sessió per veure el teu carret.</value>
+  </data>
+  <data name="OrderConflictError" xml:space="preserve">
+    <value>Hi ha un conflicte amb l'estat de la teva comanda actual.</value>
+  </data>
+  <data name="LoadingtCartError" xml:space="preserve">
+    <value>Error en carregar el carret</value>
+  </data>
 </root>

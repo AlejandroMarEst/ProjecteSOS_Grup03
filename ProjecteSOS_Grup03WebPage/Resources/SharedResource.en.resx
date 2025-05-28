@@ -609,4 +609,34 @@
   <data name="NoUsersToDisplayStats" xml:space="preserve">
     <value>No users to display statistics.</value>
   </data>
+  <data name="OrderNotFound" xml:space="preserve">
+    <value>The order was not found.</value>
+  </data>
+  <data name="LoadingOrderDetailsError" xml:space="preserve">
+    <value>Error loading order details.</value>
+  </data>
+  <data name="LoadingOrderItemError" xml:space="preserve">
+    <value>Error loading order item: {0}</value>
+  </data>
+  <data name="UnauthorizedEditOrderItem" xml:space="preserve">
+    <value>You are not authorized to edit this order item.</value>
+  </data>
+  <data name="OrderItemOrOrderNotFoundForEdit" xml:space="preserve">
+    <value>Order item or order not found for edit.</value>
+  </data>
+  <data name="EditingOrderItemError" xml:space="preserve">
+    <value>Error editing order item: {0}</value>
+  </data>
+  <data name="InvalidInputData" xml:space="preserve">
+    <value>Invalid input data. Please check the form.</value>
+  </data>
+  <data name="LoginToViewCart" xml:space="preserve">
+    <value>Login to view your cart.</value>
+  </data>
+  <data name="OrderConflictError" xml:space="preserve">
+    <value>There is a conflict with the state of your current order.</value>
+  </data>
+  <data name="LoadingtCartError" xml:space="preserve">
+    <value>Error loading cart.</value>
+  </data>
 </root>
