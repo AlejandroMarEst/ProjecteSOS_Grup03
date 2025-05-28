@@ -36,10 +36,13 @@ jobs:
         run: dotnet publish ./ProjecteSOS_Grup03API/ProjecteSOS_Grup03API.csproj -c Release -o "${{env.DOTNET_ROOT}}/publish/Api"
 
       - name: Combine publish folders
+        shell: pwsh
         run: |
-          mkdir -p "${{env.DOTNET_ROOT}}/myapp"
-          cp -r ${{env.DOTNET_ROOT}}/publish/WebApp/. ${{env.DOTNET_ROOT}}/myapp/
-          cp -r ${{env.DOTNET_ROOT}}/publish/Api/. ${{env.DOTNET_ROOT}}/myapp/
+          $myAppPath = "$env:DOTNET_ROOT\myapp"
+            New-Item -ItemType Directory -Force -Path $myAppPath
+            Copy-Item "$env:DOTNET_ROOT\publish\WebApp\*" -Destination $myAppPath -Recurse -Force
+            Copy-Item "$env:DOTNET_ROOT\publish\Api\*" -Destination $myAppPath -Recurse -Force
+
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
