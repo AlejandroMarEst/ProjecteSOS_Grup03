@@ -735,4 +735,7 @@
   <data name="RegistrationSuccessful" xml:space="preserve">
     <value>¡Registro completado! Ahora puedes iniciar sesión.</value>
   </data>
+  <data name="LoadingCartError" xml:space="preserve">
+    <value>Error al cargar la cesta</value>
+  </data>
 </root>

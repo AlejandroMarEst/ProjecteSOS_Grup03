@@ -738,4 +738,7 @@
   <data name="RegistrationSuccessful" xml:space="preserve">
     <value>Registration complete! You can now log in.</value>
   </data>
+  <data name="LoadingCartError" xml:space="preserve">
+    <value>Error loading basket products</value>
+  </data>
 </root>
