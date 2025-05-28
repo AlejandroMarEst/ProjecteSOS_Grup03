@@ -552,4 +552,19 @@
   <data name="StartDate" xml:space="preserve">
     <value>Data d'inici</value>
   </data>
+  <data name="SustainableProductsHeader" xml:space="preserve">
+    <value>Productes sostenibles</value>
+  </data>
+  <data name="NoSustainableProducts" xml:space="preserve">
+    <value>Actualment no hi ha productes sostenibles.</value>
+  </data>
+  <data name="RecommendedProductsHeader" xml:space="preserve">
+    <value>Productes recomanats</value>
+  </data>
+  <data name="NoRecommendedProducts" xml:space="preserve">
+    <value>Actualment no hi ha productes recomanats.</value>
+  </data>
+  <data name="AllProductsHeader" xml:space="preserve">
+    <value>Tots els productes</value>
+  </data>
 </root>

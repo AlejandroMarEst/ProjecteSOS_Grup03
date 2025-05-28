@@ -1,0 +1,51 @@
+﻿
+@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@model ProjecteSOS_Grup03WebPage.Pages.Employees.StatsModel
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+@{
+    ViewData["Title"] = "Stats Usuaris";
+    var token = HttpContext.Session.GetString("AuthToken");
+    var userRoles = Tools.TokenHelper.GetUserRoles(token).ToList();
+    bool isEmployee = userRoles.Contains("Employee") || userRoles.Contains("Admin");
+}
+@if (!isEmployee)
+{
+    <p>@SharedLocalizer["NotAuthorizedMessage"]</p>
+} else
+{
+    <table class="table-normal">
+        <thead>
+            <tr>
+                <th>@SharedLocalizer["UserId"]</th>
+                <th>@SharedLocalizer["Email"]</th>
+                <th>Num. Comandes</th>
+                <th>Total gastat</th>
+                <th>Ultima comanda</th>
+                <th>Punts</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                    <td>@user.Id</td>
+                    <td>@user.Email</td>
+                    <td>@Model.Orders.Count(o => o.ClientId == user.Id)</td>
+                    <td>@Model.Orders.Where(o => o.ClientId == user.Id).Sum(o => o.Price)</td>
+					<td>
+						@if (Model.Orders.Any(o => o.ClientId == user.Id))
+						{
+							@Model.Orders.Where(o => o.ClientId == user.Id).Max(o => o.OrderDate).ToString("dd/MM/yyyy")
+						}
+						else
+						{
+							<p>No te comandes</p>
+						}
+					</td>
+                    <td>@user.Points</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
