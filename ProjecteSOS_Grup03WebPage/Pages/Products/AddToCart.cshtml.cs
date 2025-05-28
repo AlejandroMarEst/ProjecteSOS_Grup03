@@ -13,7 +13,9 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Products
         private readonly ILogger<AddToCartModel> _logger;
 
         [BindProperty]
-        public ProductOrderCreateDTO OrderProductCreate { get; set; } = new();
+        public int Quantity { get; set; } = 0;
+        public int ProductId { get; set; }
+        //public ProductOrderCreateDTO OrderProductCreate { get; set; } = new();
         public string? ErrorMessage { get; set; }
 
         public AddToCartModel(IHttpClientFactory httpClientFactory, ILogger<AddToCartModel> logger)
@@ -24,7 +26,8 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Products
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
-            OrderProductCreate.ProductId = id;
+            //OrderProductCreate.ProductId = id;
+            ProductId = id;
 
             _logger.LogInformation("Product Id {ProductId} defined", id);
 
@@ -48,7 +51,7 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Products
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                 }
 
-                var response = await client.PostAsJsonAsync("api/OrderedProducts", OrderProductCreate);
+                var response = await client.PostAsJsonAsync("api/OrderedProducts", new ProductOrderCreateDTO { ProductId = ProductId, Quantity = Quantity} );
 
                 if (response.IsSuccessStatusCode)
                 {
