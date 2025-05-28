@@ -636,4 +636,52 @@
   <data name="LoadingtCartError" xml:space="preserve">
     <value>Error al cargar el carrito.</value>
   </data>
+  <data name="ProductAlreadyInCart" xml:space="preserve">
+    <value>Este producto ya está en el pedido. Puedes editar la cantidad allí.</value>
+  </data>
+  <data name="AddToCartApiError" xml:space="preserve">
+    <value>Error al añadir el producto al pedido: {0}</value>
+  </data>
+  <data name="AdminOrEmployeeRequiredToCreateProduct" xml:space="preserve">
+    <value>Debes ser administrador o empleado para añadir productos.</value>
+  </data>
+  <data name="LoginRequiredToCreateProduct" xml:space="preserve">
+    <value>Debes iniciar sesión para añadir productos.</value>
+  </data>
+  <data name="UnauthorizedCreateProduct" xml:space="preserve">
+    <value>No estás autorizado para crear productos.</value>
+  </data>
+  <data name="ForbiddenCreateProduct" xml:space="preserve">
+    <value>No tienes permisos para crear productos.</value>
+  </data>
+  <data name="CreateProductApiError" xml:space="preserve">
+    <value>Error al crear el producto: {0}</value>
+  </data>
+  <data name="ProductCreatedSuccessfuly" xml:space="preserve">
+    <value>Producto creado correctamente.</value>
+  </data>
+  <data name="LoadingProductDetailsError" xml:space="preserve">
+    <value>Error al cargar los detalles del producto.</value>
+  </data>
+  <data name="AminOrEmployeeRequiredToEditProduct" xml:space="preserve">
+    <value>Debes ser administrador o empleado para editar productos.</value>
+  </data>
+  <data name="LoginRequiredToEditProduct" xml:space="preserve">
+    <value>Debes iniciar sesión para editar productos.</value>
+  </data>
+  <data name="UnauthorizedEditProduct" xml:space="preserve">
+    <value>No estás autorizado para editar productos.</value>
+  </data>
+  <data name="ForbiddenEditProduct" xml:space="preserve">
+    <value>No tienes permisos para editar productos.</value>
+  </data>
+  <data name="ProductNotFoundForEdit" xml:space="preserve">
+    <value>No se ha encontrado el producto para editar.</value>
+  </data>
+  <data name="EditProductApiError" xml:space="preserve">
+    <value>Error al editar el producto: {0}</value>
+  </data>
+  <data name="ProductEditedSuccessfully" xml:space="preserve">
+    <value>Producto editado correctamente.</value>
+  </data>
 </root>

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using ProjecteSOS_Grup03WebPage.DTOs;
 using System.Net;
 using System.Text.Json;
+using Microsoft.Extensions.Localization;
 
 namespace ProjecteSOS_Grup03WebPage.Pages.Products
 {
@@ -10,15 +11,17 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Products
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILogger<EditModel> _logger;
+		private readonly IStringLocalizer<SharedResource> _localizer;
 
-        [BindProperty]
+		[BindProperty]
         public ProductDTO? Product { get; set; }
         public string? ErrorMessage { get; set; }
 
-        public EditModel(IHttpClientFactory httpClientFactory, ILogger<EditModel> logger)
+        public EditModel(IHttpClientFactory httpClientFactory, ILogger<EditModel> logger, IStringLocalizer<SharedResource> localizer)
         {
             _httpClientFactory = httpClientFactory;
             _logger = logger;
+            _localizer = localizer;
         }
 
         public async Task<IActionResult> OnGetAsync(int id)
@@ -35,24 +38,24 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Products
 
                     if (Product == null)
                     {
-                        ErrorMessage = "No s'ha trobat el producte.";
+                        ErrorMessage = _localizer["ProductNotFound"];
                     }
                 }
                 else if (response.StatusCode == HttpStatusCode.NotFound)
                 {
-                    ErrorMessage = "No s'ha trobat el producte.";
+                    ErrorMessage = _localizer["ProductNotFound"];
                 }
                 else
                 {
                     _logger.LogError("Product Loading Failed");
-                    ErrorMessage = "Error en carregar el producte.";
+                    ErrorMessage = _localizer["LoadingProductDetailsError"];
                 }
 
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error Loading Product");
-                ErrorMessage = "There was an unexpected error. Try again.";
+                ErrorMessage = _localizer["UnexpectedErrorTryAgain"];
             }
 
             return Page();
@@ -84,17 +87,17 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Products
                 }
                 else if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
-                    ErrorMessage = "Has de ser administrador per a editar un producte";
+                    ErrorMessage = _localizer["AdminOrEmployeeRequiredToEditProduct"];
                 }
                 else
                 {
-                    ErrorMessage = "Error en editar el producte: " + response.StatusCode;
+                    ErrorMessage = _localizer["EditProductApiError"] + response.StatusCode;
                 }
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error Editing Product");
-                ErrorMessage = "There was an unexpected error. Try again.";
+                ErrorMessage = _localizer["UnexpectedErrorTryAgain"];
             }
 
             return Page();
