@@ -573,4 +573,169 @@
   <data name="ConfirmDeleteItemFromOrder" xml:space="preserve">
     <value>Estàs segur que vols eliminar aquest article de la comanda?</value>
   </data>
+  <data name="LoadingAllOrdersError" xml:space="preserve">
+    <value>Error en carregar la informació de les comandes.</value>
+  </data>
+  <data name="OrdersLoadingFailed" xml:space="preserve">
+    <value>Error al carregar les comandes.</value>
+  </data>
+  <data name="LoadingStatsError" xml:space="preserve">
+    <value>Error en carregar les estadístiques.</value>
+  </data>
+  <data name="UserStatsTitle" xml:space="preserve">
+    <value>Estadístiques d'usuaris</value>
+  </data>
+  <data name="UserStatsHeader" xml:space="preserve">
+    <value>Estadístiques dels usuaris</value>
+  </data>
+  <data name="UserId" xml:space="preserve">
+    <value>ID Usuari</value>
+  </data>
+  <data name="NumberOfOrders" xml:space="preserve">
+    <value>Núm. comandes</value>
+  </data>
+  <data name="TotalSpent" xml:space="preserve">
+    <value>Total gastat</value>
+  </data>
+  <data name="LastOrderDate" xml:space="preserve">
+    <value>Última comanda</value>
+  </data>
+  <data name="UserPoints" xml:space="preserve">
+    <value>Punts</value>
+  </data>
+  <data name="UserHasNoOrders" xml:space="preserve">
+    <value>No té comandes.</value>
+  </data>
+  <data name="NoUsersToDisplayStats" xml:space="preserve">
+    <value>No hi ha usuaris per mostrar estadístiques.</value>
+  </data>
+  <data name="OrderNotFound" xml:space="preserve">
+    <value>No s'ha trobat la comanda.</value>
+  </data>
+  <data name="LoadingOrderDetailsError" xml:space="preserve">
+    <value>Error en carregar els detalls de la comanda.</value>
+  </data>
+  <data name="LoadingOrderItemError" xml:space="preserve">
+    <value>Error en carregar l'article de la comanda: {0}</value>
+  </data>
+  <data name="UnauthorizedEditOrderItem" xml:space="preserve">
+    <value>No estàs autoritzat per a editar aquest article de la comanda.</value>
+  </data>
+  <data name="OrderItemOrOrderNotFoundForEdit" xml:space="preserve">
+    <value>No s'ha trobat l'article o la comanda per a editar.</value>
+  </data>
+  <data name="EditingOrderItemError" xml:space="preserve">
+    <value>Error en editar l'article de la comanda: {0}</value>
+  </data>
+  <data name="InvalidInputData" xml:space="preserve">
+    <value>Dades d'entrada no vàlides. Si us plau, revisa el formulari.</value>
+  </data>
+  <data name="LoginToViewCart" xml:space="preserve">
+    <value>Inicia sessió per veure el teu carret.</value>
+  </data>
+  <data name="OrderConflictError" xml:space="preserve">
+    <value>Hi ha un conflicte amb l'estat de la teva comanda actual.</value>
+  </data>
+  <data name="LoadingtCartError" xml:space="preserve">
+    <value>Error en carregar el carret</value>
+  </data>
+  <data name="ProductAlreadyInCart" xml:space="preserve">
+    <value>Aquest producte ja està en la comanda. Pots editar la quantitat allà.</value>
+  </data>
+  <data name="AddToCartApiError" xml:space="preserve">
+    <value>Error en afegir el producte a la comanda: {0}</value>
+  </data>
+  <data name="AdminOrEmployeeRequiredToCreateProduct" xml:space="preserve">
+    <value>Has de ser administrador o empleat per afegir productes.</value>
+  </data>
+  <data name="LoginRequiredToCreateProduct" xml:space="preserve">
+    <value>Has d'iniciar sessió per afegir productes.</value>
+  </data>
+  <data name="UnauthorizedCreateProduct" xml:space="preserve">
+    <value>No estàs autoritzat per crear productes.</value>
+  </data>
+  <data name="ForbiddenCreateProduct" xml:space="preserve">
+    <value>No tens permisos per crear productes.</value>
+  </data>
+  <data name="CreateProductApiError" xml:space="preserve">
+    <value>Error al crear el producte: {0}</value>
+  </data>
+  <data name="ProductCreatedSuccessfuly" xml:space="preserve">
+    <value>Producte creat correctament.</value>
+  </data>
+  <data name="LoadingProductDetailsError" xml:space="preserve">
+    <value>Error en carregar els detalls del producte.</value>
+  </data>
+  <data name="AminOrEmployeeRequiredToEditProduct" xml:space="preserve">
+    <value>Has de ser administrador o empleat per a editar un producte. </value>
+  </data>
+  <data name="LoginRequiredToEditProduct" xml:space="preserve">
+    <value>Has d'iniciar sessió per editar productes.</value>
+  </data>
+  <data name="UnauthorizedEditProduct" xml:space="preserve">
+    <value>No estàs autoritzat per editar productes.</value>
+  </data>
+  <data name="ForbiddenEditProduct" xml:space="preserve">
+    <value>No tens permisos per editar productes.</value>
+  </data>
+  <data name="ProductNotFoundForEdit" xml:space="preserve">
+    <value>No s'ha trobat el producte per editar.</value>
+  </data>
+  <data name="EditProductApiError" xml:space="preserve">
+    <value>Error en editar el producte: {0}</value>
+  </data>
+  <data name="ProductEditedSuccessfully" xml:space="preserve">
+    <value>Producte editat correctament.</value>
+  </data>
+  <data name="UnauthorizedPasswordChange" xml:space="preserve">
+    <value>No s'ha pogut canviar la contrasenya. La contrasenya actual pot ser incorrecta o no estàs autoritzat. </value>
+  </data>
+  <data name="PasswordChangeFailedBadRequest" xml:space="preserve">
+    <value>No s'ha pogut canviar la contrasenya. Verifica que la contrasenya actual sigui correcta i que la nova compleixi els requisits.</value>
+  </data>
+  <data name="PasswordChangeApiError" xml:space="preserve">
+    <value>Error en canviar la contrasenya: {0}</value>
+  </data>
+  <data name="PasswordChangedSuccessfully" xml:space="preserve">
+    <value>Contrasenya canviada correctament.</value>
+  </data>
+  <data name="UserProfileNotFound" xml:space="preserve">
+    <value>No s'ha trobat el perfil d'usuari.</value>
+  </data>
+  <data name="LoadingUserProfileError" xml:space="preserve">
+    <value>Error en carregar el perfil d'usuari.</value>
+  </data>
+  <data name="UnauthorizedProfileEdit" xml:space="preserve">
+    <value>No estàs autoritzat per editar aquest perfil o la teva sessió ha expirat.</value>
+  </data>
+  <data name="ForbiddenProfileEdit" xml:space="preserve">
+    <value>No tens permisos per a editar aquest perfil.</value>
+  </data>
+  <data name="EditProfileApiError" xml:space="preserve">
+    <value>Error en editar el perfil: {0}</value>
+  </data>
+  <data name="ProfileUpdatedSuccessfully" xml:space="preserve">
+    <value>Perfil actualitzat correctament.</value>
+  </data>
+  <data name="LoadingUserOrdersError" xml:space="preserve">
+    <value>Error en carregar l'historial de comandes.</value>
+  </data>
+  <data name="LoginFailedNoToken" xml:space="preserve">
+    <value>L'inici de sessió ha fallat: no s'ha rebut cap token del servidor.</value>
+  </data>
+  <data name="LoginSuccessful" xml:space="preserve">
+    <value>Has iniciat sessió correctament.</value>
+  </data>
+  <data name="EmailAlreadyRegistered" xml:space="preserve">
+    <value>Aquest correu electrònic ja està registrat.</value>
+  </data>
+  <data name="PasswordRequirementsError" xml:space="preserve">
+    <value>La contrasenya ha de tenir més de 8 caràcters, incloure majúscules, minúscules i caràcters especials.</value>
+  </data>
+  <data name="RegistrationApiError" xml:space="preserve">
+    <value>Error en el registre: {0}</value>
+  </data>
+  <data name="RegistrationSuccessful" xml:space="preserve">
+    <value>Registre completat! Ara pots iniciar sessió.</value>
+  </data>
 </root>

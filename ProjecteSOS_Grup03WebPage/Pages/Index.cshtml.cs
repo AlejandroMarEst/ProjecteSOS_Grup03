@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using ProjecteSOS_Grup03WebPage.DTOs;
 using ProjecteSOS_Grup03WebPage.Tools;
 using System.Text.Json;
+using Microsoft.Extensions.Localization;
 
 namespace ProjecteSOS_Grup03WebPage.Pages
 {
@@ -12,17 +13,19 @@ namespace ProjecteSOS_Grup03WebPage.Pages
     {
         private readonly ILogger<IndexModel> _logger;
         private readonly IHttpClientFactory _httpClientFactory;
+		private readonly IStringLocalizer<SharedResource> _localizer;
 
-        public List<ProductListDTO> Products { get; set; } = new List<ProductListDTO>();
+		public List<ProductListDTO> Products { get; set; } = new List<ProductListDTO>();
         public List<ProductListDTO> SustainableProducts { get; set; } = new List<ProductListDTO>();
         public List<ProductListDTO> RecomendedProducts { get; set; } = new List<ProductListDTO>();
         public string? ErrorMessage { get; set; }
         public bool IsEmployee { get; private set; }
 
-        public IndexModel(ILogger<IndexModel> logger, IHttpClientFactory httpClientFactory)
+        public IndexModel(ILogger<IndexModel> logger, IHttpClientFactory httpClientFactory, IStringLocalizer<SharedResource> localizer)
         {
             _logger = logger;
             _httpClientFactory = httpClientFactory;
+            _localizer = localizer;
         }
 
         public async Task OnGetAsync()
@@ -56,14 +59,14 @@ namespace ProjecteSOS_Grup03WebPage.Pages
                 {
                     _logger.LogError("Failed to load products for Index page. Status {StatusCode}", response.StatusCode);
 
-                    ErrorMessage = "Error loading products.";
+                    ErrorMessage = _localizer["IndexPageLoadProductsError"];
                 }
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error loading products for Index page.");
 
-                ErrorMessage = "An unexpected error occurred.";
+                ErrorMessage = _localizer["IndexPageUnexpectedError"];
             }
         }
 

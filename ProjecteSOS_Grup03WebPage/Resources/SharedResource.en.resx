@@ -573,4 +573,169 @@
   <data name="ConfirmDeleteItemFromOrder" xml:space="preserve">
     <value>Are you sure you want to remove this item from the order?</value>
   </data>
+  <data name="LoadingAllOrdersError" xml:space="preserve">
+    <value>Error loading order information.</value>
+  </data>
+  <data name="OrdersLoadingFailed" xml:space="preserve">
+    <value>Error loading orders.</value>
+  </data>
+  <data name="LoadingStatsError" xml:space="preserve">
+    <value>Error loading statistics.</value>
+  </data>
+  <data name="UserStatsTitle" xml:space="preserve">
+    <value>User statistics</value>
+  </data>
+  <data name="UserStatsHeader" xml:space="preserve">
+    <value>User statistics</value>
+  </data>
+  <data name="UserId" xml:space="preserve">
+    <value>User ID</value>
+  </data>
+  <data name="NumberOfOrders" xml:space="preserve">
+    <value>No. orders</value>
+  </data>
+  <data name="TotalSpent" xml:space="preserve">
+    <value>Total spent</value>
+  </data>
+  <data name="LastOrderDate" xml:space="preserve">
+    <value>Last order</value>
+  </data>
+  <data name="UserPoints" xml:space="preserve">
+    <value>Points</value>
+  </data>
+  <data name="UserHasNoOrders" xml:space="preserve">
+    <value>Has no orders.</value>
+  </data>
+  <data name="NoUsersToDisplayStats" xml:space="preserve">
+    <value>No users to display statistics.</value>
+  </data>
+  <data name="OrderNotFound" xml:space="preserve">
+    <value>The order was not found.</value>
+  </data>
+  <data name="LoadingOrderDetailsError" xml:space="preserve">
+    <value>Error loading order details.</value>
+  </data>
+  <data name="LoadingOrderItemError" xml:space="preserve">
+    <value>Error loading order item: {0}</value>
+  </data>
+  <data name="UnauthorizedEditOrderItem" xml:space="preserve">
+    <value>You are not authorized to edit this order item.</value>
+  </data>
+  <data name="OrderItemOrOrderNotFoundForEdit" xml:space="preserve">
+    <value>Order item or order not found for edit.</value>
+  </data>
+  <data name="EditingOrderItemError" xml:space="preserve">
+    <value>Error editing order item: {0}</value>
+  </data>
+  <data name="InvalidInputData" xml:space="preserve">
+    <value>Invalid input data. Please check the form.</value>
+  </data>
+  <data name="LoginToViewCart" xml:space="preserve">
+    <value>Login to view your cart.</value>
+  </data>
+  <data name="OrderConflictError" xml:space="preserve">
+    <value>There is a conflict with the state of your current order.</value>
+  </data>
+  <data name="LoadingtCartError" xml:space="preserve">
+    <value>Error loading cart.</value>
+  </data>
+  <data name="ProductAlreadyInCart" xml:space="preserve">
+    <value>This product is already in the order. You can edit the quantity there.</value>
+  </data>
+  <data name="AddToCartApiError" xml:space="preserve">
+    <value>Error adding product to order: {0}</value>
+  </data>
+  <data name="AdminOrEmployeeRequiredToCreateProduct" xml:space="preserve">
+    <value>You must be an administrator or employee to add products.</value>
+  </data>
+  <data name="LoginRequiredToCreateProduct" xml:space="preserve">
+    <value>You must log in to add products.</value>
+  </data>
+  <data name="UnauthorizedCreateProduct" xml:space="preserve">
+    <value>You are not authorized to create products.</value>
+  </data>
+  <data name="ForbiddenCreateProduct" xml:space="preserve">
+    <value>You do not have permission to create products.</value>
+  </data>
+  <data name="CreateProductApiError" xml:space="preserve">
+    <value>Error creating product: {0}</value>
+  </data>
+  <data name="ProductCreatedSuccessfuly" xml:space="preserve">
+    <value>Product created successfuly.</value>
+  </data>
+  <data name="LoadingProductDetailsError" xml:space="preserve">
+    <value>Error loading product details.</value>
+  </data>
+  <data name="AminOrEmployeeRequiredToEditProduct" xml:space="preserve">
+    <value>You must be an administrator or employee to edit products.</value>
+  </data>
+  <data name="LoginRequiredToEditProduct" xml:space="preserve">
+    <value>You must log in to edit products.</value>
+  </data>
+  <data name="UnauthorizedEditProduct" xml:space="preserve">
+    <value>You are not authorized to edit products.</value>
+  </data>
+  <data name="ForbiddenEditProduct" xml:space="preserve">
+    <value>You do not have permission to edit products.</value>
+  </data>
+  <data name="ProductNotFoundForEdit" xml:space="preserve">
+    <value>Product not found for editing.</value>
+  </data>
+  <data name="EditProductApiError" xml:space="preserve">
+    <value>Error editing product: {0}</value>
+  </data>
+  <data name="ProductEditedSuccessfully" xml:space="preserve">
+    <value>Product edited successfully.</value>
+  </data>
+  <data name="UnauthorizedPasswordChange" xml:space="preserve">
+    <value>Could not change password. Current password might be incorrect or you are not authorized.</value>
+  </data>
+  <data name="PasswordChangeFailedBadRequest" xml:space="preserve">
+    <value>Could not change password. Verify current password is correct and the new password meets requirements.</value>
+  </data>
+  <data name="PasswordChangeApiError" xml:space="preserve">
+    <value>Error changing password: {0}</value>
+  </data>
+  <data name="PasswordChangedSuccessfully" xml:space="preserve">
+    <value>Password changed successfully.</value>
+  </data>
+  <data name="UserProfileNotFound" xml:space="preserve">
+    <value>User profile not found.</value>
+  </data>
+  <data name="LoadingUserProfileError" xml:space="preserve">
+    <value>Error loading user profile.</value>
+  </data>
+  <data name="UnauthorizedProfileEdit" xml:space="preserve">
+    <value>You are not authorized to edit this profile or your session has expired.</value>
+  </data>
+  <data name="ForbiddenProfileEdit" xml:space="preserve">
+    <value>You do not have permission to edit this profile.</value>
+  </data>
+  <data name="EditProfileApiError" xml:space="preserve">
+    <value>Error editing profile: {0}</value>
+  </data>
+  <data name="ProfileUpdatedSuccessfully" xml:space="preserve">
+    <value>Profile updated successfully.</value>
+  </data>
+  <data name="LoadingUserOrdersError" xml:space="preserve">
+    <value>Error loading order history.</value>
+  </data>
+  <data name="LoginFailedNoToken" xml:space="preserve">
+    <value>Login failes: no token received from the server.</value>
+  </data>
+  <data name="LoginSuccessful" xml:space="preserve">
+    <value>You have logged in successfully.</value>
+  </data>
+  <data name="EmailAlreadyRegistered" xml:space="preserve">
+    <value>This email address is already registered.</value>
+  </data>
+  <data name="PasswordRequirementsError" xml:space="preserve">
+    <value>Password must be longer than 8 characters and include uppercase, lowercase, and special characters.</value>
+  </data>
+  <data name="RegistrationApiError" xml:space="preserve">
+    <value>Registration error: {0}</value>
+  </data>
+  <data name="RegistrationSuccessful" xml:space="preserve">
+    <value>Registration complete! You can now log in.</value>
+  </data>
 </root>

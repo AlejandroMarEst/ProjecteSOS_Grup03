@@ -570,4 +570,169 @@
   <data name="ConfirmDeleteItemFromOrder" xml:space="preserve">
     <value>¿Estás seguro de que quieres eliminar este artículo del pedido?</value>
   </data>
+  <data name="LoadingAllOrdersError" xml:space="preserve">
+    <value>Error al cargar la información de los pedidos.</value>
+  </data>
+  <data name="OrdersLoadingFailed" xml:space="preserve">
+    <value>Error al cargar los pedidos.</value>
+  </data>
+  <data name="LoadingStatsError" xml:space="preserve">
+    <value>Error al cargar las estadísticas.</value>
+  </data>
+  <data name="UserStatsTitle" xml:space="preserve">
+    <value>Estadísticas de usuarios</value>
+  </data>
+  <data name="UserStatsHeader" xml:space="preserve">
+    <value>Estadísticas de los usuarios</value>
+  </data>
+  <data name="UserId" xml:space="preserve">
+    <value>ID Usuario</value>
+  </data>
+  <data name="NumberOfOrders" xml:space="preserve">
+    <value>Nº pedidos</value>
+  </data>
+  <data name="TotalSpent" xml:space="preserve">
+    <value>Total gastado</value>
+  </data>
+  <data name="LastOrderDate" xml:space="preserve">
+    <value>Último pedido</value>
+  </data>
+  <data name="UserPoints" xml:space="preserve">
+    <value>Puntos</value>
+  </data>
+  <data name="UserHasNoOrders" xml:space="preserve">
+    <value>No tiene pedidos.</value>
+  </data>
+  <data name="NoUsersToDisplayStats" xml:space="preserve">
+    <value>No hay usuarios para mostrar estadísticas.</value>
+  </data>
+  <data name="OrderNotFound" xml:space="preserve">
+    <value>No se ha encontrado el pedido.</value>
+  </data>
+  <data name="LoadingOrderDetailsError" xml:space="preserve">
+    <value>Error al acrgar los datos del pedido.</value>
+  </data>
+  <data name="LoadingOrderItemError" xml:space="preserve">
+    <value>Error al cargar el artículo del pedido: {0}</value>
+  </data>
+  <data name="UnauthorizedEditOrderItem" xml:space="preserve">
+    <value>No estás autorizado para editar este artículo del pedido.</value>
+  </data>
+  <data name="OrderItemOrOrderNotFoundForEdit" xml:space="preserve">
+    <value>No se encontró el artículo o el pedido para editar.</value>
+  </data>
+  <data name="EditingOrderItemError" xml:space="preserve">
+    <value>Error al editar el artículo del pedido: {0}</value>
+  </data>
+  <data name="InvalidInputData" xml:space="preserve">
+    <value>Datos de entrada no válidos. Por favor revisa el formulario.</value>
+  </data>
+  <data name="LoginToViewCart" xml:space="preserve">
+    <value>Inicia sesión para ver tu carrito.</value>
+  </data>
+  <data name="OrderConflictError" xml:space="preserve">
+    <value>Hay un conflicto con el estado de tu pedido actual.</value>
+  </data>
+  <data name="LoadingtCartError" xml:space="preserve">
+    <value>Error al cargar el carrito.</value>
+  </data>
+  <data name="ProductAlreadyInCart" xml:space="preserve">
+    <value>Este producto ya está en el pedido. Puedes editar la cantidad allí.</value>
+  </data>
+  <data name="AddToCartApiError" xml:space="preserve">
+    <value>Error al añadir el producto al pedido: {0}</value>
+  </data>
+  <data name="AdminOrEmployeeRequiredToCreateProduct" xml:space="preserve">
+    <value>Debes ser administrador o empleado para añadir productos.</value>
+  </data>
+  <data name="LoginRequiredToCreateProduct" xml:space="preserve">
+    <value>Debes iniciar sesión para añadir productos.</value>
+  </data>
+  <data name="UnauthorizedCreateProduct" xml:space="preserve">
+    <value>No estás autorizado para crear productos.</value>
+  </data>
+  <data name="ForbiddenCreateProduct" xml:space="preserve">
+    <value>No tienes permisos para crear productos.</value>
+  </data>
+  <data name="CreateProductApiError" xml:space="preserve">
+    <value>Error al crear el producto: {0}</value>
+  </data>
+  <data name="ProductCreatedSuccessfuly" xml:space="preserve">
+    <value>Producto creado correctamente.</value>
+  </data>
+  <data name="LoadingProductDetailsError" xml:space="preserve">
+    <value>Error al cargar los detalles del producto.</value>
+  </data>
+  <data name="AminOrEmployeeRequiredToEditProduct" xml:space="preserve">
+    <value>Debes ser administrador o empleado para editar productos.</value>
+  </data>
+  <data name="LoginRequiredToEditProduct" xml:space="preserve">
+    <value>Debes iniciar sesión para editar productos.</value>
+  </data>
+  <data name="UnauthorizedEditProduct" xml:space="preserve">
+    <value>No estás autorizado para editar productos.</value>
+  </data>
+  <data name="ForbiddenEditProduct" xml:space="preserve">
+    <value>No tienes permisos para editar productos.</value>
+  </data>
+  <data name="ProductNotFoundForEdit" xml:space="preserve">
+    <value>No se ha encontrado el producto para editar.</value>
+  </data>
+  <data name="EditProductApiError" xml:space="preserve">
+    <value>Error al editar el producto: {0}</value>
+  </data>
+  <data name="ProductEditedSuccessfully" xml:space="preserve">
+    <value>Producto editado correctamente.</value>
+  </data>
+  <data name="UnauthorizedPasswordChange" xml:space="preserve">
+    <value>No se pudo cambiar la contraseña. La contraseña actual podría ser incorrecta o no estás autorizado.</value>
+  </data>
+  <data name="PasswordChangeFailedBadRequest" xml:space="preserve">
+    <value>No se pudo cambiar la contraseña. Verifica que la contraseña actual sea correcta y que la nueva cumpla los requisitos.</value>
+  </data>
+  <data name="PasswordChangeApiError" xml:space="preserve">
+    <value>Error al cambiar la contraseña: {0}</value>
+  </data>
+  <data name="PasswordChangedSuccessfully" xml:space="preserve">
+    <value>Contraseña cambiada correctamente.</value>
+  </data>
+  <data name="UserProfileNotFound" xml:space="preserve">
+    <value>No se ha encontrado el perfil de usuario.</value>
+  </data>
+  <data name="LoadingUserProfileError" xml:space="preserve">
+    <value>Error al cargar el perfil de usuario.</value>
+  </data>
+  <data name="UnauthorizedProfileEdit" xml:space="preserve">
+    <value>No estás autorizado para editar este perfil o tu sesión ha expirado.</value>
+  </data>
+  <data name="ForbiddenProfileEdit" xml:space="preserve">
+    <value>No tienes permisos para editar este perfil.</value>
+  </data>
+  <data name="EditProfileApiError" xml:space="preserve">
+    <value>Error en editar el perfil: {0}</value>
+  </data>
+  <data name="ProfileUpdatedSuccessfully" xml:space="preserve">
+    <value>Perfil actualizado correctamente.</value>
+  </data>
+  <data name="LoadingUserOrdersError" xml:space="preserve">
+    <value>Error al cargar el historial de pedidos.</value>
+  </data>
+  <data name="LoginFailedNoToken" xml:space="preserve">
+    <value>El inicio de sesión fallo: no se recibió un token del servidor.</value>
+  </data>
+  <data name="LoginSuccessful" xml:space="preserve">
+    <value>Has iniciado sesión correctamente.</value>
+  </data>
+  <data name="EmailAlreadyRegistered" xml:space="preserve">
+    <value>Este correo electrónico ya está registrado.</value>
+  </data>
+  <data name="PasswordRequirementsError" xml:space="preserve">
+    <value>La contraseña debe tener más de 8 caracteres, incluir mayúsculas, minúsculas y caracteres especiales.</value>
+  </data>
+  <data name="RegistrationApiError" xml:space="preserve">
+    <value>Error en el registro: {0}</value>
+  </data>
+  <data name="RegistrationSuccessful" xml:space="preserve">
+    <value>¡Registro completado! Ahora puedes iniciar sesión.</value>
+  </data>
 </root>
