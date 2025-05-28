@@ -47,6 +47,15 @@
 				</tr>
 			}
 		</tbody>
+
+		<tfoot>
+			<tr>
+				<td colspan="3" class="text-start fw-bold">@SharedLocalizer["GrandTotalLabel"] @Model.GrandTotal.ToString() €</td>
+				<!--		<td class="fw-bold" class="text-start">@Model.GrandTotal.ToString() €</td> -->
+				<td colspan="4"></td> 
+			</tr>
+		</tfoot>
+
 	</table>
 	<div>
 		<form method="post" asp-page="OrderConfirm">

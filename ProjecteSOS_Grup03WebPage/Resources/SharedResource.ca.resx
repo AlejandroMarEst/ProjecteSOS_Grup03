@@ -567,4 +567,10 @@
   <data name="AllProductsHeader" xml:space="preserve">
     <value>Tots els productes</value>
   </data>
+  <data name="GrandTotalLabel" xml:space="preserve">
+    <value>Total general: </value>
+  </data>
+  <data name="ConfirmDeleteItemFromOrder" xml:space="preserve">
+    <value>Estàs segur que vols eliminar aquest article de la comanda?</value>
+  </data>
 </root>
