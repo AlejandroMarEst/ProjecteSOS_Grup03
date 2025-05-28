@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Reflection.Metadata;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProjecteSOS_Grup03API.Data;
 using ProjecteSOS_Grup03API.DTOs;
 using ProjecteSOS_Grup03API.Models;
 using ProjecteSOS_Grup03API.Tools;
-using System.Security.Claims;
 
 namespace ProjecteSOS_Grup03API.Controllers
 {
@@ -20,15 +21,19 @@ namespace ProjecteSOS_Grup03API.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Retrieves all products for a specific order. Accessible by Admins and Employees.
+        /// </summary>
+        /// <param name="orderId">The unique identifier of the order.</param>
+        /// <returns>List of products associated with the order.</returns>
         // GET: api/OrderedProducts/ForOrder/{orderId}
-        // Obtenir tots els products d'una order específica (per admins/workers)
         [Authorize(Roles = "Admin,Employee")]
         [HttpGet("ForOrder/{orderId}")]
         public async Task<ActionResult<IEnumerable<ProductOrderDetailsDTO>>> GetProductsForOrder(int orderId)
         {
             var productOrders = await _context.ProductsOrders
                 .Where(op => op.OrderId == orderId)
-                .Include(op => op.Product) // incluir product per obtenir nom i preu
+                .Include(op => op.Product) // Eager load product details for DTO
                 .Select(op => new ProductOrderDetailsDTO
                 {
                     OrderId = op.OrderId,
@@ -48,8 +53,12 @@ namespace ProjecteSOS_Grup03API.Controllers
             return Ok(productOrders);
         }
 
-        // GET: api/OrderedProducts/orders/{orderId}/products/{productId}
-        // Obtenir un ProductOrder per OrderId i ProductId (per admins/workers)
+        /// <summary>
+        /// Retrieves a specific product within an order. Admins and Employees only.
+        /// </summary>
+        /// <param name="orderId">Order identifier.</param>
+        /// <param name="productId">Product identifier.</param>
+        /// <returns>Details of the product in the order.</returns>
         [Authorize(Roles = "Admin,Employee")]
         [HttpGet("orders/{orderId}/products/{productId}")]
         public async Task<ActionResult<ProductOrderDetailsDTO>> GetProductOrder(int orderId, int productId)
@@ -74,8 +83,11 @@ namespace ProjecteSOS_Grup03API.Controllers
             });
         }
 
+        /// <summary>
+        /// Retrieves all products from all orders placed by the current user.
+        /// </summary>
+        /// <returns>List of all ordered products for the user.</returns>
         // GET: api/OrderedProducts/User/All
-        // Obtenir tots els ProductOrders de totes les comandes de l'usuari
         [Authorize]
         [HttpGet("User/All")]
         public async Task<ActionResult<IEnumerable<ProductOrderDetailsDTO>>> GetAllUserOrderedProducts()
@@ -103,8 +115,12 @@ namespace ProjecteSOS_Grup03API.Controllers
             return Ok(productOrders);
         }
 
+        /// <summary>
+        /// Retrieves all products from a specific order belonging to the current user.
+        /// </summary>
+        /// <param name="orderId">Order identifier.</param>
+        /// <returns>List of products for the specified user order.</returns>
         // GET:api/OrderedProducts/User/ForOrder/{orderId}
-        // Obtenir tots els productes d'una order de l'usuari
         [Authorize]
         [HttpGet("User/ForOrder/{orderId}")]
         public async Task<ActionResult<IEnumerable<ProductOrderDetailsDTO>>> GetUserProductsForOrder(int orderId)
@@ -134,6 +150,10 @@ namespace ProjecteSOS_Grup03API.Controllers
             return Ok(productOrders);
         }
 
+        /// <summary>
+        /// Retrieves all products from the current user's active (open) order.
+        /// </summary>
+        /// <returns>List of products in the current active order.</returns>
         [Authorize]
         [HttpGet("User/CurrentOrder")]
         public async Task<ActionResult<ProductOrderDetailsDTO>> GetUserCurrentOrderProducts()
@@ -168,6 +188,11 @@ namespace ProjecteSOS_Grup03API.Controllers
             return Ok(productOrders);
         }
 
+        /// <summary>
+        /// Retrieves a specific product from the current user's active order.
+        /// </summary>
+        /// <param name="productId">Product identifier.</param>
+        /// <returns>Order information for the specified product.</returns>
         [Authorize]
         [HttpGet("User/CurrentOrder/{productId}")]
         public async Task<ActionResult<ProductOrderDTO>> GetUserCurrentOrderProduct(int productId)
@@ -193,6 +218,7 @@ namespace ProjecteSOS_Grup03API.Controllers
                 return NotFound(ErrorMessages.ProductNotFoundInOrder);
             }
 
+            // Only return essential info for this endpoint
             var dto = new ProductOrderDTO
             {
                 OrderDate = productOrder.OrderDate,
@@ -202,8 +228,13 @@ namespace ProjecteSOS_Grup03API.Controllers
             return Ok(dto);
         }
 
+        /// <summary>
+        /// Retrieves a specific product from a specific user order.
+        /// </summary>
+        /// <param name="orderId">Order identifier.</param>
+        /// <param name="productId">Product identifier.</param>
+        /// <returns>Product order details for the user.</returns>
         // GET: api/OrderedProducts/User/orders/{orderId}/products/{productId}
-        // Obtenir un ProductOrder específic d'una order de l'usuari
         [Authorize]
         [HttpGet("User/orders/{orderId}/products/{productId}")]
         public async Task<ActionResult<ProductOrderDetailsDTO>> GetUserProductOrder(int orderId, int productId)
@@ -219,6 +250,7 @@ namespace ProjecteSOS_Grup03API.Controllers
                 return NotFound(ErrorMessages.ProductOrderNotFound);
             }
 
+            // Ensure the user is authorized to access this order
             if (productOrder.Order.ClientId != userId)
             {
                 return Forbid(ErrorMessages.NoPermissionForItem);
@@ -235,6 +267,11 @@ namespace ProjecteSOS_Grup03API.Controllers
             });
         }
 
+        /// <summary>
+        /// Adds a new product to the current user's active order. If no active order exists, one is created.
+        /// </summary>
+        /// <param name="dto">DTO containing product and quantity information.</param>
+        /// <returns>Details of the newly added product order.</returns>
         // POST: api/OrderedProducts
         [Authorize]
         [HttpPost]
@@ -257,7 +294,7 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             var orderId = client.CurrentOrderId;
 
-            // Si no hi ha cap ordre creada es crea una
+            // Create a new order if the user has no active one
             if (orderId == null)
             {
                 var newOrder = new Order
@@ -292,6 +329,7 @@ namespace ProjecteSOS_Grup03API.Controllers
                 return NotFound(string.Format(ErrorMessages.ProductNotFound, dto.ProductId));
             }
 
+            // Only allow clients to add to their own orders
             if (userRole == "Client" && order.ClientId != userId)
             {
                 return Forbid(ErrorMessages.OnlyAddToOwnOrders);
@@ -315,7 +353,7 @@ namespace ProjecteSOS_Grup03API.Controllers
                 OrderDate = DateTime.UtcNow
             };
 
-            // Actualitzar stock del producte
+            // Update product stock and order price
             product.Stock -= dto.Quantity;
             order.Price += product.Price * dto.Quantity;
 
@@ -328,7 +366,7 @@ namespace ProjecteSOS_Grup03API.Controllers
             }
             catch (DbUpdateException ex)
             {
-                // Login exception
+                // Database error, possibly constraint violation
                 return StatusCode(StatusCodes.Status500InternalServerError, ErrorMessages.ErrorSavingToDatabase);
             }
 
@@ -342,10 +380,17 @@ namespace ProjecteSOS_Grup03API.Controllers
                 UnitPrice = product.Price
             };
 
-            // Retornar la tuta per obtenir el recurs creat
+            // Return the URI of the created resource
             return CreatedAtAction(nameof(GetProductOrder), new { orderId = productOrder.OrderId, productId = productOrder.ProductId }, resultDto);
         }
 
+        /// <summary>
+        /// Updates the quantity of a product in an order. Only Admins and Employees can perform this action.
+        /// </summary>
+        /// <param name="orderId">Order identifier.</param>
+        /// <param name="productId">Product identifier.</param>
+        /// <param name="dto">DTO with the new quantity.</param>
+        /// <returns>The updated product order details.</returns>
         // PUT: api/OrderedProducts/orders/{orderId}/products/{productId}
         [Authorize (Roles = "Admin,Employee")]
         [HttpPut("orders/{orderId}/products/{productId}")]
@@ -369,22 +414,22 @@ namespace ProjecteSOS_Grup03API.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var userRole = User.FindFirstValue(ClaimTypes.Role);
 
+            // Only allow clients to edit their own orders (if ever allowed)
             if (userRole == "Client" && existingProductOrder.Order.ClientId != userId)
             {
                 return Forbid(ErrorMessages.NoPermissionToEdit);
             }
 
             int quantityDifference = dto.Quantity - existingProductOrder.Quantity;
-            if (existingProductOrder.Product.Stock < quantityDifference) // Si la nova quantitat és major, verificar si hi ha stock
+            if (existingProductOrder.Product.Stock < quantityDifference) // If increasing quantity, check for available stock
             {
                 return BadRequest(string.Format(ErrorMessages.NotEnoughStock, existingProductOrder.Product.Name, quantityDifference, existingProductOrder.Product.Stock));
             }
 
-            // Actualitzar stock de producte
+            // If increasing quantity, check for available stock
             existingProductOrder.Product.Stock -= quantityDifference;
             _context.Entry(existingProductOrder.Product).State = EntityState.Modified;
 
-            // Actualitzar la quantitat del ProductOrder
             existingProductOrder.Quantity = dto.Quantity;
             _context.Entry(existingProductOrder).State = EntityState.Modified;
 
@@ -408,9 +453,6 @@ namespace ProjecteSOS_Grup03API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ErrorMessages.ErrorUpdatingDb + ex.Message);
             }
 
-            //return NoContent();
-
-            // Crear i retornar el DTO actualitzat
             var updatedDto = new ProductOrderDetailsDTO
             {
                 OrderId = existingProductOrder.OrderId,
@@ -424,10 +466,17 @@ namespace ProjecteSOS_Grup03API.Controllers
             return Ok(updatedDto);
         }
 
+        /// <summary>
+        /// Updates the quantity of a specific product in the current user's active order.
+        /// </summary>
+        /// <param name="productId">The product identifier to update.</param>
+        /// <param name="newQuantity">The new desired quantity for the product.</param>
+        /// <returns>Status of the update operation.</returns>
         [Authorize]
         [HttpPatch("Quantity/{productId}")]
         public async Task<IActionResult> PatchProductQuantity(int productId, int newQuantity)
         {
+            // Validate model state
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -449,6 +498,7 @@ namespace ProjecteSOS_Grup03API.Controllers
                 return BadRequest(ErrorMessages.NoActiveOrder);
             }
 
+            // Find the product order in the current active order
             var existingProductOrder = await _context.ProductsOrders
                 .Include(po => po.Order)
                 .Include(po => po.Product)
@@ -460,11 +510,12 @@ namespace ProjecteSOS_Grup03API.Controllers
             }
 
             int quantityDifference = newQuantity - existingProductOrder.Quantity;
-            if (existingProductOrder.Product.Stock < quantityDifference) // Si la nova quantitat és major, verificar si hi ha stock
+            if (existingProductOrder.Product.Stock < quantityDifference) // If increasing quantity, check if there is enough stock available
             {
                 return BadRequest(string.Format(ErrorMessages.NotEnoughStock, existingProductOrder.Product.Name, quantityDifference, existingProductOrder.Product.Stock));
             }
 
+            // Calculate price adjustments for the order
             var oldProductOrderPrice = existingProductOrder.Product.Price * existingProductOrder.Quantity;
             var newProductOrderPrice = existingProductOrder.Product.Price * newQuantity;
 
@@ -475,30 +526,34 @@ namespace ProjecteSOS_Grup03API.Controllers
                 return NotFound(ErrorMessages.OrderNotFound);
             }
 
+            // Update order total price
             order.Price -= oldProductOrderPrice;
             order.Price += newProductOrderPrice;
             _context.Entry(order).State = EntityState.Modified;
 
-            // Actualitzar stock de producte
+            // Update product stock atomically with the rest of the changes
             existingProductOrder.Product.Stock -= quantityDifference;
             _context.Entry(existingProductOrder.Product).State = EntityState.Modified;
 
-            // Actualitzar la quantitat del ProductOrder
+            // Update the quantity in the product order
             existingProductOrder.Quantity = newQuantity;
             _context.Entry(existingProductOrder).State = EntityState.Modified;
 
+            // Save all changes in a single transaction to avoid race conditions
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
+                // Handle concurrency conflict (e.g., another user modified/deleted the same order item)
                 if (!await ProductOrderExists((int)orderId, productId))
                 {
                     return NotFound(ErrorMessages.OrderItemDeletedOrModified);
                 }
                 else
                 {
+                    // Handle other database errors (e.g., connection, constraint violations)
                     return Conflict(ErrorMessages.ConcurrencyProblem);
                 }
             }
@@ -510,11 +565,18 @@ namespace ProjecteSOS_Grup03API.Controllers
             return Ok(ErrorMessages.QuantityUpdated);
         }
 
+        /// <summary>
+        /// Deletes a specific product from an order. Only the owner or authorized users can perform this action.
+        /// </summary>
+        /// <param name="orderId">Order identifier.</param>
+        /// <param name="productId">Product identifier.</param>
+        /// <returns>Status of the delete operation.</returns>
         // Delete: api/OrderesProducts/orders/{orderId}/products/{productId}
         [Authorize]
         [HttpDelete("orders/{orderId}/products/{productId}")]
         public async Task<IActionResult> DeleteProductOrder(int orderId, int productId)
         {
+            // Retrieve the product order, including related order and product
             var productOrder = await _context.ProductsOrders
                 .Include(po => po.Order)
                 .Include(po => po.Product)
@@ -528,13 +590,13 @@ namespace ProjecteSOS_Grup03API.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var userRole = User.FindFirstValue(ClaimTypes.Role);
 
-            // Comprovació de permisos
+            // Only allow clients to delete their own order items
             if (userRole == "Client" && productOrder.Order.ClientId != userId)
             {
                 return Forbid(ErrorMessages.NoPermissionToDelete);
             }
 
-            // Restaurar stock del producte
+            // Restore product stock before deleting the order item
             if (productOrder.Product != null)
             {
                 productOrder.Product.Stock += productOrder.Quantity;
@@ -549,12 +611,18 @@ namespace ProjecteSOS_Grup03API.Controllers
             }
             catch (DbUpdateException ex)
             {
+                // Handle database errors during deletion
                 return StatusCode(StatusCodes.Status500InternalServerError, ErrorMessages.ErrorDeletingDb + ex.Message);
             }
 
             return Ok(new { message = string.Format(ErrorMessages.ProductOrderDeleted, productId, orderId) });
         }
 
+        /// <summary>
+        /// Deletes a specific product from the current user's active order, updating stock and order price accordingly.
+        /// </summary>
+        /// <param name="productId">Product identifier to delete.</param>
+        /// <returns>Status of the delete operation.</returns>
         [Authorize]
         [HttpDelete("User/CurrentOrder/{productId}")]
         public async Task<IActionResult> DeleteUserCurrentOrderProduct(int productId)
@@ -575,6 +643,7 @@ namespace ProjecteSOS_Grup03API.Controllers
                 return BadRequest(ErrorMessages.NoActiveOrder);
             }
 
+            // Retrieve the product order from the user's current order
             var productOrder = await _context.ProductsOrders
                 .Include(po => po.Order)
                 .Include(po => po.Product)
@@ -587,6 +656,7 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             var ProductOrderPrice = productOrder.Product.Price * productOrder.Quantity;
 
+            // Restore product stock
             if (productOrder.Product != null)
             {
                 productOrder.Product.Stock += productOrder.Quantity;
@@ -600,6 +670,7 @@ namespace ProjecteSOS_Grup03API.Controllers
                 return NotFound(ErrorMessages.OrderNotFound);
             }
 
+            // Update order price after removing the product
             order.Price -= ProductOrderPrice;
             _context.Entry(order).State = EntityState.Modified;
 
@@ -611,12 +682,17 @@ namespace ProjecteSOS_Grup03API.Controllers
             }
             catch (DbUpdateException ex)
             {
+                // Handle database errors during deletion
                 return StatusCode(StatusCodes.Status500InternalServerError, ErrorMessages.ErrorDeletingDb + ex.Message);
             }
 
             return Ok(ErrorMessages.ProductDeletedFromOrder);
         }
 
+        // Helper method for checking if a ProductOrder exists
+        /// <summary>
+        /// Checks if a product order exists in the database.
+        /// </summary>
         private async Task<bool> ProductOrderExists(int orderId, int productId)
         {
             return await _context.ProductsOrders.AnyAsync(e => e.OrderId == orderId && e.ProductId == productId);

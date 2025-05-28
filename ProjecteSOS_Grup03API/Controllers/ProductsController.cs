@@ -19,6 +19,11 @@ namespace ProjecteSOS_Grup03API.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Retrieves a specific product by its ID.
+        /// </summary>
+        /// <param name="id">The product identifier.</param>
+        /// <returns>The product details if found; otherwise, NotFound.</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductListDTO>> GetProduct(int id)
         {
@@ -29,9 +34,14 @@ namespace ProjecteSOS_Grup03API.Controllers
                 return NotFound(ErrorMessages.ProductNotFound);
             }
 
+            // Product found, return details
             return Ok(product);
         }
 
+        /// <summary>
+        /// Retrieves all products in the system.
+        /// </summary>
+        /// <returns>List of all products, or NotFound if none exist.</returns>
         //[Authorize(Roles = "Employee,Admin")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductListDTO>>> GetAllProducts()
@@ -46,6 +56,11 @@ namespace ProjecteSOS_Grup03API.Controllers
             return Ok(products);
         }
 
+        /// <summary>
+        /// Adds a new product to the catalog. Only accessible by Employee or Admin roles.
+        /// </summary>
+        /// <param name="productDTO">DTO containing product details.</param>
+        /// <returns>Status of the creation operation.</returns>
         [Authorize(Roles = "Employee,Admin")]
         [HttpPost("Add")]
         public async Task<IActionResult> AddProduct([FromBody] ProductDTO productDTO)
@@ -63,10 +78,15 @@ namespace ProjecteSOS_Grup03API.Controllers
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
 
+            // Return the location of the new product (could use GetProduct for more RESTful response)
             return CreatedAtAction(nameof(GetAllProducts), product);
-
         }
 
+        /// <summary>
+        /// Deletes a product by its ID. Only accessible by Employee or Admin roles.
+        /// </summary>
+        /// <param name="id">The product identifier.</param>
+        /// <returns>Status of the delete operation.</returns>
         [Authorize(Roles = "Employee,Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProduct(int id)
@@ -78,8 +98,10 @@ namespace ProjecteSOS_Grup03API.Controllers
                 return NotFound(ErrorMessages.ProductNotFound);
             }
 
+            // Remove the product from the database
             var result = _context.Products.Remove(product);
 
+            // Check if removal was successful (should always be true unless DB error)
             if (result == null)
             {
                 return BadRequest(ErrorMessages.ProductNotDeleted);
@@ -90,6 +112,12 @@ namespace ProjecteSOS_Grup03API.Controllers
             return Ok(string.Format(ErrorMessages.ProductDeleted, id));
         }
 
+        /// <summary>
+        /// Increases the stock of a product. Only accessible by Employee or Admin roles.
+        /// </summary>
+        /// <param name="id">The product identifier.</param>
+        /// <param name="stock">The amount to add to the current stock.</param>
+        /// <returns>Status of the restock operation.</returns>
         [Authorize(Roles = "Employee,Admin")]
         [HttpPatch("ReStock/{id}")]
         public async Task<IActionResult> ReStockProduct(int id, int stock)
@@ -101,6 +129,7 @@ namespace ProjecteSOS_Grup03API.Controllers
                 return NotFound(ErrorMessages.ProductNotFound);
             }
 
+            // Increase stock by the specified amount
             product.Stock += stock;
 
             _context.Products.Update(product);
@@ -109,6 +138,12 @@ namespace ProjecteSOS_Grup03API.Controllers
             return Ok(string.Format(ErrorMessages.ProductRestocked, id));
         }
 
+        /// <summary>
+        /// Updates all details of a product. Only accessible by Employee or Admin roles.
+        /// </summary>
+        /// <param name="id">The product identifier.</param>
+        /// <param name="productDTO">DTO containing updated product details.</param>
+        /// <returns>Status of the update operation.</returns>
         [Authorize(Roles = "Employee,Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateProduct(int id, [FromBody] ProductDTO productDTO)
@@ -120,6 +155,7 @@ namespace ProjecteSOS_Grup03API.Controllers
                 return NotFound(ErrorMessages.ProductNotFound);
             }
 
+            // Update product fields
             product.Name = productDTO.Name;
             product.Description = productDTO.Description;
             product.Image = productDTO.Image;
