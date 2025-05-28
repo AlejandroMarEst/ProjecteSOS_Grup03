@@ -16,6 +16,7 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Orders
         public List<ProductOrderDetailsDTO> Orders { get; set; } = [];
         public bool OrderExists { get; set; } = false;
         public string? ErrorMessage { get; set; }
+        public double GrandTotal { get; private set; }
 
         public OrderListModel(IHttpClientFactory httpClientFactory, ILogger<OrderListModel> logger)
         {
@@ -34,6 +35,7 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Orders
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                 }
+
                 var response = await client.GetAsync("api/OrderedProducts/User/CurrentOrder");
 
                 if (response.IsSuccessStatusCode)
@@ -43,7 +45,16 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Orders
 
                     Orders = orders ?? new List<ProductOrderDetailsDTO>();
 
-                    OrderExists = true;
+                    OrderExists = Orders.Any();
+
+                    if (Orders.Any())
+                    {
+                        GrandTotal = Math.Round(Orders.Sum(order => order.TotalPrice), 2);
+                    }
+                    else
+                    {
+                        GrandTotal = 0;
+                    }
                 }
                 else if (response.StatusCode == HttpStatusCode.Conflict)
                 {
