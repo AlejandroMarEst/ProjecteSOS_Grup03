@@ -28,6 +28,11 @@ namespace ProjecteSOS_Grup03API.Controllers
             _configuration = configuration;
         }
 
+        /// <summary>
+        /// Registers a new client user.
+        /// </summary>
+        /// <param name="userDTO">User registration data.</param>
+        /// <returns>Result of the registration process.</returns>
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDTO userDTO) // Register a new user
         {
@@ -47,6 +52,11 @@ namespace ProjecteSOS_Grup03API.Controllers
             return BadRequest(result.Errors);
         }
 
+        /// <summary>
+        /// Registers a new employee user. Accessible only by admins.
+        /// </summary>
+        /// <param name="userDTO">Employee registration data.</param>
+        /// <returns>Result of the registration process.</returns>
         [Authorize(Roles = "Admin")]
         [HttpPost("Employee/register")]
         public async Task<IActionResult> RegisterEmployee([FromBody] RegisterDTO userDTO) // Register a new admin
@@ -67,6 +77,11 @@ namespace ProjecteSOS_Grup03API.Controllers
             return BadRequest(result.Errors);
         }
 
+        /// <summary>
+        /// Registers a new admin user. Accessible only by admins.
+        /// </summary>
+        /// <param name="userDTO">Admin registration data.</param>
+        /// <returns>Result of the registration process.</returns>
         [Authorize(Roles = "Admin")]
         [HttpPost("admin/register")]
         public async Task<IActionResult> RegisterAdmin([FromBody] RegisterDTO userDTO) // Register a new admin
@@ -87,6 +102,11 @@ namespace ProjecteSOS_Grup03API.Controllers
             return BadRequest(result.Errors);
         }
 
+        /// <summary>
+        /// Authenticates a user or admin and returns a JWT token.
+        /// </summary>
+        /// <param name="userDTO">User login credentials.</param>
+        /// <returns>JWT token if authentication is successful.</returns>
         [HttpPost("login")] // Login as an user or admin
         public async Task<IActionResult> Login([FromBody] LoginDTO userDTO)
         {
@@ -124,6 +144,10 @@ namespace ProjecteSOS_Grup03API.Controllers
             return Ok(token);
         }
 
+        /// <summary>
+        /// Gets the profile of the authenticated user.
+        /// </summary>
+        /// <returns>User profile data.</returns>
         [Authorize]
         [HttpGet("Profile")]
         public async Task<ActionResult<UserProfileDTO>> GetUserProfile()
@@ -159,6 +183,11 @@ namespace ProjecteSOS_Grup03API.Controllers
             return Ok(profile);
         }
 
+        /// <summary>
+        /// Gets the profile of a user by ID. Accessible only by admins.
+        /// </summary>
+        /// <param name="id">User ID.</param>
+        /// <returns>User profile data.</returns>
         [Authorize(Roles = "Admin")]
         [HttpGet("Profile/{id}")]
         public async Task<ActionResult<UserProfileDTO>> GetUserProfile(string id)
@@ -195,6 +224,10 @@ namespace ProjecteSOS_Grup03API.Controllers
             return Ok(profile);
         }
 
+        /// <summary>
+        /// Gets the profiles of all registered users. Accessible only by admins.
+        /// </summary>
+        /// <returns>List of user profiles.</returns>
         [Authorize(Roles = "Admin")]
         [HttpGet("Profiles")]
         public async Task<ActionResult<IEnumerable<UserProfileDTO>>> GetUsersProfiles()
@@ -242,6 +275,12 @@ namespace ProjecteSOS_Grup03API.Controllers
             return Ok(profiles);
         }
 
+        /// <summary>
+        /// Updates the authenticated user's name and phone number.
+        /// </summary>
+        /// <param name="name">New name.</param>
+        /// <param name="phone">New phone number.</param>
+        /// <returns>Result of the update operation.</returns>
         [Authorize]
         [HttpPut("Profile")]
         public async Task<IActionResult> Update(string name, string phone) //Cambiar a usar BBDD
@@ -270,6 +309,12 @@ namespace ProjecteSOS_Grup03API.Controllers
             return BadRequest();
         }
 
+        /// <summary>
+        /// Updates the authenticated user's password.
+        /// </summary>
+        /// <param name="oldPasswd">Current password.</param>
+        /// <param name="newPasswd">New password.</param>
+        /// <returns>Result of the password update operation.</returns>
         [Authorize]
         [HttpPatch("Profile/UpdatePassword")]
         public async Task<IActionResult> UpdatePassword(string oldPasswd, string newPasswd)
@@ -295,6 +340,10 @@ namespace ProjecteSOS_Grup03API.Controllers
             return BadRequest(ErrorMessages.IncorrectPassword);
         }
 
+        /// <summary>
+        /// Deletes the authenticated user's account.
+        /// </summary>
+        /// <returns>Result of the delete operation.</returns>
         [Authorize]
         [HttpDelete("Profile/DeleteAccount")]
         public async Task<IActionResult> DeleteAccount()
@@ -320,6 +369,11 @@ namespace ProjecteSOS_Grup03API.Controllers
             return BadRequest();
         }
 
+        /// <summary>
+        /// Creates a JWT token for the current user with their claims.
+        /// </summary>
+        /// <param name="claims">User claims.</param>
+        /// <returns>Generated JWT token.</returns>
         private string CreateToken(Claim[] claims) // Creates the token for the current user
         {
             var jwtConfig = _configuration.GetSection("JwtSettings");
@@ -339,6 +393,11 @@ namespace ProjecteSOS_Grup03API.Controllers
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
+        /// <summary>
+        /// Retrieves the profile of a client user by their ID.
+        /// </summary>
+        /// <param name="userId">Client user ID.</param>
+        /// <returns>Client profile or null if not found.</returns>
         private async Task<UserProfileDTO?> GetClientProfile(string userId)
         {
             var user = await _context.Clients.FirstOrDefaultAsync(c => c.Id == userId);
@@ -359,6 +418,11 @@ namespace ProjecteSOS_Grup03API.Controllers
             };
         }
 
+        /// <summary>
+        /// Retrieves the profile of an employee user by their ID.
+        /// </summary>
+        /// <param name="userId">Employee user ID.</param>
+        /// <returns>Employee profile or null if not found.</returns>
         private async Task<UserProfileDTO?> GetEmployeeProfile(string userId)
         {
             var user = await _context.Employees.FirstOrDefaultAsync(c => c.Id == userId);
