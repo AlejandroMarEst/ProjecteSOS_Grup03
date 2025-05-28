@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using Microsoft.Extensions.Localization;
 
 namespace ProjecteSOS_Grup03WebPage.Pages
 {
@@ -13,14 +14,16 @@ namespace ProjecteSOS_Grup03WebPage.Pages
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILogger<ProfileModel> _logger;
+        private readonly IStringLocalizer<SharedResource> _localizer;
 
         public UserProfileDTO? Profile { get; set; }
         public string? ErrorMessage { get; set; }
 
-        public ProfileModel(IHttpClientFactory httpClient, ILogger<ProfileModel> logger)
+        public ProfileModel(IHttpClientFactory httpClient, ILogger<ProfileModel> logger, IStringLocalizer<SharedResource> localizer)
         {
             _httpClientFactory = httpClient;
             _logger = logger;
+            _localizer = localizer;
         }
 
         public async Task OnGetAsync()
@@ -43,19 +46,19 @@ namespace ProjecteSOS_Grup03WebPage.Pages
 
                     if (Profile == null)
                     {
-                        ErrorMessage = "No s'ha trobat l'usuari.";
+                        ErrorMessage = _localizer["UserProfileNotFound"];
                     }
                 }
                 else
                 {
                     _logger.LogError("User Profile Loading Failed");
-                    ErrorMessage = "Loading Profile Error";
+                    ErrorMessage = _localizer["LoadingUserProfileError"];
                 }
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error Loading User Profile");
-                ErrorMessage = "There was an unexpected error. Try again.";
+                ErrorMessage = _localizer["UnexpectedErrorTryAgain"];
             }
         }
     }

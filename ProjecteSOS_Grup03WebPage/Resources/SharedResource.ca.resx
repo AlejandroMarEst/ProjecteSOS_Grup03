@@ -670,7 +670,7 @@
     <value>Has de ser administrador o empleat per a editar un producte. </value>
   </data>
   <data name="LoginRequiredToEditProduct" xml:space="preserve">
-    <value>Has d'niciar sessió per editar productes.</value>
+    <value>Has d'iniciar sessió per editar productes.</value>
   </data>
   <data name="UnauthorizedEditProduct" xml:space="preserve">
     <value>No estàs autoritzat per editar productes.</value>
@@ -719,5 +719,23 @@
   </data>
   <data name="LoadingUserOrdersError" xml:space="preserve">
     <value>Error en carregar l'historial de comandes.</value>
+  </data>
+  <data name="LoginFailedNoToken" xml:space="preserve">
+    <value>L'inici de sessió ha fallat: no s'ha rebut cap token del servidor.</value>
+  </data>
+  <data name="LoginSuccessful" xml:space="preserve">
+    <value>Has iniciat sessió correctament.</value>
+  </data>
+  <data name="EmailAlreadyRegistered" xml:space="preserve">
+    <value>Aquest correu electrònic ja està registrat.</value>
+  </data>
+  <data name="PasswordRequirementsError" xml:space="preserve">
+    <value>La contrasenya ha de tenir més de 8 caràcters, incloure majúscules, minúscules i caràcters especials.</value>
+  </data>
+  <data name="RegistrationApiError" xml:space="preserve">
+    <value>Error en el registre: {0}</value>
+  </data>
+  <data name="RegistrationSuccessful" xml:space="preserve">
+    <value>Registre completat! Ara pots iniciar sessió.</value>
   </data>
 </root>

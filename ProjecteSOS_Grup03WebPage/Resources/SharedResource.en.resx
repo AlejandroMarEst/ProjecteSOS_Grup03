@@ -720,4 +720,22 @@
   <data name="LoadingUserOrdersError" xml:space="preserve">
     <value>Error loading order history.</value>
   </data>
+  <data name="LoginFailedNoToken" xml:space="preserve">
+    <value>Login failes: no token received from the server.</value>
+  </data>
+  <data name="LoginSuccessful" xml:space="preserve">
+    <value>You have logged in successfully.</value>
+  </data>
+  <data name="EmailAlreadyRegistered" xml:space="preserve">
+    <value>This email address is already registered.</value>
+  </data>
+  <data name="PasswordRequirementsError" xml:space="preserve">
+    <value>Password must be longer than 8 characters and include uppercase, lowercase, and special characters.</value>
+  </data>
+  <data name="RegistrationApiError" xml:space="preserve">
+    <value>Registration error: {0}</value>
+  </data>
+  <data name="RegistrationSuccessful" xml:space="preserve">
+    <value>Registration complete! You can now log in.</value>
+  </data>
 </root>

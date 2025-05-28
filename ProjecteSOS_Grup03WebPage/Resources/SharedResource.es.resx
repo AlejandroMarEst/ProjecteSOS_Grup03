@@ -717,4 +717,22 @@
   <data name="LoadingUserOrdersError" xml:space="preserve">
     <value>Error al cargar el historial de pedidos.</value>
   </data>
+  <data name="LoginFailedNoToken" xml:space="preserve">
+    <value>El inicio de sesión fallo: no se recibió un token del servidor.</value>
+  </data>
+  <data name="LoginSuccessful" xml:space="preserve">
+    <value>Has iniciado sesión correctamente.</value>
+  </data>
+  <data name="EmailAlreadyRegistered" xml:space="preserve">
+    <value>Este correo electrónico ya está registrado.</value>
+  </data>
+  <data name="PasswordRequirementsError" xml:space="preserve">
+    <value>La contraseña debe tener más de 8 caracteres, incluir mayúsculas, minúsculas y caracteres especiales.</value>
+  </data>
+  <data name="RegistrationApiError" xml:space="preserve">
+    <value>Error en el registro: {0}</value>
+  </data>
+  <data name="RegistrationSuccessful" xml:space="preserve">
+    <value>¡Registro completado! Ahora puedes iniciar sesión.</value>
+  </data>
 </root>
