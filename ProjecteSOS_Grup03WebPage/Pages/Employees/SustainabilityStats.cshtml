@@ -1,0 +1,56 @@
+﻿@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@model ProjecteSOS_Grup03WebPage.Pages.Employees.SustainabilityStatsModel
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+@{
+    ViewData["Title"] = SharedLocalizer["SustainableTitle"];
+}
+
+<h2>@SharedLocalizer["SustainableProductsPercent"]</h2>
+<h4>@Model.SustainableProductsPercent %</h4>
+
+<h2>@SharedLocalizer["RegisterPaper"]</h2>
+<form method="post">
+    <div>
+        <div class="mb-3">
+            <label>@SharedLocalizer["Month"]:</label>
+            <input type="month" asp-for="NewRecord.Month" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label>@SharedLocalizer["PaperOrders"]:</label>
+            <input type="number" asp-for="NewRecord.PaperOrders" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label>@SharedLocalizer["Sheets"]:</label>
+            <input type="number" asp-for="NewRecord.SheetsPerOrder" value="2" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary">@SharedLocalizer["AddButton"]</button>
+    </div>
+</form>
+
+<br />
+
+<h3>@SharedLocalizer["PaperRegisters"]</h3>
+<table>
+    <thead>
+        <tr>
+            <th>@SharedLocalizer["Month"]</th>
+            <th>@SharedLocalizer["PaperOrders"]</th>
+            <th>@SharedLocalizer["Sheets"]</th>
+            <th>@SharedLocalizer["KgPaper"]</th>
+            <th>@SharedLocalizer["KgCO"]</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in Model.Records)
+        {
+            <tr>
+                <td>@r.Month.ToString("MMMM yyyy")</td>
+                <td>@r.PaperOrders</td>
+                <td>@r.SheetsSaved</td>
+                <td>@r.KgPaperSaved.ToString("F2")</td>
+                <td>@r.KgCO2Saved.ToString("F2")</td>
+            </tr>
+        }
+    </tbody>
+</table>
