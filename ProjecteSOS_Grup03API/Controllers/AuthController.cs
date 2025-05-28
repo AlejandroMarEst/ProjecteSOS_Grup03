@@ -207,13 +207,36 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             var profiles = new List<UserProfileListDTO>();
 
-            users.ForEach(u => profiles.Add(new UserProfileListDTO
+            foreach(var user in users)
             {
-                Id = u.Id,
-                Email = u.Email ?? string.Empty,
-                Name = u.Name,
-                Phone = u.PhoneNumber ?? string.Empty
-            }));
+                var userRoles = await _userManager.GetRolesAsync(user);
+
+                UserProfileDTO? profile = null;
+
+                if (userRoles.Contains("Client"))
+                {
+                    profile = await GetClientProfile(user.Id);
+                }
+                else if (userRoles.Contains("Employee") || userRoles.Contains("Admin"))
+                {
+                    profile = await GetEmployeeProfile(user.Id);
+                }
+                else
+                {
+                    return NotFound("No s'ha trobat cap rol en l'usuari");
+                }
+                if (profile != null)
+                {
+                    profiles.Add(new UserProfileListDTO
+                    {
+                        Id = user.Id,
+                        Email = profile.Email,
+                        Name = profile.Name,
+                        Phone = profile.Phone,
+                        Points = profile.Points
+                    });
+                }
+            }
 
             return Ok(profiles);
         }
@@ -331,7 +354,7 @@ namespace ProjecteSOS_Grup03API.Controllers
                 Phone = user.PhoneNumber ?? string.Empty,
                 Points = user.Points,
                 StartDate = null,
-                IsAdmin = null
+                IsAdmin = null,
             };
         }
 
