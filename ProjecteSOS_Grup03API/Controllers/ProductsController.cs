@@ -11,6 +11,13 @@ namespace ProjecteSOS_Grup03API.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
+        private const string ProductNotFound = "Product not found";
+        private const string NoProducts = "There are no products";
+        private const string ProductNotDeleted = "Product not deleted";
+        private const string ProductDeleted = "Product {0} deleted";
+        private const string ProductRestocked = "Product {0} restocked";
+        private const string ProductUpdated = "Product {0} updated";
+
         private readonly AppDbContext _context;
 
         public ProductsController(AppDbContext context)
@@ -25,7 +32,7 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             if (product == null)
             {
-                return NotFound("Product not found");
+                return NotFound(ProductNotFound);
             }
 
             return Ok(product);
@@ -39,7 +46,7 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             if (products.Count == 0)
             {
-                return NotFound("There are no products");
+                return NotFound(NoProducts);
             }
 
             return Ok(products);
@@ -74,19 +81,19 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             if (product == null)
             {
-                return NotFound("Product not found");
+                return NotFound(ProductNotFound);
             }
 
             var result = _context.Products.Remove(product);
 
             if (result == null)
             {
-                return BadRequest("Product not deleted");
+                return BadRequest(ProductNotDeleted);
             }
 
             await _context.SaveChangesAsync();
 
-            return Ok($"Product {id} deleted");
+            return Ok(string.Format(ProductDeleted, id));
         }
 
         [Authorize(Roles = "Employee,Admin")]
@@ -97,7 +104,7 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             if (product == null)
             {
-                return NotFound("Product not found");
+                return NotFound(ProductNotFound);
             }
 
             product.Stock += stock;
@@ -105,7 +112,7 @@ namespace ProjecteSOS_Grup03API.Controllers
             _context.Products.Update(product);
             await _context.SaveChangesAsync();
 
-            return Ok($"Product {id} restocked");
+            return Ok(string.Format(ProductRestocked, id));
         }
 
         [Authorize(Roles = "Employee,Admin")]
@@ -116,7 +123,7 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             if (product == null)
             {
-                return NotFound("Product not found");
+                return NotFound(ProductNotFound);
             }
 
             product.Name = productDTO.Name;
@@ -129,7 +136,7 @@ namespace ProjecteSOS_Grup03API.Controllers
             _context.Products.Update(product);
             await _context.SaveChangesAsync();
 
-            return Ok($"Product {id} updated");
+            return Ok(string.Format(ProductUpdated, id));
         }
     }
 }

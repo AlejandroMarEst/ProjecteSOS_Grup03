@@ -12,6 +12,29 @@ namespace ProjecteSOS_Grup03API.Controllers
     [ApiController]
     public class OrderedProductsController : ControllerBase
     {
+        private const string NoProductsForOrder = "No products found for order with id {0}.";
+        private const string ProductOrderNotFound = "Product order not found.";
+        private const string NoOrderedProductsForUser = "No ordered products found for this user.";
+        private const string OrderNotFound = "Order with id {0} not found.";
+        private const string ClientNotFound = "Client not found.";
+        private const string NoActiveOrder = "There is no active order.";
+        private const string ProductNotFoundInOrder = "Product not found in the order.";
+        private const string NoPermissionForItem = "You do not have permission to view this item.";
+        private const string ProductNotFound = "Product with id {0} not found.";
+        private const string OnlyAddToOwnOrders = "You can only add products to your own orders.";
+        private const string NotEnoughStock = "Not enough stock for product {0}. Available: {1}.";
+        private const string ProductAlreadyInOrder = "This product already exists in the order. Use PUT to update the quantity.";
+        private const string ErrorSavingToDatabase = "Error saving to the database.";
+        private const string NoPermissionToEdit = "You do not have permission to edit this order item.";
+        private const string OrderItemDeletedOrModified = "The order item has been deleted or modified by another user.";
+        private const string ConcurrencyProblem = "Concurrency issue. Reload data and try again.";
+        private const string ErrorUpdatingDb = "Error updating the database: ";
+        private const string QuantityUpdated = "Quantity has been successfully updated";
+        private const string NoPermissionToDelete = "You do not have permission to delete this order item.";
+        private const string ErrorDeletingDb = "Error deleting the order item from the database: ";
+        private const string ProductOrderDeleted = "The product item with id {0} from order with id {1} has been successfully deleted.";
+        private const string ProductDeletedFromOrder = "Product deleted from order";
+
         private readonly AppDbContext _context;
 
         public OrderedProductsController(AppDbContext context)
@@ -41,7 +64,7 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             if (!productOrders.Any())
             {
-                return NotFound($"No s'han trobat productes per a la comanda amb id {orderId}.");
+                return NotFound(string.Format(NoProductsForOrder, orderId));
             }
 
             return Ok(productOrders);
@@ -59,7 +82,7 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             if (productOrder == null)
             {
-                return NotFound("Comanda del producte no trobada.");
+                return NotFound(ProductOrderNotFound);
             }
 
             return Ok(new ProductOrderDetailsDTO
@@ -96,7 +119,7 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             if (!productOrders.Any())
             {
-                return NotFound("No s'han trobat productes demanats per aquest usuari.");
+                return NotFound(NoOrderedProductsForUser);
             }
 
             return Ok(productOrders);
@@ -113,7 +136,7 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             if (!orderExists)
             {
-                return NotFound($"Comanda amb id {orderId} no trobada.");
+                return NotFound(string.Format(OrderNotFound, orderId));
             }
 
             var productOrders = await _context.ProductsOrders
@@ -142,13 +165,13 @@ namespace ProjecteSOS_Grup03API.Controllers
             var client = await _context.Clients.FindAsync(userId);
 
             if (client == null)
-                return NotFound("El client no s'ha trobat");
+                return NotFound(ClientNotFound);
 
             var orderId = client.CurrentOrderId;
 
             if (orderId == null)
             {
-                return BadRequest("No hi ha cap comanda activa");
+                return BadRequest(NoActiveOrder);
             }
 
             var productOrders = await _context.ProductsOrders
@@ -176,20 +199,20 @@ namespace ProjecteSOS_Grup03API.Controllers
             var client = await _context.Clients.FindAsync(userId);
 
             if (client == null)
-                return NotFound("El client no s'ha trobat");
+                return NotFound(ClientNotFound);
 
             var orderId = client.CurrentOrderId;
 
             if (orderId == null)
             {
-                return BadRequest("No hi ha cap comanda activa");
+                return BadRequest(NoActiveOrder);
             }
 
             var productOrder = await _context.ProductsOrders.FirstOrDefaultAsync(po => po.OrderId == orderId && po.ProductId == productId);
 
             if (productOrder == null)
             {
-                return NotFound("No s'ha trobat el producte de la comanda");
+                return NotFound(ProductNotFoundInOrder);
             }
 
             var dto = new ProductOrderDTO
@@ -215,12 +238,12 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             if (productOrder == null)
             {
-                return NotFound("Comanda del producte no trobada.");
+                return NotFound(ProductOrderNotFound);
             }
 
             if (productOrder.Order.ClientId != userId)
             {
-                return Forbid("No tens permís per veure aquest item.");
+                return Forbid(NoPermissionForItem);
             }
 
             return Ok(new ProductOrderDetailsDTO
@@ -251,7 +274,7 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             if (client == null)
             {
-                return NotFound("No s'ha trobat el client");
+                return NotFound(ClientNotFound);
             }
 
             var orderId = client.CurrentOrderId;
@@ -282,28 +305,28 @@ namespace ProjecteSOS_Grup03API.Controllers
             var order = await _context.Orders.FindAsync(orderId);
             if (order == null)
             {
-                return NotFound($"Comanda amb no trobada.");
+                return NotFound(OrderNotFound);
             }
 
             var product = await _context.Products.FindAsync(dto.ProductId);
             if (product == null)
             {
-                return NotFound($"Producte amb id {dto.ProductId} no trobat.");
+                return NotFound(string.Format(ProductNotFound, dto.ProductId));
             }
 
             if (userRole == "Client" && order.ClientId != userId)
             {
-                return Forbid("Només pots afegir productes a les teves comandes.");
+                return Forbid(OnlyAddToOwnOrders);
             }
 
             if (product.Stock < dto.Quantity)
             {
-                return BadRequest($"No hi ha suficient stock per el producte {product.Name}. Disponible: {product.Stock}.");
+                return BadRequest(string.Format(NotEnoughStock, product.Name, product.Stock));
             }
 
             if (await ProductOrderExists((int)orderId, dto.ProductId))
             {
-                return Conflict($"Aquets producte ja existeix a la comanda. Utilitza PUT per actualitzar la quantitat.");
+                return Conflict(ProductAlreadyInOrder);
             }
 
             var productOrder = new ProductOrder
@@ -328,7 +351,7 @@ namespace ProjecteSOS_Grup03API.Controllers
             catch (DbUpdateException ex)
             {
                 // Login exception
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error guardant a la base de dades.");
+                return StatusCode(StatusCodes.Status500InternalServerError, ErrorSavingToDatabase);
             }
 
             var resultDto = new ProductOrderDetailsDTO
@@ -362,7 +385,7 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             if (existingProductOrder == null)
             {
-                return NotFound("item de la comanda no trobat.");
+                return NotFound(ModelState);
             }
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -370,13 +393,13 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             if (userRole == "Client" && existingProductOrder.Order.ClientId != userId)
             {
-                return Forbid("No tens permís per editar l'item d'aquesta comanda.");
+                return Forbid(NoPermissionToEdit);
             }
 
             int quantityDifference = dto.Quantity - existingProductOrder.Quantity;
             if (existingProductOrder.Product.Stock < quantityDifference) // Si la nova quantitat és major, verificar si hi ha stock
             {
-                return BadRequest($"No hi ha stock suficient per el producte {existingProductOrder.Product.Name}. Stock adicional requerit: {quantityDifference}, Disponible: {existingProductOrder.Product.Stock}");
+                return BadRequest(string.Format(NotEnoughStock, existingProductOrder.Product.Name, quantityDifference, existingProductOrder.Product.Stock));
             }
 
             // Actualitzar stock de producte
@@ -395,16 +418,16 @@ namespace ProjecteSOS_Grup03API.Controllers
             {
                 if (!await ProductOrderExists(orderId, productId))
                 {
-                    return NotFound("L'ítem de la comanda ha estat eliminat o modificat per un altre usuari.");
+                    return NotFound(OrderItemDeletedOrModified);
                 }
                 else
                 {
-                    return Conflict("Problema de concurrència. Torna a carregar les dades i intenta-ho de nou.");
+                    return Conflict(ConcurrencyProblem);
                 }
             }
             catch (DbUpdateException ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error actualitzant la base de dades: " + ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, ErrorUpdatingDb + ex.Message);
             }
 
             //return NoContent();
@@ -438,14 +461,14 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             if (client == null)
             {
-                return NotFound("El client no existeix");
+                return NotFound(ClientNotFound);
             }
 
             var orderId = client.CurrentOrderId;
 
             if (orderId == null)
             {
-                return BadRequest("No hi ha cap comanda activa");
+                return BadRequest(NoActiveOrder);
             }
 
             var existingProductOrder = await _context.ProductsOrders
@@ -455,13 +478,13 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             if (existingProductOrder == null)
             {
-                return NotFound("item de la comanda no trobat.");
+                return NotFound(ProductOrderNotFound);
             }
 
             int quantityDifference = newQuantity - existingProductOrder.Quantity;
             if (existingProductOrder.Product.Stock < quantityDifference) // Si la nova quantitat és major, verificar si hi ha stock
             {
-                return BadRequest($"No hi ha stock suficient per el producte {existingProductOrder.Product.Name}. Stock adicional requerit: {quantityDifference}, Disponible: {existingProductOrder.Product.Stock}");
+                return BadRequest(string.Format(NotEnoughStock, existingProductOrder.Product.Name, quantityDifference, existingProductOrder.Product.Stock));
             }
 
             var oldProductOrderPrice = existingProductOrder.Product.Price * existingProductOrder.Quantity;
@@ -471,7 +494,7 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             if (order == null)
             {
-                return NotFound("Order not found");
+                return NotFound(OrderNotFound);
             }
 
             order.Price -= oldProductOrderPrice;
@@ -494,19 +517,19 @@ namespace ProjecteSOS_Grup03API.Controllers
             {
                 if (!await ProductOrderExists((int)orderId, productId))
                 {
-                    return NotFound("L'ítem de la comanda ha estat eliminat o modificat per un altre usuari.");
+                    return NotFound(OrderItemDeletedOrModified);
                 }
                 else
                 {
-                    return Conflict("Problema de concurrència. Torna a carregar les dades i intenta-ho de nou.");
+                    return Conflict(ConcurrencyProblem);
                 }
             }
             catch (DbUpdateException ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error actualitzant la base de dades: " + ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, ErrorUpdatingDb + ex.Message);
             }
 
-            return Ok("La quantitat ha estat actualitzada correctament");
+            return Ok(QuantityUpdated);
         }
 
         // Delete: api/OrderesProducts/orders/{orderId}/products/{productId}
@@ -521,7 +544,7 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             if (productOrder == null)
             {
-                return NotFound("Item de la comanda no trobat.");
+                return NotFound(ProductOrderNotFound);
             }
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -530,7 +553,7 @@ namespace ProjecteSOS_Grup03API.Controllers
             // Comprovació de permisos
             if (userRole == "Client" && productOrder.Order.ClientId != userId)
             {
-                return Forbid("No tens permís per eliminar l'item d'aquesta comanda.");
+                return Forbid(NoPermissionToDelete);
             }
 
             // Restaurar stock del producte
@@ -548,12 +571,10 @@ namespace ProjecteSOS_Grup03API.Controllers
             }
             catch (DbUpdateException ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error eliminant l'item de la comanda de la base de dades: " + ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, ErrorDeletingDb + ex.Message);
             }
 
-            //return NoContent();
-
-            return Ok(new { message = $"L'ítem del producte amb id {productId} de la comanda amb id {orderId} ha estat eliminat correctament." });
+            return Ok(new { message = string.Format(ProductOrderDeleted, productId, orderId) });
         }
 
         [Authorize]
@@ -566,14 +587,14 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             if (client == null)
             {
-                return NotFound("El client no existeix");
+                return NotFound(ClientNotFound);
             }
 
             var orderId = client.CurrentOrderId;
 
             if (orderId == null)
             {
-                return BadRequest("No hi ha cap comanda activa");
+                return BadRequest(NoActiveOrder);
             }
 
             var productOrder = await _context.ProductsOrders
@@ -583,7 +604,7 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             if (productOrder == null)
             {
-                return NotFound("Item de la comanda no trobat.");
+                return NotFound(ProductOrderNotFound);
             }
 
             var ProductOrderPrice = productOrder.Product.Price * productOrder.Quantity;
@@ -598,7 +619,7 @@ namespace ProjecteSOS_Grup03API.Controllers
 
             if (order == null)
             {
-                return NotFound("Order not found");
+                return NotFound(OrderNotFound);
             }
 
             order.Price -= ProductOrderPrice;
@@ -612,10 +633,10 @@ namespace ProjecteSOS_Grup03API.Controllers
             }
             catch (DbUpdateException ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error eliminant l'item de la comanda de la base de dades: " + ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, ErrorDeletingDb + ex.Message);
             }
 
-            return Ok("Producte eliminat de la comanda");
+            return Ok(ProductDeletedFromOrder);
         }
 
         private async Task<bool> ProductOrderExists(int orderId, int productId)
