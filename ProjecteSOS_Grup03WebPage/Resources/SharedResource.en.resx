@@ -687,4 +687,37 @@
   <data name="ProductEditedSuccessfully" xml:space="preserve">
     <value>Product edited successfully.</value>
   </data>
+  <data name="UnauthorizedPasswordChange" xml:space="preserve">
+    <value>Could not change password. Current password might be incorrect or you are not authorized.</value>
+  </data>
+  <data name="PasswordChangeFailedBadRequest" xml:space="preserve">
+    <value>Could not change password. Verify current password is correct and the new password meets requirements.</value>
+  </data>
+  <data name="PasswordChangeApiError" xml:space="preserve">
+    <value>Error changing password: {0}</value>
+  </data>
+  <data name="PasswordChangedSuccessfully" xml:space="preserve">
+    <value>Password changed successfully.</value>
+  </data>
+  <data name="UserProfileNotFound" xml:space="preserve">
+    <value>User profile not found.</value>
+  </data>
+  <data name="LoadingUserProfileError" xml:space="preserve">
+    <value>Error loading user profile.</value>
+  </data>
+  <data name="UnauthorizedProfileEdit" xml:space="preserve">
+    <value>You are not authorized to edit this profile or your session has expired.</value>
+  </data>
+  <data name="ForbiddenProfileEdit" xml:space="preserve">
+    <value>You do not have permission to edit this profile.</value>
+  </data>
+  <data name="EditProfileApiError" xml:space="preserve">
+    <value>Error editing profile: {0}</value>
+  </data>
+  <data name="ProfileUpdatedSuccessfully" xml:space="preserve">
+    <value>Profile updated successfully.</value>
+  </data>
+  <data name="LoadingUserOrdersError" xml:space="preserve">
+    <value>Error loading order history.</value>
+  </data>
 </root>

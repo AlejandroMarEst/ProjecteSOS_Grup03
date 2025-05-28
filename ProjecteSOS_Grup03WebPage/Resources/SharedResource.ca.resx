@@ -687,4 +687,37 @@
   <data name="ProductEditedSuccessfully" xml:space="preserve">
     <value>Producte editat correctament.</value>
   </data>
+  <data name="UnauthorizedPasswordChange" xml:space="preserve">
+    <value>No s'ha pogut canviar la contrasenya. La contrasenya actual pot ser incorrecta o no estàs autoritzat. </value>
+  </data>
+  <data name="PasswordChangeFailedBadRequest" xml:space="preserve">
+    <value>No s'ha pogut canviar la contrasenya. Verifica que la contrasenya actual sigui correcta i que la nova compleixi els requisits.</value>
+  </data>
+  <data name="PasswordChangeApiError" xml:space="preserve">
+    <value>Error en canviar la contrasenya: {0}</value>
+  </data>
+  <data name="PasswordChangedSuccessfully" xml:space="preserve">
+    <value>Contrasenya canviada correctament.</value>
+  </data>
+  <data name="UserProfileNotFound" xml:space="preserve">
+    <value>No s'ha trobat el perfil d'usuari.</value>
+  </data>
+  <data name="LoadingUserProfileError" xml:space="preserve">
+    <value>Error en carregar el perfil d'usuari.</value>
+  </data>
+  <data name="UnauthorizedProfileEdit" xml:space="preserve">
+    <value>No estàs autoritzat per editar aquest perfil o la teva sessió ha expirat.</value>
+  </data>
+  <data name="ForbiddenProfileEdit" xml:space="preserve">
+    <value>No tens permisos per a editar aquest perfil.</value>
+  </data>
+  <data name="EditProfileApiError" xml:space="preserve">
+    <value>Error en editar el perfil: {0}</value>
+  </data>
+  <data name="ProfileUpdatedSuccessfully" xml:space="preserve">
+    <value>Perfil actualitzat correctament.</value>
+  </data>
+  <data name="LoadingUserOrdersError" xml:space="preserve">
+    <value>Error en carregar l'historial de comandes.</value>
+  </data>
 </root>

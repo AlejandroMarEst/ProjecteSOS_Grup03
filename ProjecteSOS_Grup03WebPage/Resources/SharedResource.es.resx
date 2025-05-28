@@ -684,4 +684,37 @@
   <data name="ProductEditedSuccessfully" xml:space="preserve">
     <value>Producto editado correctamente.</value>
   </data>
+  <data name="UnauthorizedPasswordChange" xml:space="preserve">
+    <value>No se pudo cambiar la contraseña. La contraseña actual podría ser incorrecta o no estás autorizado.</value>
+  </data>
+  <data name="PasswordChangeFailedBadRequest" xml:space="preserve">
+    <value>No se pudo cambiar la contraseña. Verifica que la contraseña actual sea correcta y que la nueva cumpla los requisitos.</value>
+  </data>
+  <data name="PasswordChangeApiError" xml:space="preserve">
+    <value>Error al cambiar la contraseña: {0}</value>
+  </data>
+  <data name="PasswordChangedSuccessfully" xml:space="preserve">
+    <value>Contraseña cambiada correctamente.</value>
+  </data>
+  <data name="UserProfileNotFound" xml:space="preserve">
+    <value>No se ha encontrado el perfil de usuario.</value>
+  </data>
+  <data name="LoadingUserProfileError" xml:space="preserve">
+    <value>Error al cargar el perfil de usuario.</value>
+  </data>
+  <data name="UnauthorizedProfileEdit" xml:space="preserve">
+    <value>No estás autorizado para editar este perfil o tu sesión ha expirado.</value>
+  </data>
+  <data name="ForbiddenProfileEdit" xml:space="preserve">
+    <value>No tienes permisos para editar este perfil.</value>
+  </data>
+  <data name="EditProfileApiError" xml:space="preserve">
+    <value>Error en editar el perfil: {0}</value>
+  </data>
+  <data name="ProfileUpdatedSuccessfully" xml:space="preserve">
+    <value>Perfil actualizado correctamente.</value>
+  </data>
+  <data name="LoadingUserOrdersError" xml:space="preserve">
+    <value>Error al cargar el historial de pedidos.</value>
+  </data>
 </root>
