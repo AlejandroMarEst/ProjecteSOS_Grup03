@@ -3,7 +3,7 @@
 @model ProjecteSOS_Grup03WebPage.Pages.Employees.StockManagerModel
 @inject IHtmlLocalizer<SharedResource> SharedLocalizer
 @{
-    ViewData["Title"] = "StockManagerTitle";
+    ViewData["Title"] = SharedLocalizer["StockManagerTitle"];
     var token = HttpContext.Session.GetString("AuthToken");
     var userRoles = Tools.TokenHelper.GetUserRoles(token).ToList();
     bool isEmployee = userRoles.Contains("Employee") || userRoles.Contains("Admin");

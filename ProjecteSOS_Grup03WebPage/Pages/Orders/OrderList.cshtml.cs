@@ -66,7 +66,7 @@ namespace ProjecteSOS_Grup03WebPage.Pages.Orders
                 else
                 {
                     string error = await response.Content.ReadAsStringAsync();
-                    if(error != "No hi ha cap comanda activa")
+                    if(error != "There is no active order")
                     {
                         _logger.LogError(await response.Content.ReadAsStringAsync());
                         ErrorMessage = _localizer["LoadingCartError"];

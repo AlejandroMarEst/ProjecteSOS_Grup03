@@ -20,6 +20,10 @@ namespace ProjecteSOS_Grup03API.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Gets all orders. Only accessible by admins and employees.
+        /// </summary>
+        /// <returns>List of all orders.</returns>
         // GET: api/Orders
         [Authorize(Roles = "Admin,Employee")]
         [HttpGet]
@@ -30,6 +34,11 @@ namespace ProjecteSOS_Grup03API.Controllers
             return GetOrderList(orders);
         }
 
+        /// <summary>
+        /// Gets a specific order by its ID. Only accessible by admins and employees.
+        /// </summary>
+        /// <param name="id">Order ID.</param>
+        /// <returns>The order details.</returns>
         // GET: api/Orders/5
         [Authorize(Roles = "Admin,Employee")]
         [HttpGet("{id}")]
@@ -51,8 +60,11 @@ namespace ProjecteSOS_Grup03API.Controllers
             };
         }
 
+        /// <summary>
+        /// Gets all orders for the currently authenticated user.
+        /// </summary>
+        /// <returns>List of the user's orders.</returns>
         // GET: api/Orders/User
-        // Get User Orders
         [Authorize]
         [HttpGet("User")]
         public async Task<ActionResult<IEnumerable<OrderListDTO>>> GetAllUserOrders()
@@ -64,8 +76,13 @@ namespace ProjecteSOS_Grup03API.Controllers
             return GetOrderList(orders);
         }
 
+        /// <summary>
+        /// Gets the details of a specific order for the authenticated user.
+        /// Clients can only access their own orders.
+        /// </summary>
+        /// <param name="id">Order ID.</param>
+        /// <returns>Order details.</returns>
         // GET: api/Orders/User/5
-        // Get Details of a User Order
         [Authorize]
         [HttpGet("User/{id}")]
         public async Task<ActionResult<OrderDTO>> GetUserOrder(int id)
@@ -97,8 +114,13 @@ namespace ProjecteSOS_Grup03API.Controllers
             };
         }
 
+        /// <summary>
+        /// Updates an order. Clients can only update their own orders and cannot change the owner.
+        /// </summary>
+        /// <param name="id">Order ID.</param>
+        /// <param name="order">Order data to update.</param>
+        /// <returns>The updated order or an error.</returns>
         // PUT: api/Orders/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutOrder(int id, OrderDTO order)
@@ -106,7 +128,7 @@ namespace ProjecteSOS_Grup03API.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var userRole = User.FindFirstValue(ClaimTypes.Role);
 
-            // Validar si el client està intentant editar una order que no es seva
+            // Clients can only edit their own orders
             if (userRole == "Client")
             {
                 var orderBeingEdited = await _context.Orders.AsNoTracking().FirstOrDefaultAsync(o => o.OrderId == id);
@@ -128,10 +150,10 @@ namespace ProjecteSOS_Grup03API.Controllers
                 return NotFound(ErrorMessages.OrderNotFound);
             }
 
-            // Validar que el clientid enb el DTO només el pugui canviar un admin/worker o si el client és el mateix
+            // Only admins/employees can change the ClientId
             if (order.ClientId != existingOrder.ClientId)
             {
-                if (userRole == "Client") // un client no pot canviar el ClientId de la comanda
+                if (userRole == "Client")
                 {
                     return Forbid(ErrorMessages.NoPermissionToChangeOwner);
                 }
@@ -146,7 +168,7 @@ namespace ProjecteSOS_Grup03API.Controllers
                 existingOrder.ClientId = order.ClientId;
             }
 
-            // Validar SalesRepId si es canvia
+            // Validate and update SalesRepId if changed
             if (order.SalesRepId != existingOrder.SalesRepId)
             {
                 if (order.SalesRepId != null)
@@ -200,9 +222,12 @@ namespace ProjecteSOS_Grup03API.Controllers
             return Ok(orderToReturn);
         }
 
+        /// <summary>
+        /// Creates a new order as an admin. Only accessible by admins.
+        /// </summary>
+        /// <param name="order">Order data.</param>
+        /// <returns>The created order.</returns>
         // POST: api/Orders
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        // Crea una ordre
         [Authorize(Roles = "Admin")]
         [HttpPost("Admin/NewOrder")]
         public async Task<ActionResult<Order>> PostOrder(OrderDTO order)
@@ -233,6 +258,7 @@ namespace ProjecteSOS_Grup03API.Controllers
             _context.Orders.Add(newOrder);
             await _context.SaveChangesAsync();
 
+            // Only allow one active order per client
             if (client.CurrentOrderId == null)
             {
                 client.CurrentOrderId = newOrder.OrderId;
@@ -257,7 +283,10 @@ namespace ProjecteSOS_Grup03API.Controllers
             return CreatedAtAction(nameof(GetOrder), new { id = newOrder.OrderId }, orderToReturn);
         }
 
-        // Crea una ordre a partir de l'usuari connectat
+        /// <summary>
+        /// Creates a new online order for the authenticated user.
+        /// </summary>
+        /// <returns>Success or error message.</returns>
         [Authorize]
         [HttpPost("NewOnlineOrder")]
         public async Task<IActionResult> PostOrder()
@@ -276,7 +305,6 @@ namespace ProjecteSOS_Grup03API.Controllers
                 return NotFound(ErrorMessages.ClientNotFound);
             }
 
-            // Crear el nou order
             var newOrder = new Order
             {
                 Client = client,
@@ -290,7 +318,7 @@ namespace ProjecteSOS_Grup03API.Controllers
             _context.Orders.Add(newOrder);
             await _context.SaveChangesAsync();
 
-            // Actualitza l'ordre actiu
+            // Only allow one active order per client
             if (client.CurrentOrderId == null)
             {
                 client.CurrentOrderId = newOrder.OrderId;
@@ -306,7 +334,11 @@ namespace ProjecteSOS_Grup03API.Controllers
             return Ok(ErrorMessages.OrderCreated);
         }
 
-        // Crea una ordre a partir de l'usuari connectat, un empleat, i l'email d'un client
+        /// <summary>
+        /// Creates a new shop order for a client by email, assigned to the current employee.
+        /// </summary>
+        /// <param name="clientEmail">Client's email.</param>
+        /// <returns>Success or error message.</returns>
         [Authorize]
         [HttpPost("NewShopOrder")]
         public async Task<IActionResult> PostOrder(string clientEmail)
@@ -331,7 +363,6 @@ namespace ProjecteSOS_Grup03API.Controllers
                 return NotFound(ErrorMessages.EmployeeNotFound);
             }
 
-            // Crear el nou order
             var newOrder = new Order
             {
                 Client = client,
@@ -345,7 +376,7 @@ namespace ProjecteSOS_Grup03API.Controllers
             _context.Orders.Add(newOrder);
             await _context.SaveChangesAsync();
 
-            // Actualitza l'ordre actiu
+            // Only allow one active order per client
             if (client.CurrentOrderId == null)
             {
                 client.CurrentOrderId = newOrder.OrderId;
@@ -361,7 +392,10 @@ namespace ProjecteSOS_Grup03API.Controllers
             return Ok(ErrorMessages.OrderCreated);
         }
 
-        // Confirma l'ordre actual de l'usuari connectat
+        /// <summary>
+        /// Confirms the current active online order for the authenticated user.
+        /// </summary>
+        /// <returns>Success message or error.</returns>
         [Authorize]
         [HttpPatch("ConfirmOnlineOrder")]
         public async Task<IActionResult> ConfirmOrder()
@@ -382,6 +416,7 @@ namespace ProjecteSOS_Grup03API.Controllers
                 return BadRequest(ErrorMessages.NoActiveOrder);
             }
 
+            // Add product points to client
             var productsPoints = await _context.ProductsOrders
                 .Where(op => op.OrderId == orderId)
                 .Select(op => op.Product.Points)
@@ -397,7 +432,11 @@ namespace ProjecteSOS_Grup03API.Controllers
             return Ok(new { message = ErrorMessages.OrderConfirmed });
         }
 
-        // Confirma una ordre a partir de l'usuari connectat, un empleat, i l'email d'un client
+        /// <summary>
+        /// Confirms the current active shop order for a client by email, performed by an admin or employee.
+        /// </summary>
+        /// <param name="clientEmail">Client's email.</param>
+        /// <returns>Success message or error.</returns>
         [Authorize(Roles = "Admin,Employee")]
         [HttpPatch("ConfirmShopOrder")]
         public async Task<IActionResult> ConfirmOrder(string clientEmail)
@@ -424,6 +463,7 @@ namespace ProjecteSOS_Grup03API.Controllers
                 return BadRequest(ErrorMessages.NoActiveOrder);
             }
 
+            // Add product points to client
             var productsPoints = await _context.ProductsOrders
                 .Where(op => op.OrderId == orderId)
                 .Select(op => op.Product.Points)
@@ -438,8 +478,12 @@ namespace ProjecteSOS_Grup03API.Controllers
             return Ok(new { message = ErrorMessages.OrderConfirmed });
         }
 
+        /// <summary>
+        /// Deletes an order. Clients can only delete their own orders.
+        /// </summary>
+        /// <param name="id">Order ID.</param>
+        /// <returns>Success message or error.</returns>
         // DELETE: api/Orders/5
-        // Elimina un ordre, els clients només poden eliminar les seves pròpies ordres
         [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteOrder(int id)
@@ -453,6 +497,7 @@ namespace ProjecteSOS_Grup03API.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var userRole = User.FindFirstValue(ClaimTypes.Role);
 
+            // Clients can only delete their own orders
             if (order.ClientId != userId && userRole == "Client")
             {
                 return Forbid(ErrorMessages.NoPermissionToDeleteOrder);
@@ -464,11 +509,21 @@ namespace ProjecteSOS_Grup03API.Controllers
             return Ok(new { message = string.Format(ErrorMessages.OrderDeleted, id) });
         }
 
+        /// <summary>
+        /// Checks if an order exists by its ID.
+        /// </summary>
+        /// <param name="id">Order ID.</param>
+        /// <returns>True if the order exists, false otherwise.</returns>
         private bool OrderExists(int id)
         {
             return _context.Orders.Any(e => e.OrderId == id);
         }
 
+        /// <summary>
+        /// Converts a list of Order entities to a list of OrderListDTOs.
+        /// </summary>
+        /// <param name="orders">List of Order entities.</param>
+        /// <returns>List of OrderListDTOs.</returns>
         private List<OrderListDTO> GetOrderList(IEnumerable<Order> orders)
         {
             var listOrders = new List<OrderListDTO>();
