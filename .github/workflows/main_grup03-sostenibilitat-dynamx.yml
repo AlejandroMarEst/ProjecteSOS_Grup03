@@ -23,11 +23,14 @@ jobs:
         with:
           dotnet-version: '9.x'
 
-      - name: Build with dotnet
-        run: dotnet build --configuration Release
+      - name: Restore dependencies
+        run: dotnet restore grup03-sostenibilitat-dynamx.sln # ➕ Ensure solution-wide restore
+
+      - name: Build solution
+        run: dotnet build grup03-sostenibilitat-dynamx.sln --configuration Release # ➕ Solution-wide build
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
+        run: dotnet publish grup03-sostenibilitat-dynamx.sln -c Release -o "${{env.DOTNET_ROOT}}/myapp" # ➕ Publish entire solution
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -64,5 +67,4 @@ jobs:
         with:
           app-name: 'grup03-sostenibilitat-dynamx'
           slot-name: 'Production'
-          package: .
-          
+          package: . # deploys everything in the downloaded artifact directory
